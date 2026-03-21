@@ -1,26 +1,26 @@
-﻿using CloudyWing.Enumeration.Tests.Enumerations;
+using CloudyWing.Enumeration.Tests.Enumerations;
 
 namespace CloudyWing.Enumeration.Tests.Abstractions {
     internal class LongEnumerationTests {
         [Test]
-        public void ImplicitOperator_ToFloat() {
-            float act = NumericLongEnumeration.One;
-            float result = 1U;
-            act.Should().Be(result);
+        public void ImplicitOperator_LongEnumerationToFloat_ConvertsCorrectly() {
+            float actual = NumericLongEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1U));
         }
 
         [Test]
-        public void ImplicitOperator_ToDouble() {
-            double act = NumericLongEnumeration.One;
-            double result = 1U;
-            act.Should().Be(result);
+        public void ImplicitOperator_LongEnumerationToDouble_ConvertsCorrectly() {
+            double actual = NumericLongEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1U));
         }
 
         [Test]
-        public void ImplicitOperator_ToDecimal() {
-            decimal act = NumericLongEnumeration.One;
-            decimal result = 1U;
-            act.Should().Be(result);
+        public void ImplicitOperator_LongEnumerationToDecimal_ConvertsCorrectly() {
+            decimal actual = NumericLongEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1U));
         }
     }
 }

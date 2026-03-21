@@ -1,61 +1,61 @@
-﻿using CloudyWing.Enumeration.Tests.Enumerations;
+using CloudyWing.Enumeration.Tests.Enumerations;
 
 namespace CloudyWing.Enumeration.Tests.Abstractions {
     internal class ByteEnumerationTests {
         [Test]
-        public void ImplicitOperator_ToShort() {
-            short act = NumericByteEnumeration.One;
-            short result = 1;
-            act.Should().Be(result);
+        public void ImplicitOperator_ByteEnumerationToShort_ConvertsCorrectly() {
+            short actual = NumericByteEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1));
         }
 
         [Test]
-        public void ImplicitOperator_ToInt() {
-            int act = NumericByteEnumeration.One;
-            int result = 1;
-            act.Should().Be(result);
+        public void ImplicitOperator_ByteEnumerationToInt_ConvertsCorrectly() {
+            int actual = NumericByteEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1));
         }
 
         [Test]
-        public void ImplicitOperator_ToUInt() {
-            uint act = NumericByteEnumeration.One;
-            uint result = 1;
-            act.Should().Be(result);
+        public void ImplicitOperator_ByteEnumerationToUInt_ConvertsCorrectly() {
+            uint actual = NumericByteEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1));
         }
 
         [Test]
-        public void ImplicitOperator_ToLong() {
-            long act = NumericByteEnumeration.One;
-            long result = 1;
-            act.Should().Be(result);
+        public void ImplicitOperator_ByteEnumerationToLong_ConvertsCorrectly() {
+            long actual = NumericByteEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1));
         }
 
         [Test]
-        public void ImplicitOperator_ToULong() {
-            ulong act = NumericByteEnumeration.One;
-            ulong result = 1;
-            act.Should().Be(result);
+        public void ImplicitOperator_ByteEnumerationToULong_ConvertsCorrectly() {
+            ulong actual = NumericByteEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1));
         }
 
         [Test]
-        public void ImplicitOperator_ToFloat() {
-            float act = NumericByteEnumeration.One;
-            float result = 1;
-            act.Should().Be(result);
+        public void ImplicitOperator_ByteEnumerationToFloat_ConvertsCorrectly() {
+            float actual = NumericByteEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1));
         }
 
         [Test]
-        public void ImplicitOperator_ToDouble() {
-            double act = NumericByteEnumeration.One;
-            double result = 1;
-            act.Should().Be(result);
+        public void ImplicitOperator_ByteEnumerationToDouble_ConvertsCorrectly() {
+            double actual = NumericByteEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1));
         }
 
         [Test]
-        public void ImplicitOperator_ToDecimal() {
-            decimal act = NumericByteEnumeration.One;
-            decimal result = 1;
-            act.Should().Be(result);
+        public void ImplicitOperator_ByteEnumerationToDecimal_ConvertsCorrectly() {
+            decimal actual = NumericByteEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1));
         }
     }
 }

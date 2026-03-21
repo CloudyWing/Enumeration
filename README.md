@@ -1,31 +1,38 @@
 # Enumeration
 
-**Enumeration** 為 [Constants](https://github.com/CloudyWing/Constants) 重新優化的版本，起因是看到 MSDN「[使用列舉類別，而非列舉類型](https://learn.microsoft.com/zh-tw/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/enumeration-classes-over-enum-types)」這篇文章，覺得原本的命名有些不適當，所以重建一個 Repository，後面不知不覺就幾乎整個重寫了...。
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE.md)
+[![Build and Deploy Documentation](https://github.com/CloudyWing/Enumeration/actions/workflows/docfx-publish.yml/badge.svg)](https://github.com/CloudyWing/Enumeration/actions/workflows/docfx-publish.yml)
+[![Publish to NuGet](https://github.com/CloudyWing/Enumeration/actions/workflows/nuget-publish.yml/badge.svg)](https://github.com/CloudyWing/Enumeration/actions/workflows/nuget-publish.yml)
+
+**Enumeration** 為[Constants](https://github.com/CloudyWing/Constants) 重新優化的版本，起因是看到 MSDN「[使用列舉類別，而非列舉類型](https://learn.microsoft.com/zh-tw/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/enumeration-classes-over-enum-types)」這篇文章，覺得原本的命名有些不適當，所以重建一個 Repository，後面不知不覺就幾乎整個重寫了...。
 
 **Enumeration**，為將列舉類別重複的程式碼整理成 `EnumerationBase<T>` 的抽象類別，繼承實作的方法請參考 Examples。
 
 ## Supported Frameworks
-* .NET Standard 2.1
-* .NET Standard 2.0
-* .NET Framework 4.5
+
+- .NET Standard 2.0
+- .NET Framework 4.5
+- .NET 10
 
 ## Abstract Enumerations
+
 目前提供以下 Abstract Enumerations 提供繼承：
-* EnumerationBase：最底層的 Abstract Enumeration，如 `Guid` 之類未實作 `IConvertible`，可繼承此 Enumeration。
-* ConvertibleEnumeration：有實作 `IConvertible` 的 Enumeration，可用在需要 `IConvertible` 轉型的地方，如 `SqlParameter` 之類的 `DbParameter` 有設定 `DbType` 時，會使用 `IConvertible` 將 Value 轉換成對應型別。
-* Numeric Enumerations：此類 Enumeration 皆有繼承 `ConvertibleEnumeration` 與有指定 Value Type，並且在使用 `==`、`!=`、`>`、`<`、`>=`、`<=`和`Equals` 等 Operator 和 Method 時，Enumeration 與數值型別的執行結果，大致等同於 Value 與數值型別的執行結果，目前有定義以下 Numeric Enumerations：
-    * CharEnumeration。
-    * ByteEnumeration。
-    * SByteEnumeration。
-    * ShortEnumeration。
-    * UShortEnumeration。
-    * IntEnumeration。
-    * UIntEnumeration。
-    * LongEnumeration。
-    * ULongEnumeration。
-    * FloatEnumeration。
-    * DoubleEnumeration。
-    * DecimalEnumeration。
+
+- EnumerationBase：最底層的 Abstract Enumeration，如 `Guid` 之類未實作 `IConvertible`，可繼承此 Enumeration。
+- ConvertibleEnumeration：有實作 `IConvertible` 的 Enumeration，可用在需要 `IConvertible` 轉型的地方，如 `SqlParameter` 之類的 `DbParameter` 有設定 `DbType` 時，會使用 `IConvertible` 將 Value 轉換成對應型別。
+- Numeric Enumerations：此類 Enumeration 皆有繼承 `ConvertibleEnumeration` 與有指定 Value Type，並且在使用 `==`、`!=`、`>`、`<`、`>=`、`<=` 和 `Equals` 等 Operator 和 Method 時，Enumeration 與數值型別的執行結果，大致等同於 Value 與數值型別的執行結果，目前有定義以下 Numeric Enumerations：
+  - CharEnumeration。
+  - ByteEnumeration。
+  - SByteEnumeration。
+  - ShortEnumeration。
+  - UShortEnumeration。
+  - IntEnumeration。
+  - UIntEnumeration。
+  - LongEnumeration。
+  - ULongEnumeration。
+  - FloatEnumeration。
+  - DoubleEnumeration。
+  - DecimalEnumeration。
 
 ## Examples 與簡單的 API 說明
 以下範例的 `TEnum` 表示實際的 Enumeration 型別，`TValue` 表示 Value 型別。
@@ -169,46 +176,85 @@ bool result = 1 == WeekDay.Monday;
 `EnumerationBase<TEnum, TValue>` 有定義以下 Static Methods，這邊直接用範例說明，在使用 `Parse()` 時需注意，若找不到對應的 Enumeration，會 Throw `EnumerationNotFoundException`，所以非確定 Enumeration 存在時，請使用 `TryParse()`。
 ```csharp
 // 取得全部的 `WeekDay` Instance
-IEnumeration<WeekDay> weekDays = WeekDay.GetAll();
+IEnumerable<WeekDay> weekDays = WeekDay.GetAll();
 
-// weekDay is Monday
-WeekDay weekDay = WeekDay.Parse(1);
+// 取得全部 Value / Name
+IEnumerable<int> values = WeekDay.GetValues();
+IEnumerable<string> names = WeekDay.GetNames();
 
-// result is true，weekDay is Monday
-bool result = WeekDay.TryParse(1, out WeekDay weekDay);
+// isDefined is true
+bool isDefined = WeekDay.IsDefined(1);
 
-// weekDay is Monday
-WeekDay weekDay = WeekDay.ParseName("Monday");
+// parsedDay is Monday
+WeekDay parsedDay = WeekDay.Parse(1);
 
-// 可傳入參數來忽略大小寫，weekDay is Monday
-WeekDay weekDay = WeekDay.ParseName("monday", true);
+// 若找不到就回傳指定的預設值，fallbackByValue is Sunday
+WeekDay fallbackByValue = WeekDay.ParseOrDefault(9, WeekDay.Sunday);
 
-// result is true，weekDay is Monday
-WeekDay weekDay = WeekDay.TryParseName("Monday", out WeekDay weekDay);
+// foundByValue is true，dayByValue is Monday
+bool foundByValue = WeekDay.TryParse(1, out WeekDay dayByValue);
 
-// 可傳入參數來忽略大小寫，result is true，weekDay is Monday
-WeekDay weekDay = WeekDay.TryParseName("monday", true, out WeekDay weekDay);
+// dayByName is Monday
+WeekDay dayByName = WeekDay.ParseName("Monday");
+
+// 可傳入參數來忽略大小寫，dayByNameIgnoreCase is Monday
+WeekDay dayByNameIgnoreCase = WeekDay.ParseName("monday", true);
+
+// 若找不到就回傳指定的預設值，fallbackByName is Sunday
+WeekDay fallbackByName = WeekDay.ParseNameOrDefault("Holiday", WeekDay.Sunday);
+
+// foundByName is true，parsedByName is Monday
+bool foundByName = WeekDay.TryParseName("Monday", out WeekDay parsedByName);
+
+// 可傳入參數來忽略大小寫，foundByNameIgnoreCase is true，parsedByNameIgnoreCase is Monday
+bool foundByNameIgnoreCase = WeekDay.TryParseName("monday", true, out WeekDay parsedByNameIgnoreCase);
+
+// isDefinedName is true
+bool isDefinedName = WeekDay.IsDefinedName("monday", true);
 ```
 
 ### 型別判斷
 目前提供以下 `Type` 的 Extension Methods 來取得 Enumeration 的型別資訊：
-* `IsEnumeration()`：判斷是否有實作 `IEnumeration<TEnum, TValue>`。
-* `GetEnumerationTypes()`：取得 `IEnumerable<IEnumeration<TEnum, TValue>>`。
-* `GetEnumerationValueTypes()`：取得 `IEnumerable<TValue>`。
+- `IsEnumeration()`：判斷是否有實作 `IEnumeration<TEnum, TValue>`。
+- `GetEnumerationTypes()`：取得 `IEnumerable<IEnumeration<TEnum, TValue>>`。
+- `GetEnumerationValueTypes()`：取得 `IEnumerable<TValue>`。
 
 ### 集合相關的擴充方法
 目前 `IEnumerable<IEnumeration<TEnum, TValue>>` 提供以下 Extension Methods：
-* `ContainsValue(TValue value)`：判斷集合裡是否有 `Value` 和參數 `value` 相同的 Enumeration。
-* `OfValue()`：取得 `IEnumerable<TValue>`。
-* `OfName()`：取得 `IEnumerable<string>` based on Enumeration `Name`。
-* `ToValueArray()`：取得 `TValue[]`。
-* `ToNameArray()`：取得 `string[]` based on Enumeration `Name`。
-* `ToValueList()`：取得 `IList<TValue>`。
-* `ToNameList()`：取得 `IList<string>` based on Enumeration `Name`。
-* `ToDictionary()`：取得 Key 為 Enumeration Value、Value` 為 Enumeration `Name` 的 `IDictionary`。
+- `ContainsValue(TValue value)`：判斷集合裡是否有 `Value` 和參數 `value` 相同的 Enumeration。
+- `ContainsName(string name, bool ignoreCase = false)`：判斷集合裡是否有 `Name` 和參數 `name` 相同的 Enumeration。
+- `TryGetValue(string name, out TValue value)` / `TryGetValue(string name, bool ignoreCase, out TValue value)`：依名稱取得對應的 `Value`。
+- `TryGetName(TValue value, out string name)`：依 Value 取得對應的 `Name`。
+- `OfValue()`：取得 `IEnumerable<TValue>`。
+- `OfName()`：取得 `IEnumerable<string>` based on Enumeration `Name`。
+- `ToValueArray()`：取得 `TValue[]`。
+- `ToNameArray()`：取得 `string[]` based on Enumeration `Name`。
+- `ToValueList()`：取得 `IList<TValue>`。
+- `ToNameList()`：取得 `IList<string>` based on Enumeration `Name`。
+- `ToDictionary()`：取得 Key 為 Enumeration Value、Value` 為 Enumeration `Name` 的 `IDictionary`。
+- `ToNameValueDictionary()`：取得 Key 為 Enumeration `Name`、Value 為 Enumeration Value 的 `IDictionary`。
 
-## 參考文件
-* [API 文件](./docs/API/index.md)。
+實際使用時，這些 API 很適合拿來做查找表或 UI 選項：
+```csharp
+IEnumerable<IEnumeration<WeekDay, int>> days = WeekDay.GetAll();
+
+bool hasMonday = days.ContainsName("monday", ignoreCase: true);
+bool foundValue = days.TryGetValue("Friday", out int fridayValue);
+bool foundName = days.TryGetName(0, out string firstDayName);
+
+IDictionary<int, string> valueNameMap = days.ToDictionary();
+IDictionary<string, int> nameValueMap = days.ToNameValueDictionary();
+```
+
+## Documentation
+
+完整文檔請參考：<https://cloudywing.github.io/Enumeration/>
+
+或查看以下主要文章：
+
+- **[入門指南](./docs/articles/getting-started.md)**
+- **[核心概念](./docs/articles/core-concepts.md)**
+- **[進階用法](./docs/articles/advanced-usage.md)**
 
 ## License
 This project is MIT [licensed](./LICENSE.md).

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace CloudyWing.Enumeration.Abstractions {
     /// <summary>The convertible enumeration base.</summary>
@@ -11,7 +11,11 @@ namespace CloudyWing.Enumeration.Abstractions {
         where TValue : IComparable, IConvertible {
         /// <summary>Initializes a new instance of the <see cref="ConvertibleEnumeration{TEnum, TValue}" /> class.</summary>
         /// <param name="value">The value.</param>
-        protected ConvertibleEnumeration(TValue value) : this(value, value.ToString()) { }
+        protected ConvertibleEnumeration(TValue value)
+            : this(
+                value,
+                value.ToString() ?? throw new InvalidOperationException($"{typeof(TValue).FullName} returned a null string representation.")
+            ) { }
 
         /// <summary>Initializes a new instance of the <see cref="ConvertibleEnumeration{TEnum, TValue}" /> class.</summary>
         /// <param name="value">The value.</param>
@@ -22,67 +26,71 @@ namespace CloudyWing.Enumeration.Abstractions {
             return Value.GetTypeCode();
         }
 
-        bool IConvertible.ToBoolean(IFormatProvider provider) {
+        bool IConvertible.ToBoolean(IFormatProvider? provider) {
             return Value.ToBoolean(provider);
         }
 
-        char IConvertible.ToChar(IFormatProvider provider) {
+        char IConvertible.ToChar(IFormatProvider? provider) {
             return Value.ToChar(provider);
         }
 
-        sbyte IConvertible.ToSByte(IFormatProvider provider) {
+        sbyte IConvertible.ToSByte(IFormatProvider? provider) {
             return Value.ToSByte(provider);
         }
 
-        byte IConvertible.ToByte(IFormatProvider provider) {
+        byte IConvertible.ToByte(IFormatProvider? provider) {
             return Value.ToByte(provider);
         }
 
-        short IConvertible.ToInt16(IFormatProvider provider) {
+        short IConvertible.ToInt16(IFormatProvider? provider) {
             return Value.ToInt16(provider);
         }
 
-        ushort IConvertible.ToUInt16(IFormatProvider provider) {
+        ushort IConvertible.ToUInt16(IFormatProvider? provider) {
             return Value.ToUInt16(provider);
         }
 
-        int IConvertible.ToInt32(IFormatProvider provider) {
+        int IConvertible.ToInt32(IFormatProvider? provider) {
             return Value.ToInt32(provider);
         }
 
-        uint IConvertible.ToUInt32(IFormatProvider provider) {
+        uint IConvertible.ToUInt32(IFormatProvider? provider) {
             return Value.ToUInt32(provider);
         }
 
-        long IConvertible.ToInt64(IFormatProvider provider) {
+        long IConvertible.ToInt64(IFormatProvider? provider) {
             return Value.ToInt64(provider);
         }
 
-        ulong IConvertible.ToUInt64(IFormatProvider provider) {
+        ulong IConvertible.ToUInt64(IFormatProvider? provider) {
             return Value.ToUInt64(provider);
         }
 
-        float IConvertible.ToSingle(IFormatProvider provider) {
+        float IConvertible.ToSingle(IFormatProvider? provider) {
             return Value.ToSingle(provider);
         }
 
-        double IConvertible.ToDouble(IFormatProvider provider) {
+        double IConvertible.ToDouble(IFormatProvider? provider) {
             return Value.ToDouble(provider);
         }
 
-        decimal IConvertible.ToDecimal(IFormatProvider provider) {
+        decimal IConvertible.ToDecimal(IFormatProvider? provider) {
             return Value.ToDecimal(provider);
         }
 
-        DateTime IConvertible.ToDateTime(IFormatProvider provider) {
+        DateTime IConvertible.ToDateTime(IFormatProvider? provider) {
             return Value.ToDateTime(provider);
         }
 
-        string IConvertible.ToString(IFormatProvider provider) {
-            return Value.ToString(provider);
+        string IConvertible.ToString(IFormatProvider? provider) {
+            return Value.ToString(provider) ?? throw new InvalidOperationException($"{typeof(TValue).FullName} returned a null string representation.");
         }
 
-        object IConvertible.ToType(Type type, IFormatProvider provider) {
+        object IConvertible.ToType(Type type, IFormatProvider? provider) {
+            if (type is null) {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             try {
                 return type == GetType()
                     ? this

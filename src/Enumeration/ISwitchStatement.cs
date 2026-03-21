@@ -9,7 +9,7 @@ namespace CloudyWing.Enumeration {
         where TValue : IComparable {
         /// <summary>Gets the inner statement.</summary>
         /// <value>The inner statement.</value>
-        ISwitchStatement<TEnum, TValue> InnerStatement { get; }
+        ISwitchStatement<TEnum, TValue>? InnerStatement { get; }
 
         /// <summary>Gets the enumeration.</summary>
         /// <value>The enumeration.</value>

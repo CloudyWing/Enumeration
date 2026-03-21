@@ -1,61 +1,61 @@
-﻿using CloudyWing.Enumeration.Tests.Enumerations;
+using CloudyWing.Enumeration.Tests.Enumerations;
 
 namespace CloudyWing.Enumeration.Tests.Abstractions {
     internal class CharEnumerationTests {
         [Test]
-        public void ImplicitOperator_ToUShort() {
-            ushort act = NumericCharEnumeration.One;
-            ushort result = (char)1;
-            act.Should().Be(result);
+        public void ImplicitOperator_CharEnumerationToUShort_ConvertsCorrectly() {
+            ushort actual = NumericCharEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo((ushort)(char)1));
         }
 
         [Test]
-        public void ImplicitOperator_ToInt() {
-            int act = NumericCharEnumeration.One;
-            int result = (char)1;
-            act.Should().Be(result);
+        public void ImplicitOperator_CharEnumerationToInt_ConvertsCorrectly() {
+            int actual = NumericCharEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo((char)1));
         }
 
         [Test]
-        public void ImplicitOperator_ToUInt() {
-            uint act = NumericCharEnumeration.One;
-            uint result = (char)1;
-            act.Should().Be(result);
+        public void ImplicitOperator_CharEnumerationToUInt_ConvertsCorrectly() {
+            uint actual = NumericCharEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo((uint)(char)1));
         }
 
         [Test]
-        public void ImplicitOperator_ToLong() {
-            long act = NumericCharEnumeration.One;
-            long result = (char)1;
-            act.Should().Be(result);
+        public void ImplicitOperator_CharEnumerationToLong_ConvertsCorrectly() {
+            long actual = NumericCharEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo((char)1));
         }
 
         [Test]
-        public void ImplicitOperator_ToULong() {
-            ulong act = NumericCharEnumeration.One;
-            ulong result = (char)1;
-            act.Should().Be(result);
+        public void ImplicitOperator_CharEnumerationToULong_ConvertsCorrectly() {
+            ulong actual = NumericCharEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo((ulong)(char)1));
         }
 
         [Test]
-        public void ImplicitOperator_ToFloat() {
-            float act = NumericCharEnumeration.One;
-            float result = (char)1;
-            act.Should().Be(result);
+        public void ImplicitOperator_CharEnumerationToFloat_ConvertsCorrectly() {
+            float actual = NumericCharEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo((float)(char)1));
         }
 
         [Test]
-        public void ImplicitOperator_ToDouble() {
-            double act = NumericCharEnumeration.One;
-            double result = (char)1;
-            act.Should().Be(result);
+        public void ImplicitOperator_CharEnumerationToDouble_ConvertsCorrectly() {
+            double actual = NumericCharEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo((double)(char)1));
         }
 
         [Test]
-        public void ImplicitOperator_ToDecimal() {
-            decimal act = NumericCharEnumeration.One;
-            decimal result = (char)1;
-            act.Should().Be(result);
+        public void ImplicitOperator_CharEnumerationToDecimal_ConvertsCorrectly() {
+            decimal actual = NumericCharEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo((decimal)(char)1));
         }
     }
 }

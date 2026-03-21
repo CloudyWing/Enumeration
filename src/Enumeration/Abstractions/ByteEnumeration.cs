@@ -1,4 +1,4 @@
-﻿namespace CloudyWing.Enumeration.Abstractions {
+namespace CloudyWing.Enumeration.Abstractions {
     /// <summary>The byte enumeration base.</summary>
     /// <typeparam name="T">The byte enumeration.</typeparam>
     public abstract class ByteEnumeration<T> : ConvertibleEnumeration<T, byte>
@@ -13,7 +13,7 @@
         protected ByteEnumeration(byte value, string name) : base(value, name) { }
 
         /// <inheritdoc />
-        public override bool Equals(object obj) {
+        public override bool Equals(object? obj) {
             return base.Equals(obj);
         }
 
@@ -84,8 +84,6 @@
         public static implicit operator decimal(ByteEnumeration<T> enumeration) {
             return enumeration.Value;
         }
-
-        #region == != > < >= <=
         /// <summary>Implements the operator ==.</summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
@@ -1141,6 +1139,5 @@
         public static bool operator <=(decimal left, ByteEnumeration<T> right) {
             return left <= right.Value;
         }
-        #endregion
     }
 }

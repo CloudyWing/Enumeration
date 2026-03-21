@@ -1,185 +1,203 @@
-﻿using CloudyWing.Enumeration.Abstractions;
+using CloudyWing.Enumeration.Abstractions;
 using CloudyWing.Enumeration.Tests.Enumerations;
 
 namespace CloudyWing.Enumeration.Tests.Abstractions {
     internal class ConvertibleEnumerationTests {
-        private static readonly IEnumerable<object[]> toTypeTestSource = new object[][] {
-            new object[] { BasicIntEnumeration.One, BasicIntEnumeration.One.Value, BasicIntEnumeration.One.GetType(), BasicIntEnumeration.One },
-            new object[] { BasicIntEnumeration.One, BasicIntEnumeration.One.Value, typeof(int), 1 },
-            new object[] { BasicIntEnumeration.One, BasicIntEnumeration.One.Value, typeof(decimal), 1M }
-        };
+        private static readonly IEnumerable<object[]> ToTypeTestSource = [
+            [BasicIntEnumeration.One, BasicIntEnumeration.One.Value, BasicIntEnumeration.One.GetType(), BasicIntEnumeration.One],
+            [BasicIntEnumeration.One, BasicIntEnumeration.One.Value, typeof(int), 1],
+            [BasicIntEnumeration.One, BasicIntEnumeration.One.Value, typeof(decimal), 1M]
+        ];
 
         [Test]
-        public void GetTypeCode() {
-            TypeCode act = ((IConvertible)BasicIntEnumeration.One).GetTypeCode();
-            act.Should().Be(TypeCode.Int32);
+        public void GetTypeCode_IntEnumeration_ReturnsInt32TypeCode() {
+            IConvertible convertible = BasicIntEnumeration.One;
+
+            TypeCode actual = convertible.GetTypeCode();
+
+            Assert.That(actual, Is.EqualTo(TypeCode.Int32));
         }
 
         [Test]
         [TestCase(null)]
-        public void ToBoolean(IFormatProvider provider) {
+        public void ToBoolean_NullFormatProvider_ReturnsUnderlyingValueConversion(IFormatProvider? provider) {
             BasicIntEnumeration enumeration = BasicIntEnumeration.One;
-            bool act = ((IConvertible)enumeration).ToBoolean(provider);
-            bool result = ((IConvertible)enumeration.Value).ToBoolean(provider);
+            bool expected = ((IConvertible)enumeration.Value).ToBoolean(provider);
 
-            act.Should().Be(result);
+            bool actual = ((IConvertible)enumeration).ToBoolean(provider);
+
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         [TestCase(null)]
-        public void ToChar(IFormatProvider provider) {
+        public void ToChar_NullFormatProvider_ReturnsUnderlyingValueConversion(IFormatProvider? provider) {
             BasicIntEnumeration enumeration = BasicIntEnumeration.One;
-            char act = ((IConvertible)enumeration).ToChar(provider);
-            char result = ((IConvertible)enumeration.Value).ToChar(provider);
+            char expected = ((IConvertible)enumeration.Value).ToChar(provider);
 
-            act.Should().Be(result);
+            char actual = ((IConvertible)enumeration).ToChar(provider);
+
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         [TestCase(null)]
-        public void ToSByte(IFormatProvider provider) {
+        public void ToSByte_NullFormatProvider_ReturnsUnderlyingValueConversion(IFormatProvider? provider) {
             BasicIntEnumeration enumeration = BasicIntEnumeration.One;
-            sbyte act = ((IConvertible)enumeration).ToSByte(provider);
-            sbyte result = ((IConvertible)enumeration.Value).ToSByte(provider);
+            sbyte expected = ((IConvertible)enumeration.Value).ToSByte(provider);
 
-            act.Should().Be(result);
+            sbyte actual = ((IConvertible)enumeration).ToSByte(provider);
+
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         [TestCase(null)]
-        public void ToByte(IFormatProvider provider) {
+        public void ToByte_NullFormatProvider_ReturnsUnderlyingValueConversion(IFormatProvider? provider) {
             BasicIntEnumeration enumeration = BasicIntEnumeration.One;
-            byte act = ((IConvertible)enumeration).ToByte(provider);
-            byte result = ((IConvertible)enumeration.Value).ToByte(provider);
+            byte expected = ((IConvertible)enumeration.Value).ToByte(provider);
 
-            act.Should().Be(result);
+            byte actual = ((IConvertible)enumeration).ToByte(provider);
+
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         [TestCase(null)]
-        public void ToInt16(IFormatProvider provider) {
+        public void ToInt16_NullFormatProvider_ReturnsUnderlyingValueConversion(IFormatProvider? provider) {
             BasicIntEnumeration enumeration = BasicIntEnumeration.One;
-            short act = ((IConvertible)enumeration).ToInt16(provider);
-            short result = ((IConvertible)enumeration.Value).ToInt16(provider);
+            short expected = ((IConvertible)enumeration.Value).ToInt16(provider);
 
-            act.Should().Be(result);
+            short actual = ((IConvertible)enumeration).ToInt16(provider);
+
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         [TestCase(null)]
-        public void ToUInt16(IFormatProvider provider) {
+        public void ToUInt16_NullFormatProvider_ReturnsUnderlyingValueConversion(IFormatProvider? provider) {
             BasicIntEnumeration enumeration = BasicIntEnumeration.One;
-            ushort act = ((IConvertible)enumeration).ToUInt16(provider);
-            ushort result = ((IConvertible)enumeration.Value).ToUInt16(provider);
+            ushort expected = ((IConvertible)enumeration.Value).ToUInt16(provider);
 
-            act.Should().Be(result);
+            ushort actual = ((IConvertible)enumeration).ToUInt16(provider);
+
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         [TestCase(null)]
-        public void ToInt32(IFormatProvider provider) {
+        public void ToInt32_NullFormatProvider_ReturnsUnderlyingValueConversion(IFormatProvider? provider) {
             BasicIntEnumeration enumeration = BasicIntEnumeration.One;
-            int act = ((IConvertible)enumeration).ToInt32(provider);
-            int result = ((IConvertible)enumeration.Value).ToInt32(provider);
+            int expected = ((IConvertible)enumeration.Value).ToInt32(provider);
 
-            act.Should().Be(result);
+            int actual = ((IConvertible)enumeration).ToInt32(provider);
+
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         [TestCase(null)]
-        public void ToUInt32(IFormatProvider provider) {
+        public void ToUInt32_NullFormatProvider_ReturnsUnderlyingValueConversion(IFormatProvider? provider) {
             BasicIntEnumeration enumeration = BasicIntEnumeration.One;
-            uint act = ((IConvertible)enumeration).ToUInt32(provider);
-            uint result = ((IConvertible)enumeration.Value).ToUInt32(provider);
+            uint expected = ((IConvertible)enumeration.Value).ToUInt32(provider);
 
-            act.Should().Be(result);
+            uint actual = ((IConvertible)enumeration).ToUInt32(provider);
+
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         [TestCase(null)]
-        public void ToInt64(IFormatProvider provider) {
+        public void ToInt64_NullFormatProvider_ReturnsUnderlyingValueConversion(IFormatProvider? provider) {
             BasicIntEnumeration enumeration = BasicIntEnumeration.One;
-            long act = ((IConvertible)enumeration).ToInt64(provider);
-            long result = ((IConvertible)enumeration.Value).ToInt64(provider);
+            long expected = ((IConvertible)enumeration.Value).ToInt64(provider);
 
-            act.Should().Be(result);
+            long actual = ((IConvertible)enumeration).ToInt64(provider);
+
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         [TestCase(null)]
-        public void ToUInt64(IFormatProvider provider) {
+        public void ToUInt64_NullFormatProvider_ReturnsUnderlyingValueConversion(IFormatProvider? provider) {
             BasicIntEnumeration enumeration = BasicIntEnumeration.One;
-            ulong act = ((IConvertible)enumeration).ToUInt64(provider);
-            ulong result = ((IConvertible)enumeration.Value).ToUInt64(provider);
+            ulong expected = ((IConvertible)enumeration.Value).ToUInt64(provider);
 
-            act.Should().Be(result);
+            ulong actual = ((IConvertible)enumeration).ToUInt64(provider);
+
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         [TestCase(null)]
-        public void ToSingle(IFormatProvider provider) {
+        public void ToSingle_NullFormatProvider_ReturnsUnderlyingValueConversion(IFormatProvider? provider) {
             BasicIntEnumeration enumeration = BasicIntEnumeration.One;
-            float act = ((IConvertible)enumeration).ToSingle(provider);
-            float result = ((IConvertible)enumeration.Value).ToSingle(provider);
+            float expected = ((IConvertible)enumeration.Value).ToSingle(provider);
 
-            act.Should().Be(result);
+            float actual = ((IConvertible)enumeration).ToSingle(provider);
+
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         [TestCase(null)]
-        public void ToDouble(IFormatProvider provider) {
+        public void ToDouble_NullFormatProvider_ReturnsUnderlyingValueConversion(IFormatProvider? provider) {
             BasicIntEnumeration enumeration = BasicIntEnumeration.One;
-            double act = ((IConvertible)enumeration).ToDouble(provider);
-            double result = ((IConvertible)enumeration.Value).ToDouble(provider);
+            double expected = ((IConvertible)enumeration.Value).ToDouble(provider);
 
-            act.Should().Be(result);
+            double actual = ((IConvertible)enumeration).ToDouble(provider);
+
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         [TestCase(null)]
-        public void ToDecimal(IFormatProvider provider) {
+        public void ToDecimal_NullFormatProvider_ReturnsUnderlyingValueConversion(IFormatProvider? provider) {
             BasicIntEnumeration enumeration = BasicIntEnumeration.One;
-            decimal act = ((IConvertible)enumeration).ToDecimal(provider);
-            decimal result = ((IConvertible)enumeration.Value).ToDecimal(provider);
+            decimal expected = ((IConvertible)enumeration.Value).ToDecimal(provider);
 
-            act.Should().Be(result);
+            decimal actual = ((IConvertible)enumeration).ToDecimal(provider);
+
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         [TestCase(null)]
-        public void ToDateTime(IFormatProvider provider) {
+        public void ToDateTime_NullFormatProvider_ThrowsInvalidCastException(IFormatProvider? provider) {
             BasicIntEnumeration enumeration = BasicIntEnumeration.One;
-            Func<DateTime> act = () => ((IConvertible)enumeration).ToDateTime(provider);
 
-            act.Should().Throw<InvalidCastException>();
+            void action() => ((IConvertible)enumeration).ToDateTime(provider);
+
+            Assert.Throws<InvalidCastException>(() => action());
         }
 
         [Test]
         [TestCase(null)]
-        public void ToString(IFormatProvider provider) {
+        public void ToString_NullFormatProvider_ReturnsUnderlyingValueConversion(IFormatProvider? provider) {
             BasicIntEnumeration enumeration = BasicIntEnumeration.One;
-            string act = ((IConvertible)enumeration).ToString(provider);
-            string result = enumeration.Value.ToString(provider);
+            string expected = enumeration.Value.ToString(provider);
 
-            act.Should().Be(result);
+            string actual = ((IConvertible)enumeration).ToString(provider);
+
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
-        [TestCaseSource(nameof(toTypeTestSource))]
-        public void ToType<TEnum, TValue>(TEnum enumeration, TValue value, Type destType, object result)
+        [TestCaseSource(nameof(ToTypeTestSource))]
+        public void ToType_ValidDestinationType_ReturnsConvertedValue<TEnum, TValue>(TEnum enumeration, TValue _, Type destType, object expected)
             where TEnum : EnumerationBase<TEnum, TValue> where TValue : IComparable {
-            object act = ((IConvertible)enumeration).ToType(destType, null);
+            object actual = ((IConvertible)enumeration).ToType(destType, null);
 
-            act.Should().Be(result);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
-        public void ToType_ToOtherEnumeration() {
-            Func<object> act = () => ((IConvertible)BasicIntEnumeration.One).ToType(typeof(BasicIntEnumeration2), null);
+        public void ToType_OtherEnumerationType_ThrowsInvalidCastExceptionWithMessage() {
+            string expectedMessage = $"Invalid cast from '{typeof(BasicIntEnumeration).FullName}' to '{typeof(BasicIntEnumeration2).FullName}'.";
 
-            act.Should()
-                .Throw<InvalidCastException>()
-                .WithMessage($"Invalid cast from '{typeof(BasicIntEnumeration).FullName}' to '{typeof(BasicIntEnumeration2).FullName}'.");
+            var ex = Assert.Throws<InvalidCastException>(() => ((IConvertible)BasicIntEnumeration.One).ToType(typeof(BasicIntEnumeration2), null));
+
+            Assert.That(ex.Message, Is.EqualTo(expectedMessage));
         }
     }
 }

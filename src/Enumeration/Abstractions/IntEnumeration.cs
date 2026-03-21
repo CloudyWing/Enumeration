@@ -1,4 +1,4 @@
-﻿namespace CloudyWing.Enumeration.Abstractions {
+namespace CloudyWing.Enumeration.Abstractions {
     /// <summary>The int enumeration base.</summary>
     /// <typeparam name="T">The int enumeration.</typeparam>
     public abstract class IntEnumeration<T> : ConvertibleEnumeration<T, int>
@@ -13,7 +13,7 @@
         protected IntEnumeration(int value, string name) : base(value, name) { }
 
         /// <inheritdoc />
-        public override bool Equals(object obj) {
+        public override bool Equals(object? obj) {
             switch (obj) {
                 case char c:
                     return Value.Equals(c);
@@ -62,8 +62,6 @@
         public static implicit operator decimal(IntEnumeration<T> enumeration) {
             return enumeration.Value;
         }
-
-        #region == != > < >= <=
         /// <summary>Implements the operator ==.</summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
@@ -1023,6 +1021,5 @@
         public static bool operator <=(decimal left, IntEnumeration<T> right) {
             return left <= right.Value;
         }
-        #endregion
     }
 }
