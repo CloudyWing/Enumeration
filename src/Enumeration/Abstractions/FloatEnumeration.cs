@@ -1,4 +1,4 @@
-﻿namespace CloudyWing.Enumeration.Abstractions {
+namespace CloudyWing.Enumeration.Abstractions {
     /// <summary>The float enumeration base.</summary>
     /// <typeparam name="T">The float enumeration.</typeparam>
     public abstract class FloatEnumeration<T> : ConvertibleEnumeration<T, float>
@@ -20,7 +20,7 @@
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj) {
+        public override bool Equals(object? obj) {
             switch (obj) {
                 case char c:
                     return Value.Equals(c);
@@ -49,8 +49,6 @@
         public override int GetHashCode() {
             return base.GetHashCode();
         }
-
-        #region == != > < >= <=
         /// <summary>Implements the operator ==.</summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
@@ -1010,6 +1008,5 @@
         public static bool operator <=(double left, FloatEnumeration<T> right) {
             return left <= right.Value;
         }
-        #endregion
     }
 }

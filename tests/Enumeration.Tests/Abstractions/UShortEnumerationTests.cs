@@ -1,54 +1,54 @@
-﻿using CloudyWing.Enumeration.Tests.Enumerations;
+using CloudyWing.Enumeration.Tests.Enumerations;
 
 namespace CloudyWing.Enumeration.Tests.Abstractions {
     internal class UShortEnumerationTests {
         [Test]
-        public void ImplicitOperator_ToInt() {
-            int act = NumericUShortEnumeration.One;
-            int result = 1;
-            act.Should().Be(result);
+        public void ImplicitOperator_UShortEnumerationToInt_ConvertsCorrectly() {
+            int actual = NumericUShortEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1));
         }
 
         [Test]
-        public void ImplicitOperator_ToUInt() {
-            uint act = NumericUShortEnumeration.One;
-            uint result = 1;
-            act.Should().Be(result);
+        public void ImplicitOperator_UShortEnumerationToUInt_ConvertsCorrectly() {
+            uint actual = NumericUShortEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1));
         }
 
         [Test]
-        public void ImplicitOperator_ToLong() {
-            long act = NumericUShortEnumeration.One;
-            long result = 1;
-            act.Should().Be(result);
+        public void ImplicitOperator_UShortEnumerationToLong_ConvertsCorrectly() {
+            long actual = NumericUShortEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1));
         }
 
         [Test]
-        public void ImplicitOperator_ToULong() {
-            ulong act = NumericUShortEnumeration.One;
-            ulong result = 1;
-            act.Should().Be(result);
+        public void ImplicitOperator_UShortEnumerationToULong_ConvertsCorrectly() {
+            ulong actual = NumericUShortEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1));
         }
 
         [Test]
-        public void ImplicitOperator_ToFloat() {
-            float act = NumericUShortEnumeration.One;
-            float result = 1;
-            act.Should().Be(result);
+        public void ImplicitOperator_UShortEnumerationToFloat_ConvertsCorrectly() {
+            float actual = NumericUShortEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1));
         }
 
         [Test]
-        public void ImplicitOperator_ToDouble() {
-            double act = NumericUShortEnumeration.One;
-            double result = 1;
-            act.Should().Be(result);
+        public void ImplicitOperator_UShortEnumerationToDouble_ConvertsCorrectly() {
+            double actual = NumericUShortEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1));
         }
 
         [Test]
-        public void ImplicitOperator_ToDecimal() {
-            decimal act = NumericUShortEnumeration.One;
-            decimal result = 1;
-            act.Should().Be(result);
+        public void ImplicitOperator_UShortEnumerationToDecimal_ConvertsCorrectly() {
+            decimal actual = NumericUShortEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1));
         }
     }
 }

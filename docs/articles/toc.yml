@@ -1,0 +1,8 @@
+- name: 入門指南
+  href: getting-started.md
+- name: 核心概念
+  items:
+    - name: 定義列舉
+      href: core-concepts.md
+    - name: 進階用法
+      href: advanced-usage.md

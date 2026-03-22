@@ -1,40 +1,40 @@
-﻿using CloudyWing.Enumeration.Tests.Enumerations;
+using CloudyWing.Enumeration.Tests.Enumerations;
 
 namespace CloudyWing.Enumeration.Tests.Abstractions {
     internal class ShortEnumerationTests {
         [Test]
-        public void ImplicitOperator_ToInt() {
-            int act = NumericShortEnumeration.One;
-            int result = 1;
-            act.Should().Be(result);
+        public void ImplicitOperator_ShortEnumerationToInt_ConvertsCorrectly() {
+            int actual = NumericShortEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1));
         }
 
         [Test]
-        public void ImplicitOperator_ToLong() {
-            long act = NumericShortEnumeration.One;
-            long result = 1;
-            act.Should().Be(result);
+        public void ImplicitOperator_ShortEnumerationToLong_ConvertsCorrectly() {
+            long actual = NumericShortEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1));
         }
 
         [Test]
-        public void ImplicitOperator_ToFloat() {
-            float act = NumericShortEnumeration.One;
-            float result = 1;
-            act.Should().Be(result);
+        public void ImplicitOperator_ShortEnumerationToFloat_ConvertsCorrectly() {
+            float actual = NumericShortEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1));
         }
 
         [Test]
-        public void ImplicitOperator_ToDouble() {
-            double act = NumericShortEnumeration.One;
-            double result = 1;
-            act.Should().Be(result);
+        public void ImplicitOperator_ShortEnumerationToDouble_ConvertsCorrectly() {
+            double actual = NumericShortEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1));
         }
 
         [Test]
-        public void ImplicitOperator_ToDecimal() {
-            decimal act = NumericShortEnumeration.One;
-            decimal result = 1;
-            act.Should().Be(result);
+        public void ImplicitOperator_ShortEnumerationToDecimal_ConvertsCorrectly() {
+            decimal actual = NumericShortEnumeration.One;
+
+            Assert.That(actual, Is.EqualTo(1));
         }
     }
 }

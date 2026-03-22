@@ -1,124 +1,245 @@
-﻿using System;
-using System.Collections.Concurrent;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 
 namespace CloudyWing.Enumeration.Abstractions {
-    /// <summary>The enumeration base.</summary>
-    /// <typeparam name="TEnum">The type of the enum.</typeparam>
-    /// <typeparam name="TValue">The type of the value.</typeparam>
+    /// <summary>
+    /// Represents the base type for class-based enumerations.
+    /// </summary>
+    /// <typeparam name="TEnum">The concrete enumeration type.</typeparam>
+    /// <typeparam name="TValue">The underlying value type.</typeparam>
+    /// <remarks>
+    /// Enumeration instances are discovered from public static properties declared directly on <typeparamref name="TEnum" />.
+    /// </remarks>
     /// <seealso cref="IEnumeration&lt;TEnum, TValue&gt;" />
     /// <seealso cref="IEquatable&lt;TEnum&gt;" />
     /// <seealso cref="IComparable&lt;TEnum&gt;" />
     public abstract class EnumerationBase<TEnum, TValue> : IEnumeration<TEnum, TValue>, IEquatable<TEnum>, IComparable<TEnum>
         where TEnum : EnumerationBase<TEnum, TValue>
         where TValue : IComparable {
-        private static readonly ConcurrentQueue<TEnum> enumerations = new ConcurrentQueue<TEnum>();
+        private static readonly Lazy<TEnum[]> enumerations = new Lazy<TEnum[]>(
+            GetDeclaredEnumerations,
+            LazyThreadSafetyMode.ExecutionAndPublication
+        );
 
-        /// <summary>Initializes a new instance of the <see cref="EnumerationBase{TEnum, TValue}" /> class.</summary>
-        /// <param name="value">The value.</param>
-        protected EnumerationBase(TValue value) : this(value, value.ToString()) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EnumerationBase{TEnum, TValue}" /> class.
+        /// </summary>
+        /// <param name="value">The underlying enumeration value.</param>
+        /// <exception cref="InvalidOperationException"><paramref name="value" /> returns a <see langword="null" /> string representation.</exception>
+        protected EnumerationBase(TValue value)
+            : this(
+                value,
+                value.ToString() ?? throw new InvalidOperationException($"{typeof(TValue).FullName} returned a null string representation.")
+            ) { }
 
-        /// <summary>Initializes a new instance of the <see cref="EnumerationBase{TEnum, TValue}" /> class.</summary>
-        /// <param name="value">The value.</param>
-        /// <param name="name">The name.</param>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EnumerationBase{TEnum, TValue}" /> class.
+        /// </summary>
+        /// <param name="value">The underlying enumeration value.</param>
+        /// <param name="name">The display name.</param>
         protected EnumerationBase(TValue value, string name) {
             Value = value;
             Name = name;
         }
 
-        /// <summary>Gets the value.</summary>
-        /// <value>The value.</value>
+        /// <summary>
+        /// Gets the underlying value of the enumeration.
+        /// </summary>
+        /// <value>The value used to identify the enumeration instance.</value>
         public TValue Value { get; }
 
-        /// <summary>Gets the name.</summary>
-        /// <value>The name.</value>
+        /// <summary>
+        /// Gets the display name of the enumeration.
+        /// </summary>
+        /// <value>The display name associated with the enumeration instance.</value>
         public string Name { get; }
 
-        /// <summary>Gets all declared enumerations.</summary>
-        /// <returns>The <c>IEnumerable</c> based on a <c>TEnumeration</c>.</returns>
+        /// <summary>
+        /// Gets all declared enumeration instances.
+        /// </summary>
+        /// <returns>The declared enumeration instances.</returns>
+        /// <remarks>
+        /// Instances are returned in the same order as their declaring public static properties on <typeparamref name="TEnum" />.
+        /// </remarks>
         public static IEnumerable<TEnum> GetAll() {
-            if (enumerations.Count == 0) {
-                IEnumerable<PropertyInfo> props = typeof(TEnum)
-                    .GetProperties(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
-                    .OrderBy(x => x.MetadataToken);
-
-                foreach (PropertyInfo prop in props) {
-                    if (prop.GetValue(null, null) is TEnum instance) {
-                        enumerations.Enqueue(instance);
-                    }
-                }
-            }
-
-            foreach (TEnum enumeration in enumerations) {
+            foreach (TEnum enumeration in enumerations.Value) {
                 yield return enumeration;
             }
         }
 
-        /// <summary>Parses the specified value.</summary>
-        /// <param name="value">The value.</param>
-        /// <returns>The enumeration.</returns>
-        /// <exception cref="EnumerationNotFoundException"></exception>
+        /// <summary>
+        /// Gets the values of all declared enumeration instances.
+        /// </summary>
+        /// <returns>The declared enumeration values.</returns>
+        public static IEnumerable<TValue> GetValues() {
+            foreach (TEnum enumeration in GetAll()) {
+                yield return enumeration.Value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the names of all declared enumeration instances.
+        /// </summary>
+        /// <returns>The declared enumeration names.</returns>
+        public static IEnumerable<string> GetNames() {
+            foreach (TEnum enumeration in GetAll()) {
+                yield return enumeration.Name;
+            }
+        }
+
+        /// <summary>
+        /// Gets the declared enumeration instance that matches the specified value.
+        /// </summary>
+        /// <param name="value">The value to match.</param>
+        /// <returns>The matching enumeration instance.</returns>
+        /// <exception cref="EnumerationNotFoundException">No declared enumeration matches <paramref name="value" />.</exception>
+        /// <exception cref="InvalidOperationException">More than one declared enumeration matches <paramref name="value" />.</exception>
         public static TEnum Parse(TValue value) {
-            return TryParse(value, out TEnum enumeration)
+            return TryParse(value, out TEnum? enumeration)
                 ? enumeration
                 : throw new EnumerationNotFoundException();
         }
 
         /// <summary>
-        /// Tries the parse.
+        /// Gets the declared enumeration instance that matches the specified value, or returns a fallback instance.
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="enumeration">The enumeration.</param>
-        /// <returns>
-        ///   <c>true</c> enumeration if it can be found; otherwise, <c>false</c>.</returns>
-        public static bool TryParse(TValue value, out TEnum enumeration) {
-            enumeration = GetAll().SingleOrDefault(x => x.Value.Equals(value));
+        /// <param name="value">The value to match.</param>
+        /// <param name="defaultEnumeration">The enumeration to return when no match is found.</param>
+        /// <returns>The parsed enumeration if it exists; otherwise, <paramref name="defaultEnumeration" />.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="defaultEnumeration" /> is <see langword="null" />.</exception>
+        /// <exception cref="InvalidOperationException">More than one declared enumeration matches <paramref name="value" />.</exception>
+        public static TEnum ParseOrDefault(TValue value, TEnum defaultEnumeration) {
+            if (defaultEnumeration is null) {
+                throw new ArgumentNullException(nameof(defaultEnumeration));
+            }
+
+            return TryParse(value, out TEnum? enumeration)
+                ? enumeration
+                : defaultEnumeration;
+        }
+
+        /// <summary>
+        /// Tries to get the declared enumeration instance that matches the specified value.
+        /// </summary>
+        /// <param name="value">The value to match.</param>
+        /// <param name="enumeration">The matching enumeration instance.</param>
+        /// <returns><see langword="true" /> if a matching enumeration exists; otherwise, <see langword="false" />.</returns>
+        /// <exception cref="InvalidOperationException">More than one declared enumeration matches <paramref name="value" />.</exception>
+        public static bool TryParse(TValue value, [MaybeNullWhen(false)] out TEnum enumeration) {
+            enumeration = FindEnumeration(x => x.Value.Equals(value));
             return !(enumeration is null);
         }
 
-        /// <summary>Parses the name.</summary>
-        /// <param name="name">The name.</param>
-        /// <param name="ignoreCase">if set to <c>true</c> [ignore case].</param>
-        /// <returns>
-        ///   <c>true</c> enumeration if it can be found; otherwise, <c>false</c>.</returns>
-        /// <exception cref="EnumerationNotFoundException"></exception>
+        /// <summary>
+        /// Determines whether the specified value matches a declared enumeration.
+        /// </summary>
+        /// <param name="value">The value to match.</param>
+        /// <returns><see langword="true" /> if a matching enumeration exists; otherwise, <see langword="false" />.</returns>
+        /// <exception cref="InvalidOperationException">More than one declared enumeration matches <paramref name="value" />.</exception>
+        public static bool IsDefined(TValue value) {
+            return TryParse(value, out _);
+        }
+
+        /// <summary>
+        /// Gets the declared enumeration instance that matches the specified name.
+        /// </summary>
+        /// <param name="name">The name to match.</param>
+        /// <param name="ignoreCase"><see langword="true" /> to ignore name casing; otherwise, <see langword="false" />.</param>
+        /// <returns>The matching enumeration instance.</returns>
+        /// <exception cref="EnumerationNotFoundException">No declared enumeration matches <paramref name="name" />.</exception>
+        /// <exception cref="InvalidOperationException">More than one declared enumeration matches <paramref name="name" />.</exception>
         public static TEnum ParseName(string name, bool ignoreCase = false) {
-            return TryParseName(name, ignoreCase, out TEnum enumeration)
+            return TryParseName(name, ignoreCase, out TEnum? enumeration)
                 ? enumeration
                 : throw new EnumerationNotFoundException();
         }
 
-        /// <summary>Tries the name of the parse.</summary>
-        /// <param name="name">The name.</param>
-        /// <param name="enumeration">The enumeration.</param>
-        /// <returns>
-        ///   <c>true</c> enumeration if it can be found; otherwise, <c>false</c>.</returns>
-        public static bool TryParseName(string name, out TEnum enumeration) {
+        /// <summary>
+        /// Gets the declared enumeration instance that matches the specified name, or returns a fallback instance.
+        /// </summary>
+        /// <param name="name">The name to match.</param>
+        /// <param name="defaultEnumeration">The enumeration to return when no match is found.</param>
+        /// <param name="ignoreCase"><see langword="true" /> to ignore name casing; otherwise, <see langword="false" />.</param>
+        /// <returns>The parsed enumeration if it exists; otherwise, <paramref name="defaultEnumeration" />.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="defaultEnumeration" /> is <see langword="null" />.</exception>
+        /// <exception cref="InvalidOperationException">More than one declared enumeration matches <paramref name="name" />.</exception>
+        public static TEnum ParseNameOrDefault(string name, TEnum defaultEnumeration, bool ignoreCase = false) {
+            if (defaultEnumeration is null) {
+                throw new ArgumentNullException(nameof(defaultEnumeration));
+            }
+
+            return TryParseName(name, ignoreCase, out TEnum? enumeration)
+                ? enumeration
+                : defaultEnumeration;
+        }
+
+        /// <summary>
+        /// Tries to get the declared enumeration instance that matches the specified name.
+        /// </summary>
+        /// <param name="name">The name to match.</param>
+        /// <param name="enumeration">The matching enumeration instance.</param>
+        /// <returns><see langword="true" /> if a matching enumeration exists; otherwise, <see langword="false" />.</returns>
+        /// <exception cref="InvalidOperationException">More than one declared enumeration matches <paramref name="name" />.</exception>
+        public static bool TryParseName(string name, [MaybeNullWhen(false)] out TEnum enumeration) {
             return TryParseName(name, false, out enumeration);
         }
 
-        /// <summary>Tries the name of the parse.</summary>
-        /// <param name="name">The name.</param>
-        /// <param name="ignoreCase">if set to <c>true</c> [ignore case].</param>
-        /// <param name="enumeration">The enumeration.</param>
-        /// <returns>
-        ///   <c>true</c> enumeration if it can be found; otherwise, <c>false</c>.</returns>
-        public static bool TryParseName(string name, bool ignoreCase, out TEnum enumeration) {
-            enumeration = GetAll()
-                .SingleOrDefault(
-                    x => ignoreCase
-                        ? x.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
-                        : x.Name == name
-                );
+        /// <summary>
+        /// Tries to get the declared enumeration instance that matches the specified name.
+        /// </summary>
+        /// <param name="name">The name to match.</param>
+        /// <param name="ignoreCase"><see langword="true" /> to ignore name casing; otherwise, <see langword="false" />.</param>
+        /// <param name="enumeration">The matching enumeration instance.</param>
+        /// <returns><see langword="true" /> if a matching enumeration exists; otherwise, <see langword="false" />.</returns>
+        /// <exception cref="InvalidOperationException">More than one declared enumeration matches <paramref name="name" />.</exception>
+        public static bool TryParseName(string name, bool ignoreCase, [MaybeNullWhen(false)] out TEnum enumeration) {
+            StringComparison comparison = ignoreCase
+                ? StringComparison.OrdinalIgnoreCase
+                : StringComparison.Ordinal;
+            enumeration = FindEnumeration(x => x.Name.Equals(name, comparison));
             return !(enumeration is null);
         }
 
-        /// <summary>Gets the type of the value.</summary>
-        /// <returns>The type of the value.</returns>
+        /// <summary>
+        /// Determines whether the specified name matches a declared enumeration.
+        /// </summary>
+        /// <param name="name">The name to match.</param>
+        /// <param name="ignoreCase"><see langword="true" /> to ignore name casing; otherwise, <see langword="false" />.</param>
+        /// <returns><see langword="true" /> if a matching enumeration exists; otherwise, <see langword="false" />.</returns>
+        /// <exception cref="InvalidOperationException">More than one declared enumeration matches <paramref name="name" />.</exception>
+        public static bool IsDefinedName(string name, bool ignoreCase = false) {
+            return TryParseName(name, ignoreCase, out _);
+        }
+
+        /// <summary>
+        /// Gets the underlying value type of the enumeration.
+        /// </summary>
+        /// <returns>The runtime type represented by <typeparamref name="TValue" />.</returns>
         public static Type GetValueType() {
             return typeof(TValue);
+        }
+
+        private static TEnum[] GetDeclaredEnumerations() {
+            IEnumerable<PropertyInfo> props = typeof(TEnum)
+                .GetProperties(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
+                .OrderBy(x => x.MetadataToken);
+
+            List<TEnum> instances = new List<TEnum>();
+            foreach (PropertyInfo prop in props) {
+                if (prop.GetValue(null, null) is TEnum instance) {
+                    instances.Add(instance);
+                }
+            }
+
+            return instances.ToArray();
+        }
+
+        private static TEnum? FindEnumeration(Func<TEnum, bool> predicate) {
+            return GetAll().SingleOrDefault(predicate);
         }
 
         /// <summary>
@@ -128,7 +249,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <returns>
         ///   <c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.
         /// </returns>
-        public override bool Equals(object obj) {
+        public override bool Equals(object? obj) {
             if (obj is TEnum enumeration) {
                 return Equals(enumeration);
             } else if (obj is TValue value) {
@@ -139,7 +260,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         }
 
         /// <inheritdoc/>
-        public bool Equals(TEnum other) {
+        public bool Equals(TEnum? other) {
             if (other is null) {
                 return false;
             }
@@ -163,7 +284,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         }
 
         /// <inheritdoc/>
-        public int CompareTo(object obj) {
+        public int CompareTo(object? obj) {
             if (obj is TEnum enumeration) {
                 return CompareTo(enumeration);
             } else if (obj is TValue value) {
@@ -174,9 +295,9 @@ namespace CloudyWing.Enumeration.Abstractions {
         }
 
         /// <inheritdoc/>
-        public virtual int CompareTo(TEnum other) {
+        public virtual int CompareTo(TEnum? other) {
             if (other is null) {
-                return Value.CompareTo(default(TValue));
+                return 1;
             }
 
             return Value.CompareTo(other.Value);
@@ -227,15 +348,15 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator ==(TEnum left, EnumerationBase<TEnum, TValue> right) {
-            return (left is null && right is null) || left?.Equals(right) == true;
+        public static bool operator ==(TEnum? left, EnumerationBase<TEnum, TValue>? right) {
+            return left is null ? right is null : left.Equals(right as TEnum);
         }
 
         /// <summary>Implements the operator ==.</summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator ==(EnumerationBase<TEnum, TValue> left, TValue right) {
+        public static bool operator ==(EnumerationBase<TEnum, TValue>? left, TValue right) {
             return left?.Equals(right) == true;
         }
 
@@ -243,7 +364,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator ==(TValue left, EnumerationBase<TEnum, TValue> right) {
+        public static bool operator ==(TValue left, EnumerationBase<TEnum, TValue>? right) {
             return right?.Equals(left) == true;
         }
 
@@ -251,7 +372,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator !=(TEnum left, EnumerationBase<TEnum, TValue> right) {
+        public static bool operator !=(TEnum? left, EnumerationBase<TEnum, TValue>? right) {
             return !(left == right);
         }
 
@@ -259,7 +380,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator !=(EnumerationBase<TEnum, TValue> left, TValue right) {
+        public static bool operator !=(EnumerationBase<TEnum, TValue>? left, TValue right) {
             return !(left == right);
         }
 
@@ -267,7 +388,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator !=(TValue left, EnumerationBase<TEnum, TValue> right) {
+        public static bool operator !=(TValue left, EnumerationBase<TEnum, TValue>? right) {
             return !(left == right);
         }
 
@@ -275,7 +396,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator >(TEnum left, EnumerationBase<TEnum, TValue> right) {
+        public static bool operator >(TEnum? left, EnumerationBase<TEnum, TValue>? right) {
             if (left is null || right is null) {
                 return false;
             }
@@ -286,7 +407,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator >(EnumerationBase<TEnum, TValue> left, TValue right) {
+        public static bool operator >(EnumerationBase<TEnum, TValue>? left, TValue right) {
             return left?.CompareTo(right) > 0;
         }
 
@@ -295,7 +416,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator >(TValue left, EnumerationBase<TEnum, TValue> right) {
+        public static bool operator >(TValue left, EnumerationBase<TEnum, TValue>? right) {
             return right?.CompareTo(left) < 0;
         }
 
@@ -303,7 +424,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator <(TEnum left, EnumerationBase<TEnum, TValue> right) {
+        public static bool operator <(TEnum? left, EnumerationBase<TEnum, TValue>? right) {
             if (left is null || right is null) {
                 return false;
             }
@@ -315,7 +436,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator <(EnumerationBase<TEnum, TValue> left, TValue right) {
+        public static bool operator <(EnumerationBase<TEnum, TValue>? left, TValue right) {
             return left?.CompareTo(right) < 0;
         }
 
@@ -323,7 +444,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator <(TValue left, EnumerationBase<TEnum, TValue> right) {
+        public static bool operator <(TValue left, EnumerationBase<TEnum, TValue>? right) {
             return right?.CompareTo(left) > 0;
         }
 
@@ -331,7 +452,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator >=(TEnum left, EnumerationBase<TEnum, TValue> right) {
+        public static bool operator >=(TEnum? left, EnumerationBase<TEnum, TValue>? right) {
             if (left is null || right is null) {
                 return false;
             }
@@ -343,7 +464,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator >=(EnumerationBase<TEnum, TValue> left, TValue right) {
+        public static bool operator >=(EnumerationBase<TEnum, TValue>? left, TValue right) {
             return left?.CompareTo(right) >= 0;
         }
 
@@ -352,7 +473,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator >=(TValue left, EnumerationBase<TEnum, TValue> right) {
+        public static bool operator >=(TValue left, EnumerationBase<TEnum, TValue>? right) {
             return right?.CompareTo(left) <= 0;
         }
 
@@ -360,7 +481,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator <=(TEnum left, EnumerationBase<TEnum, TValue> right) {
+        public static bool operator <=(TEnum? left, EnumerationBase<TEnum, TValue>? right) {
             if (left is null || right is null) {
                 return false;
             }
@@ -372,7 +493,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator <=(EnumerationBase<TEnum, TValue> left, TValue right) {
+        public static bool operator <=(EnumerationBase<TEnum, TValue>? left, TValue right) {
             return left?.CompareTo(right) <= 0;
         }
 
@@ -380,7 +501,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator <=(TValue left, EnumerationBase<TEnum, TValue> right) {
+        public static bool operator <=(TValue left, EnumerationBase<TEnum, TValue>? right) {
             return right?.CompareTo(left) >= 0;
         }
     }

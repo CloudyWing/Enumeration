@@ -1,4 +1,4 @@
-﻿using System.Collections.Concurrent;
+using System.Collections.Concurrent;
 using CloudyWing.Enumeration.Abstractions;
 using CloudyWing.Enumeration.Tests.Enumerations;
 using Microsoft.CSharp.RuntimeBinder;
@@ -30,34 +30,38 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
             new object[] { NumericDecimalEnumeration.One , NumericDecimalEnumeration.One.Value }
         };
 
-        private static readonly dynamic[] numbers = new dynamic[]{
+        private static readonly dynamic[] numbers = new dynamic[] {
             (char)1, (byte)1, (sbyte)1, (short)1, (ushort)1, 1, 1U, 1L, 1UL, 1F, 1D, 1M
         };
 
         [Test]
-        public void Equals_CharEnumeration和Number比較() {
-            // CharEnumeration 跑不進 TestCase，所以單獨寫
+        public void Equals_CharEnumerationComparedWithNumber_MatchesUnderlyingValueEquality() {
+            // CharEnumeration cannot be used in TestCase, so this scenario is covered separately.
             foreach (dynamic num in numbers) {
-                bool act = NumericCharEnumeration.One.Equals(num);
-                act.Should().Be(NumericCharEnumeration.One.Equals(num));
+                bool actual = NumericCharEnumeration.One.Equals(num);
+
+                bool expected = NumericCharEnumeration.One.Equals(num);
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
         [TestCaseSource(nameof(conversionTestSource))]
-        public void Equals_Enumeration和Number比較<TEnum, TValue>(TEnum enumeration, TValue value)
+        public void Equals_EnumerationComparedWithNumber_MatchesUnderlyingValueEquality<TEnum, TValue>(TEnum enumeration, TValue value)
             where TEnum : ConvertibleEnumeration<TEnum, TValue>
             where TValue : IComparable, IConvertible {
-            // 要傳入 TValue，才有辦法進行 Test Case，應該是因為沒有 TValue 參數無法推論 TValue 型別
+            // TValue must be passed to enable the test case because it cannot be inferred otherwise.
             foreach (dynamic num in numbers) {
-                bool act = enumeration.Equals(num);
-                act.Should().Be(value.Equals(num));
+                bool actual = enumeration.Equals(num);
+
+                bool expected = value.Equals(num);
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
-        public void EqualOperator_CharEnumeration和Number比較() {
-            // CharEnumeration 跑不進 TestCase，所以單獨寫
+        public void EqualityOperator_CharEnumerationComparedWithNumber_MatchesUnderlyingValueEquality() {
+            // CharEnumeration cannot be used in TestCase, so this scenario is covered separately.
             foreach (dynamic num in numbers) {
                 try {
                     bool assert = NumericCharEnumeration.One.Value == num;
@@ -65,14 +69,16 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = NumericCharEnumeration.One == num;
-                actResult.Should().Be(NumericCharEnumeration.One.Value == num);
+                bool actual = NumericCharEnumeration.One == num;
+
+                bool expected = NumericCharEnumeration.One.Value == num;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
         [TestCaseSource(nameof(conversionTestSource))]
-        public void EqualOperator_Enumeration和Number比較<TEnum, TValue>(TEnum enumeration, TValue value)
+        public void EqualityOperator_EnumerationComparedWithNumber_MatchesUnderlyingValueEquality<TEnum, TValue>(TEnum enumeration, TValue value)
             where TEnum : ConvertibleEnumeration<TEnum, TValue>
             where TValue : IComparable, IConvertible {
             foreach (dynamic num in numbers) {
@@ -82,14 +88,16 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = enumeration == num;
-                actResult.Should().Be(value == num);
+                bool actual = enumeration == num;
+
+                bool expected = value == num;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
 
         [Test]
-        public void EqualOperator_Number和比較CharEnumeration() {
+        public void EqualityOperator_NumberComparedWithCharEnumeration_MatchesUnderlyingValueEquality() {
             foreach (dynamic num in numbers) {
                 try {
                     bool assert = num == NumericCharEnumeration.One.Value;
@@ -97,15 +105,17 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = num == NumericCharEnumeration.One;
-                actResult.Should().Be(num == NumericCharEnumeration.One.Value);
+                bool actual = num == NumericCharEnumeration.One;
+
+                bool expected = num == NumericCharEnumeration.One.Value;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
 
         [Test]
         [TestCaseSource(nameof(conversionTestSource))]
-        public void EqualOperator_Number和比較Enumeration<TEnum, TValue>(TEnum enumeration, TValue value)
+        public void EqualityOperator_NumberComparedWithEnumeration_MatchesUnderlyingValueEquality<TEnum, TValue>(TEnum enumeration, TValue value)
             where TEnum : ConvertibleEnumeration<TEnum, TValue>
             where TValue : IComparable, IConvertible {
             foreach (dynamic num in numbers) {
@@ -115,13 +125,15 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = num == enumeration;
-                actResult.Should().Be(num == value);
+                bool actual = num == enumeration;
+
+                bool expected = num == value;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
-        public void NotEqualOperator_CharEnumeration和Number比較() {
+        public void InequalityOperator_CharEnumerationComparedWithNumber_MatchesUnderlyingValueInequality() {
             foreach (dynamic num in numbers) {
                 try {
                     bool assert = NumericCharEnumeration.One.Value != num;
@@ -129,14 +141,16 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = NumericCharEnumeration.One != num;
-                actResult.Should().Be(NumericCharEnumeration.One.Value != num);
+                bool actual = NumericCharEnumeration.One != num;
+
+                bool expected = NumericCharEnumeration.One.Value != num;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
         [TestCaseSource(nameof(conversionTestSource))]
-        public void NotEqualOperator_Enumeration和Number比較<TEnum, TValue>(TEnum enumeration, TValue value)
+        public void InequalityOperator_EnumerationComparedWithNumber_MatchesUnderlyingValueInequality<TEnum, TValue>(TEnum enumeration, TValue value)
             where TEnum : ConvertibleEnumeration<TEnum, TValue>
             where TValue : IComparable, IConvertible {
             foreach (dynamic num in numbers) {
@@ -146,13 +160,15 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = enumeration != num;
-                actResult.Should().Be(value != num);
+                bool actual = enumeration != num;
+
+                bool expected = value != num;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
-        public void NotEqualOperator_Number和CharEnumeration比較() {
+        public void InequalityOperator_NumberComparedWithCharEnumeration_MatchesUnderlyingValueInequality() {
             foreach (dynamic num in numbers) {
                 try {
                     bool assert = num != NumericCharEnumeration.One.Value;
@@ -160,14 +176,16 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = num != NumericCharEnumeration.One;
-                actResult.Should().Be(num != NumericCharEnumeration.One.Value);
+                bool actual = num != NumericCharEnumeration.One;
+
+                bool expected = num != NumericCharEnumeration.One.Value;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
         [TestCaseSource(nameof(conversionTestSource))]
-        public void NotEqualOperator_Number和Enumeration比較<TEnum, TValue>(TEnum enumeration, TValue value)
+        public void InequalityOperator_NumberComparedWithEnumeration_MatchesUnderlyingValueInequality<TEnum, TValue>(TEnum enumeration, TValue value)
             where TEnum : ConvertibleEnumeration<TEnum, TValue>
             where TValue : IComparable, IConvertible {
             foreach (dynamic num in numbers) {
@@ -177,13 +195,15 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = num != enumeration;
-                actResult.Should().Be(num != value);
+                bool actual = num != enumeration;
+
+                bool expected = num != value;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
-        public void GreaterOperator_CharEnumeration和Number比較() {
+        public void GreaterThanOperator_CharEnumerationComparedWithNumber_MatchesUnderlyingValueComparison() {
             foreach (dynamic num in numbers) {
                 try {
                     bool assert = NumericCharEnumeration.One > num;
@@ -191,15 +211,16 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = NumericCharEnumeration.One > num;
+                bool actual = NumericCharEnumeration.One > num;
 
-                actResult.Should().Be(NumericCharEnumeration.One.Value > num);
+                bool expected = NumericCharEnumeration.One.Value > num;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
         [TestCaseSource(nameof(conversionTestSource))]
-        public void GreaterOperator_Enumeration和Number比較<TEnum, TValue>(TEnum enumeration, TValue value)
+        public void GreaterThanOperator_EnumerationComparedWithNumber_MatchesUnderlyingValueComparison<TEnum, TValue>(TEnum enumeration, TValue value)
             where TEnum : ConvertibleEnumeration<TEnum, TValue>
             where TValue : IComparable, IConvertible {
             foreach (dynamic num in numbers) {
@@ -209,14 +230,15 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = enumeration > num;
+                bool actual = enumeration > num;
 
-                actResult.Should().Be(value > num);
+                bool expected = value > num;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
-        public void GreaterOperator_Number和CharEnumeration比較() {
+        public void GreaterThanOperator_NumberComparedWithCharEnumeration_MatchesUnderlyingValueComparison() {
             foreach (dynamic num in numbers) {
                 try {
                     bool assert = num > NumericCharEnumeration.One;
@@ -224,15 +246,16 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = num > NumericCharEnumeration.One;
+                bool actual = num > NumericCharEnumeration.One;
 
-                actResult.Should().Be(num > NumericCharEnumeration.One.Value);
+                bool expected = num > NumericCharEnumeration.One.Value;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
         [TestCaseSource(nameof(conversionTestSource))]
-        public void GreaterOperator_Number和Enumeration比較<TEnum, TValue>(TEnum enumeration, TValue value)
+        public void GreaterThanOperator_NumberComparedWithEnumeration_MatchesUnderlyingValueComparison<TEnum, TValue>(TEnum enumeration, TValue value)
             where TEnum : ConvertibleEnumeration<TEnum, TValue>
             where TValue : IComparable, IConvertible {
             foreach (dynamic num in numbers) {
@@ -242,14 +265,15 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = num > enumeration;
+                bool actual = num > enumeration;
 
-                actResult.Should().Be(num > value);
+                bool expected = num > value;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
-        public void LessOperator_CharEnumeration和Number比較() {
+        public void LessThanOperator_CharEnumerationComparedWithNumber_MatchesUnderlyingValueComparison() {
             foreach (dynamic num in numbers) {
                 try {
                     bool assert = NumericCharEnumeration.One.Value < num;
@@ -257,15 +281,16 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = NumericCharEnumeration.One < num;
+                bool actual = NumericCharEnumeration.One < num;
 
-                actResult.Should().Be(NumericCharEnumeration.One.Value < num);
+                bool expected = NumericCharEnumeration.One.Value < num;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
         [TestCaseSource(nameof(conversionTestSource))]
-        public void LessOperator_Enumeration和Number比較<TEnum, TValue>(TEnum enumeration, TValue value)
+        public void LessThanOperator_EnumerationComparedWithNumber_MatchesUnderlyingValueComparison<TEnum, TValue>(TEnum enumeration, TValue value)
             where TEnum : ConvertibleEnumeration<TEnum, TValue>
             where TValue : IComparable, IConvertible {
             foreach (dynamic num in numbers) {
@@ -275,14 +300,15 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = enumeration < num;
+                bool actual = enumeration < num;
 
-                actResult.Should().Be(value < num);
+                bool expected = value < num;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
-        public void LessOperator_Number和CharEnumeration比較() {
+        public void LessThanOperator_NumberComparedWithCharEnumeration_MatchesUnderlyingValueComparison() {
             foreach (dynamic num in numbers) {
                 try {
                     bool assert = num < NumericCharEnumeration.One.Value;
@@ -290,15 +316,16 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = num < NumericCharEnumeration.One;
+                bool actual = num < NumericCharEnumeration.One;
 
-                actResult.Should().Be(num < NumericCharEnumeration.One.Value);
+                bool expected = num < NumericCharEnumeration.One.Value;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
         [TestCaseSource(nameof(conversionTestSource))]
-        public void LessOperator_Number和Enumeration比較<TEnum, TValue>(TEnum enumeration, TValue value)
+        public void LessThanOperator_NumberComparedWithEnumeration_MatchesUnderlyingValueComparison<TEnum, TValue>(TEnum enumeration, TValue value)
             where TEnum : ConvertibleEnumeration<TEnum, TValue>
             where TValue : IComparable, IConvertible {
             foreach (dynamic num in numbers) {
@@ -308,14 +335,15 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = num < enumeration;
+                bool actual = num < enumeration;
 
-                actResult.Should().Be(num < value);
+                bool expected = num < value;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
-        public void GreaterOrEqualOperator_ChaeEnumeration和Number比較() {
+        public void GreaterThanOrEqualOperator_CharEnumerationComparedWithNumber_MatchesUnderlyingValueComparison() {
             foreach (dynamic num in numbers) {
                 try {
                     bool assert = NumericCharEnumeration.One.Value >= num;
@@ -323,15 +351,16 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = NumericCharEnumeration.One >= num;
+                bool actual = NumericCharEnumeration.One >= num;
 
-                actResult.Should().Be(NumericCharEnumeration.One.Value >= num);
+                bool expected = NumericCharEnumeration.One.Value >= num;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
         [TestCaseSource(nameof(conversionTestSource))]
-        public void GreaterOrEqualOperator_Enumeration和Number比較<TEnum, TValue>(TEnum enumeration, TValue value)
+        public void GreaterThanOrEqualOperator_EnumerationComparedWithNumber_MatchesUnderlyingValueComparison<TEnum, TValue>(TEnum enumeration, TValue value)
             where TEnum : ConvertibleEnumeration<TEnum, TValue>
             where TValue : IComparable, IConvertible {
             foreach (dynamic num in numbers) {
@@ -341,14 +370,15 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = enumeration >= num;
+                bool actual = enumeration >= num;
 
-                actResult.Should().Be(value >= num);
+                bool expected = value >= num;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
-        public void GreaterOrEqualOperator_Number和CharEnumeration比較() {
+        public void GreaterThanOrEqualOperator_NumberComparedWithCharEnumeration_MatchesUnderlyingValueComparison() {
             foreach (dynamic num in numbers) {
                 try {
                     bool assert = num >= NumericCharEnumeration.One.Value;
@@ -356,15 +386,16 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = num >= NumericCharEnumeration.One;
+                bool actual = num >= NumericCharEnumeration.One;
 
-                actResult.Should().Be(num >= NumericCharEnumeration.One.Value);
+                bool expected = num >= NumericCharEnumeration.One.Value;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
         [TestCaseSource(nameof(conversionTestSource))]
-        public void GreaterOrEqualOperator_Number和Enumeration比較<TEnum, TValue>(TEnum enumeration, TValue value)
+        public void GreaterThanOrEqualOperator_NumberComparedWithEnumeration_MatchesUnderlyingValueComparison<TEnum, TValue>(TEnum enumeration, TValue value)
             where TEnum : ConvertibleEnumeration<TEnum, TValue>
             where TValue : IComparable, IConvertible {
             foreach (dynamic num in numbers) {
@@ -374,14 +405,15 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = num >= enumeration;
+                bool actual = num >= enumeration;
 
-                actResult.Should().Be(num >= value);
+                bool expected = num >= value;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
-        public void LessOrEqualOperator_CharEnumeration和Number比較() {
+        public void LessThanOrEqualOperator_CharEnumerationComparedWithNumber_MatchesUnderlyingValueComparison() {
             foreach (dynamic num in numbers) {
                 try {
                     bool assert = NumericCharEnumeration.One.Value <= num;
@@ -389,15 +421,16 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = NumericCharEnumeration.One <= num;
+                bool actual = NumericCharEnumeration.One <= num;
 
-                actResult.Should().Be(NumericCharEnumeration.One.Value <= num);
+                bool expected = NumericCharEnumeration.One.Value <= num;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
         [TestCaseSource(nameof(conversionTestSource))]
-        public void LessOrEqualOperator_Enumeration和Number比較<TEnum, TValue>(TEnum enumeration, TValue value)
+        public void LessThanOrEqualOperator_EnumerationComparedWithNumber_MatchesUnderlyingValueComparison<TEnum, TValue>(TEnum enumeration, TValue value)
             where TEnum : ConvertibleEnumeration<TEnum, TValue>
             where TValue : IComparable, IConvertible {
             foreach (dynamic num in numbers) {
@@ -407,14 +440,15 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = enumeration <= num;
+                bool actual = enumeration <= num;
 
-                actResult.Should().Be(value <= num);
+                bool expected = value <= num;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
-        public void LessOrEqualOperator_Number和CharEnumeration比較() {
+        public void LessThanOrEqualOperator_NumberComparedWithCharEnumeration_MatchesUnderlyingValueComparison() {
             foreach (dynamic num in numbers) {
                 try {
                     bool assert = num <= NumericCharEnumeration.One.Value;
@@ -422,15 +456,16 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = num <= NumericCharEnumeration.One;
+                bool actual = num <= NumericCharEnumeration.One;
 
-                actResult.Should().Be(num <= NumericCharEnumeration.One.Value);
+                bool expected = num <= NumericCharEnumeration.One.Value;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
 
         [Test]
         [TestCaseSource(nameof(conversionTestSource))]
-        public void LessOrEqualOperator_Number和Enumeration比較<TEnum, TValue>(TEnum enumeration, TValue value)
+        public void LessThanOrEqualOperator_NumberComparedWithEnumeration_MatchesUnderlyingValueComparison<TEnum, TValue>(TEnum enumeration, TValue value)
             where TEnum : ConvertibleEnumeration<TEnum, TValue>
             where TValue : IComparable, IConvertible {
             foreach (dynamic num in numbers) {
@@ -440,9 +475,10 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                     continue;
                 }
 
-                bool actResult = num <= enumeration;
+                bool actual = num <= enumeration;
 
-                actResult.Should().Be(num <= value);
+                bool expected = num <= value;
+                Assert.That(actual, Is.EqualTo(expected));
             }
         }
     }
