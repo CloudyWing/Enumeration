@@ -1,0 +1,468 @@
+{
+  "source_base_path": "D:/a/Enumeration/Enumeration/docs",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": ".nojekyll",
+      "output": {
+        "resource": {
+          "relative_path": ".nojekyll"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.Abstractions.ByteEnumeration-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.Abstractions.ByteEnumeration-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.Abstractions.ByteEnumeration<T>",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.Abstractions.ByteEnumeration-1.yml\" sourcestartlinenumber=\"1\">The byte enumeration base.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.Abstractions.CharEnumeration-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.Abstractions.CharEnumeration-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.Abstractions.CharEnumeration<T>",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.Abstractions.CharEnumeration-1.yml\" sourcestartlinenumber=\"1\">The char enumeration base.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.Abstractions.ConvertibleEnumeration-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.Abstractions.ConvertibleEnumeration-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.Abstractions.ConvertibleEnumeration<TEnum, TValue>",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.Abstractions.ConvertibleEnumeration-2.yml\" sourcestartlinenumber=\"1\">The convertible enumeration base.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.Abstractions.DecimalEnumeration-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.Abstractions.DecimalEnumeration-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.Abstractions.DecimalEnumeration<T>",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.Abstractions.DecimalEnumeration-1.yml\" sourcestartlinenumber=\"1\">The double enumeration base.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.Abstractions.DoubleEnumeration-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.Abstractions.DoubleEnumeration-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.Abstractions.DoubleEnumeration<T>",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.Abstractions.DoubleEnumeration-1.yml\" sourcestartlinenumber=\"1\">The double enumeration base.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.Abstractions.EnumerationBase-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.Abstractions.EnumerationBase<TEnum, TValue>",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.Abstractions.EnumerationBase-2.yml\" sourcestartlinenumber=\"1\">Represents the base type for class-based enumerations.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.Abstractions.FloatEnumeration-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.Abstractions.FloatEnumeration-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.Abstractions.FloatEnumeration<T>",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.Abstractions.FloatEnumeration-1.yml\" sourcestartlinenumber=\"1\">The float enumeration base.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.Abstractions.IntEnumeration-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.Abstractions.IntEnumeration-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.Abstractions.IntEnumeration<T>",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.Abstractions.IntEnumeration-1.yml\" sourcestartlinenumber=\"1\">The int enumeration base.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.Abstractions.LongEnumeration-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.Abstractions.LongEnumeration-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.Abstractions.LongEnumeration<T>",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.Abstractions.LongEnumeration-1.yml\" sourcestartlinenumber=\"1\">The long enumeration base.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.Abstractions.SByteEnumeration-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.Abstractions.SByteEnumeration-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.Abstractions.SByteEnumeration<T>",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.Abstractions.SByteEnumeration-1.yml\" sourcestartlinenumber=\"1\">The sbyte enumeration base.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.Abstractions.ShortEnumeration-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.Abstractions.ShortEnumeration-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.Abstractions.ShortEnumeration<T>",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.Abstractions.ShortEnumeration-1.yml\" sourcestartlinenumber=\"1\">The short enumeration base.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.Abstractions.UIntEnumeration-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.Abstractions.UIntEnumeration-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.Abstractions.UIntEnumeration<T>",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.Abstractions.UIntEnumeration-1.yml\" sourcestartlinenumber=\"1\">The uint enumeration base.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.Abstractions.ULongEnumeration-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.Abstractions.ULongEnumeration-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.Abstractions.ULongEnumeration<T>",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.Abstractions.ULongEnumeration-1.yml\" sourcestartlinenumber=\"1\">The ulong enumeration base.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.Abstractions.UShortEnumeration-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.Abstractions.UShortEnumeration-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.Abstractions.UShortEnumeration<T>",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.Abstractions.UShortEnumeration-1.yml\" sourcestartlinenumber=\"1\">The ushort enumeration base.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.Abstractions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.Abstractions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.Abstractions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.Calendars.Month.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.Calendars.Month.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.Calendars.Month",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.Calendars.Month.yml\" sourcestartlinenumber=\"1\">The month enumeration.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.Calendars.WeekDay.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.Calendars.WeekDay.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.Calendars.WeekDay",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.Calendars.WeekDay.yml\" sourcestartlinenumber=\"1\">The week day enumeration.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.Calendars.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.Calendars.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.Calendars",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.EnumerationExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.EnumerationExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.EnumerationExtensions",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.EnumerationExtensions.yml\" sourcestartlinenumber=\"1\">Provides extension methods for enumeration types and enumeration collections.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.EnumerationNotFoundException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.EnumerationNotFoundException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.EnumerationNotFoundException",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.EnumerationNotFoundException.yml\" sourcestartlinenumber=\"1\">The enumeration not found exception.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.IEnumeration-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.IEnumeration-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.IEnumeration<TEnum, TValue>",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.IEnumeration-2.yml\" sourcestartlinenumber=\"1\">The enumeration interface.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.ISwitchStatement-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.ISwitchStatement-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.ISwitchStatement<TEnum, TValue>",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.ISwitchStatement-2.yml\" sourcestartlinenumber=\"1\">The switch statement interface</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.IThenStatement-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.IThenStatement-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.IThenStatement<TEnum, TValue>",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.IThenStatement-2.yml\" sourcestartlinenumber=\"1\">The then statement.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.IWhenStatement-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.IWhenStatement-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration.IWhenStatement<TEnum, TValue>",
+      "Summary": "<p sourcefile=\"api/CloudyWing.Enumeration.IWhenStatement-2.yml\" sourcestartlinenumber=\"1\">The when statement.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/CloudyWing.Enumeration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/CloudyWing.Enumeration.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "CloudyWing.Enumeration",
+      "Summary": null
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/changelog.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/changelog.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/getting-started.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/getting-started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/lookup-and-discovery.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/lookup-and-discovery.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html"
+        },
+        ".json": {
+          "relative_path": "articles/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/logo.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/logo.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

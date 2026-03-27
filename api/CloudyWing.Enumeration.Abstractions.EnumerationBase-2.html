@@ -1,0 +1,2089 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class EnumerationBase&lt;TEnum, TValue&gt; | Enumeration Docs </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class EnumerationBase&lt;TEnum, TValue&gt; | Enumeration Docs ">
+      
+      <meta name="description" content="Represents the base type for class-based enumerations.">
+      <link rel="icon" href="../images/logo.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/CloudyWing/Enumeration/new/main/apiSpec/new?filename=CloudyWing_Enumeration_Abstractions_EnumerationBase_2.md&amp;value=---%0Auid%3A%20CloudyWing.Enumeration.Abstractions.EnumerationBase%602%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="Enumeration Docs">
+            Enumeration Docs
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2">
+
+
+
+  <h1 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2" class="text-break">
+Class EnumerationBase&lt;TEnum, TValue&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="CloudyWing.html">CloudyWing</a>.<a class="xref" href="CloudyWing.Enumeration.html">Enumeration</a>.<a class="xref" href="CloudyWing.Enumeration.Abstractions.html">Abstractions</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>CloudyWing.Enumeration.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents the base type for class-based enumerations.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class EnumerationBase&lt;TEnum, TValue&gt; : IEnumeration&lt;TEnum, TValue&gt;, IComparable, IEquatable&lt;TEnum&gt;, IComparable&lt;TEnum&gt; where TEnum : EnumerationBase&lt;TEnum, TValue&gt; where TValue : IComparable</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TEnum</code></dt>
+    <dd><p>The concrete enumeration type.</p>
+</dd>
+    <dt><code>TValue</code></dt>
+    <dd><p>The underlying value type.</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">EnumerationBase&lt;TEnum, TValue&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="CloudyWing.Enumeration.IEnumeration-2.html">IEnumeration</a>&lt;TEnum, TValue&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.icomparable">IComparable</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;TEnum&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.icomparable-1">IComparable</a>&lt;TEnum&gt;</div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="CloudyWing.Enumeration.Abstractions.ConvertibleEnumeration-2.html">ConvertibleEnumeration&lt;TEnum, TValue&gt;</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="CloudyWing.Enumeration.EnumerationExtensions.html#CloudyWing_Enumeration_EnumerationExtensions_When__2_CloudyWing_Enumeration_IEnumeration___0___1__CloudyWing_Enumeration_IEnumeration___0___1____">EnumerationExtensions.When&lt;TEnum, TValue&gt;(IEnumeration&lt;TEnum, TValue&gt;, params IEnumeration&lt;TEnum, TValue&gt;[])</a>
+  </div>
+  <div>
+      <a class="xref" href="CloudyWing.Enumeration.EnumerationExtensions.html#CloudyWing_Enumeration_EnumerationExtensions_When__2_CloudyWing_Enumeration_IEnumeration___0___1__System_Boolean_">EnumerationExtensions.When&lt;TEnum, TValue&gt;(IEnumeration&lt;TEnum, TValue&gt;, bool)</a>
+  </div>
+  <div>
+      <a class="xref" href="CloudyWing.Enumeration.EnumerationExtensions.html#CloudyWing_Enumeration_EnumerationExtensions_When__2_CloudyWing_Enumeration_IEnumeration___0___1__System_Collections_Generic_IEnumerable_CloudyWing_Enumeration_IEnumeration___0___1___">EnumerationExtensions.When&lt;TEnum, TValue&gt;(IEnumeration&lt;TEnum, TValue&gt;, IEnumerable&lt;IEnumeration&lt;TEnum, TValue&gt;&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="CloudyWing.Enumeration.EnumerationExtensions.html#CloudyWing_Enumeration_EnumerationExtensions_When__2_CloudyWing_Enumeration_IEnumeration___0___1__System_Func_System_Boolean__">EnumerationExtensions.When&lt;TEnum, TValue&gt;(IEnumeration&lt;TEnum, TValue&gt;, Func&lt;bool&gt;)</a>
+  </div>
+  </dd></dl>
+
+
+
+  <h2 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>Enumeration instances are discovered from public static properties declared directly on <code class="typeparamref">TEnum</code>.</p>
+</div>
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2__ctor_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.#ctor*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2__ctor__1_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.#ctor(`1)">
+  EnumerationBase(TValue)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase&lt;TEnum, TValue&gt;</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected EnumerationBase(TValue value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">TValue</span></dt>
+    <dd><p>The underlying enumeration value.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></dt>
+    <dd><p><code class="paramref">value</code> returns a <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> string representation.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2__ctor_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.#ctor*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2__ctor__1_System_String_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.#ctor(`1,System.String)">
+  EnumerationBase(TValue, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L44"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase&lt;TEnum, TValue&gt;</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected EnumerationBase(TValue value, string name)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">TValue</span></dt>
+    <dd><p>The underlying enumeration value.</p>
+</dd>
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The display name.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_Name_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.Name*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_Name" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.Name">
+  Name
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L59"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the display name of the enumeration.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The display name associated with the enumeration instance.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_Value_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.Value*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_Value" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.Value">
+  Value
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L53"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the underlying value of the enumeration.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TValue Value { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TValue</span></dt>
+    <dd><p>The value used to identify the enumeration instance.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_CompareTo_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.CompareTo*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_CompareTo_System_Object_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.CompareTo(System.Object)">
+  CompareTo(object?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L287"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CompareTo(object? obj)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>obj</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_CompareTo_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.CompareTo*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_CompareTo__0_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.CompareTo(`0)">
+  CompareTo(TEnum?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L298"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int CompareTo(TEnum? other)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <span class="xref">TEnum</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_CompareTo_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.CompareTo*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_CompareTo__1_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.CompareTo(`1)">
+  CompareTo(TValue)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L321"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Compares the current instance with another object of the same type and returns an integer that indicates whether the current instance precedes, follows, or occurs in the same position in the sort order as the other object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int CompareTo(TValue other)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <span class="xref">TValue</span></dt>
+    <dd><p>An object to compare with this instance.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>A value that indicates the relative order of the objects being compared. The return value has these meanings:
+Value
+Meaning
+Less than zero
+This instance precedes <code class="paramref">other</code> in the sort order.
+Zero
+This instance occurs in the same position in the sort order as <code class="paramref">other</code>.
+Greater than zero
+This instance follows <code class="paramref">other</code> in the sort order.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_Equals_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.Equals*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_Equals_System_Object_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.Equals(System.Object)">
+  Equals(object?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L252"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Determines whether the specified <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>, is equal to this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object? obj)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>obj</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a> to compare with this instance.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><code>true</code> if the specified <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a> is equal to this instance; otherwise, <code>false</code>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_Equals_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.Equals*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_Equals__0_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.Equals(`0)">
+  Equals(TEnum?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L263"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(TEnum? other)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <span class="xref">TEnum</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_Equals_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.Equals*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_Equals__1_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.Equals(`1)">
+  Equals(TValue)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L276"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Equalses the specified other.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual bool Equals(TValue value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">TValue</span></dt>
+    <dd><p>The other.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><code>true</code> If the current object value is equal to other parameters; otherwise, <code>false</code>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_GetAll_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.GetAll*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_GetAll" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.GetAll">
+  GetAll()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L68"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets all declared enumeration instances.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;TEnum&gt; GetAll()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;TEnum&gt;</dt>
+    <dd><p>The declared enumeration instances.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_GetAll_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Instances are returned in the same order as their declaring public static properties on <code class="typeparamref">TEnum</code>.</p>
+</div>
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_GetHashCode_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.GetHashCode*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_GetHashCode" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.GetHashCode">
+  GetHashCode()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L282"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_GetNames_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.GetNames*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_GetNames" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.GetNames">
+  GetNames()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L88"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the names of all declared enumeration instances.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;string&gt; GetNames()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd><p>The declared enumeration names.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_GetValueType_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.GetValueType*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_GetValueType" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.GetValueType">
+  GetValueType()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L222"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the underlying value type of the enumeration.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Type GetValueType()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
+    <dd><p>The runtime type represented by <code class="typeparamref">TValue</code>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_GetValues_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.GetValues*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_GetValues" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.GetValues">
+  GetValues()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the values of all declared enumeration instances.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;TValue&gt; GetValues()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;TValue&gt;</dt>
+    <dd><p>The declared enumeration values.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_IsDefined_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.IsDefined*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_IsDefined__1_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.IsDefined(`1)">
+  IsDefined(TValue)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L143"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Determines whether the specified value matches a declared enumeration.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsDefined(TValue value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">TValue</span></dt>
+    <dd><p>The value to match.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if a matching enumeration exists; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></dt>
+    <dd><p>More than one declared enumeration matches <code class="paramref">value</code>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_IsDefinedName_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.IsDefinedName*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_IsDefinedName_System_String_System_Boolean_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.IsDefinedName(System.String,System.Boolean)">
+  IsDefinedName(string, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L214"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Determines whether the specified name matches a declared enumeration.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsDefinedName(string name, bool ignoreCase = false)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name to match.</p>
+</dd>
+    <dt><code>ignoreCase</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> to ignore name casing; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if a matching enumeration exists; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></dt>
+    <dd><p>More than one declared enumeration matches <code class="paramref">name</code>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_Parse_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.Parse*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_Parse__1_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.Parse(`1)">
+  Parse(TValue)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the declared enumeration instance that matches the specified value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TEnum Parse(TValue value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">TValue</span></dt>
+    <dd><p>The value to match.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TEnum</span></dt>
+    <dd><p>The matching enumeration instance.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="CloudyWing.Enumeration.EnumerationNotFoundException.html">EnumerationNotFoundException</a></dt>
+    <dd><p>No declared enumeration matches <code class="paramref">value</code>.</p>
+</dd>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></dt>
+    <dd><p>More than one declared enumeration matches <code class="paramref">value</code>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_ParseName_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.ParseName*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_ParseName_System_String_System_Boolean_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.ParseName(System.String,System.Boolean)">
+  ParseName(string, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L155"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the declared enumeration instance that matches the specified name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TEnum ParseName(string name, bool ignoreCase = false)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name to match.</p>
+</dd>
+    <dt><code>ignoreCase</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> to ignore name casing; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TEnum</span></dt>
+    <dd><p>The matching enumeration instance.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="CloudyWing.Enumeration.EnumerationNotFoundException.html">EnumerationNotFoundException</a></dt>
+    <dd><p>No declared enumeration matches <code class="paramref">name</code>.</p>
+</dd>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></dt>
+    <dd><p>More than one declared enumeration matches <code class="paramref">name</code>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_ParseNameOrDefault_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.ParseNameOrDefault*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_ParseNameOrDefault_System_String__0_System_Boolean_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.ParseNameOrDefault(System.String,`0,System.Boolean)">
+  ParseNameOrDefault(string, TEnum, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L170"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the declared enumeration instance that matches the specified name, or returns a fallback instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TEnum ParseNameOrDefault(string name, TEnum defaultEnumeration, bool ignoreCase = false)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name to match.</p>
+</dd>
+    <dt><code>defaultEnumeration</code> <span class="xref">TEnum</span></dt>
+    <dd><p>The enumeration to return when no match is found.</p>
+</dd>
+    <dt><code>ignoreCase</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> to ignore name casing; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TEnum</span></dt>
+    <dd><p>The parsed enumeration if it exists; otherwise, <code class="paramref">defaultEnumeration</code>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">defaultEnumeration</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></dt>
+    <dd><p>More than one declared enumeration matches <code class="paramref">name</code>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_ParseOrDefault_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.ParseOrDefault*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_ParseOrDefault__1__0_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.ParseOrDefault(`1,`0)">
+  ParseOrDefault(TValue, TEnum)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L115"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the declared enumeration instance that matches the specified value, or returns a fallback instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TEnum ParseOrDefault(TValue value, TEnum defaultEnumeration)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">TValue</span></dt>
+    <dd><p>The value to match.</p>
+</dd>
+    <dt><code>defaultEnumeration</code> <span class="xref">TEnum</span></dt>
+    <dd><p>The enumeration to return when no match is found.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TEnum</span></dt>
+    <dd><p>The parsed enumeration if it exists; otherwise, <code class="paramref">defaultEnumeration</code>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></dt>
+    <dd><p><code class="paramref">defaultEnumeration</code> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</dd>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></dt>
+    <dd><p>More than one declared enumeration matches <code class="paramref">value</code>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_ToString_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.ToString*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_ToString" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.ToString">
+  ToString()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L327"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Converts to string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_TryParse_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.TryParse*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_TryParse__1__0__" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.TryParse(`1,`0@)">
+  TryParse(TValue, out TEnum)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L132"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Tries to get the declared enumeration instance that matches the specified value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryParse(TValue value, out TEnum enumeration)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">TValue</span></dt>
+    <dd><p>The value to match.</p>
+</dd>
+    <dt><code>enumeration</code> <span class="xref">TEnum</span></dt>
+    <dd><p>The matching enumeration instance.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if a matching enumeration exists; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></dt>
+    <dd><p>More than one declared enumeration matches <code class="paramref">value</code>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_TryParseName_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.TryParseName*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_TryParseName_System_String_System_Boolean__0__" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.TryParseName(System.String,System.Boolean,`0@)">
+  TryParseName(string, bool, out TEnum)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L199"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Tries to get the declared enumeration instance that matches the specified name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryParseName(string name, bool ignoreCase, out TEnum enumeration)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name to match.</p>
+</dd>
+    <dt><code>ignoreCase</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> to ignore name casing; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
+    <dt><code>enumeration</code> <span class="xref">TEnum</span></dt>
+    <dd><p>The matching enumeration instance.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if a matching enumeration exists; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></dt>
+    <dd><p>More than one declared enumeration matches <code class="paramref">name</code>.</p>
+</dd>
+  </dl>
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_TryParseName_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.TryParseName*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_TryParseName_System_String__0__" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.TryParseName(System.String,`0@)">
+  TryParseName(string, out TEnum)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L187"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Tries to get the declared enumeration instance that matches the specified name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryParseName(string name, out TEnum enumeration)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name to match.</p>
+</dd>
+    <dt><code>enumeration</code> <span class="xref">TEnum</span></dt>
+    <dd><p>The matching enumeration instance.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if a matching enumeration exists; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></dt>
+    <dd><p>More than one declared enumeration matches <code class="paramref">name</code>.</p>
+</dd>
+  </dl>
+
+
+
+  <h2 class="section" id="operators">Operators
+</h2>
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_Equality_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_Equality*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_Equality_CloudyWing_Enumeration_Abstractions_EnumerationBase__0__1___1_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_Equality(CloudyWing.Enumeration.Abstractions.EnumerationBase{`0,`1},`1)">
+  operator ==(EnumerationBase&lt;TEnum, TValue&gt;?, TValue)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L359"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Implements the operator ==.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator ==(EnumerationBase&lt;TEnum, TValue&gt;? left, TValue right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase</a>&lt;TEnum, TValue&gt;</dt>
+    <dd><p>The left.</p>
+</dd>
+    <dt><code>right</code> <span class="xref">TValue</span></dt>
+    <dd><p>The right.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>The result of the operator.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_Equality_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_Equality*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_Equality__0_CloudyWing_Enumeration_Abstractions_EnumerationBase__0__1__" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_Equality(`0,CloudyWing.Enumeration.Abstractions.EnumerationBase{`0,`1})">
+  operator ==(TEnum?, EnumerationBase&lt;TEnum, TValue&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L351"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Implements the operator ==.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator ==(TEnum? left, EnumerationBase&lt;TEnum, TValue&gt;? right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <span class="xref">TEnum</span></dt>
+    <dd><p>The left.</p>
+</dd>
+    <dt><code>right</code> <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase</a>&lt;TEnum, TValue&gt;</dt>
+    <dd><p>The right.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>The result of the operator.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_Equality_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_Equality*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_Equality__1_CloudyWing_Enumeration_Abstractions_EnumerationBase__0__1__" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_Equality(`1,CloudyWing.Enumeration.Abstractions.EnumerationBase{`0,`1})">
+  operator ==(TValue, EnumerationBase&lt;TEnum, TValue&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L367"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Implements the operator ==.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator ==(TValue left, EnumerationBase&lt;TEnum, TValue&gt;? right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <span class="xref">TValue</span></dt>
+    <dd><p>The left.</p>
+</dd>
+    <dt><code>right</code> <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase</a>&lt;TEnum, TValue&gt;</dt>
+    <dd><p>The right.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>The result of the operator.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_Explicit_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_Explicit*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_Explicit__1__CloudyWing_Enumeration_Abstractions_EnumerationBase__0__1_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_Explicit(`1)~CloudyWing.Enumeration.Abstractions.EnumerationBase{`0,`1}">
+  explicit operator EnumerationBase&lt;TEnum, TValue&gt;(TValue)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L342"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Performs an explicit conversion from <code>TValue</code> to <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase&lt;TEnum, TValue&gt;</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static explicit operator EnumerationBase&lt;TEnum, TValue&gt;(TValue value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">TValue</span></dt>
+    <dd><p>The value.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase</a>&lt;TEnum, TValue&gt;</dt>
+    <dd><p>The result of the conversion.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidcastexception">InvalidCastException</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_GreaterThan_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_GreaterThan*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_GreaterThan_CloudyWing_Enumeration_Abstractions_EnumerationBase__0__1___1_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_GreaterThan(CloudyWing.Enumeration.Abstractions.EnumerationBase{`0,`1},`1)">
+  operator &gt;(EnumerationBase&lt;TEnum, TValue&gt;?, TValue)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L410"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Implements the operator &gt;.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator &gt;(EnumerationBase&lt;TEnum, TValue&gt;? left, TValue right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase</a>&lt;TEnum, TValue&gt;</dt>
+    <dd><p>The left.</p>
+</dd>
+    <dt><code>right</code> <span class="xref">TValue</span></dt>
+    <dd><p>The right.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>The result of the operator.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_GreaterThan_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_GreaterThan*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_GreaterThan__0_CloudyWing_Enumeration_Abstractions_EnumerationBase__0__1__" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_GreaterThan(`0,CloudyWing.Enumeration.Abstractions.EnumerationBase{`0,`1})">
+  operator &gt;(TEnum?, EnumerationBase&lt;TEnum, TValue&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L399"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Implements the operator &gt;.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator &gt;(TEnum? left, EnumerationBase&lt;TEnum, TValue&gt;? right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <span class="xref">TEnum</span></dt>
+    <dd><p>The left.</p>
+</dd>
+    <dt><code>right</code> <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase</a>&lt;TEnum, TValue&gt;</dt>
+    <dd><p>The right.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>The result of the operator.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_GreaterThan_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_GreaterThan*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_GreaterThan__1_CloudyWing_Enumeration_Abstractions_EnumerationBase__0__1__" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_GreaterThan(`1,CloudyWing.Enumeration.Abstractions.EnumerationBase{`0,`1})">
+  operator &gt;(TValue, EnumerationBase&lt;TEnum, TValue&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L419"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Implements the operator &gt;.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator &gt;(TValue left, EnumerationBase&lt;TEnum, TValue&gt;? right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <span class="xref">TValue</span></dt>
+    <dd><p>The left.</p>
+</dd>
+    <dt><code>right</code> <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase</a>&lt;TEnum, TValue&gt;</dt>
+    <dd><p>The right.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>The result of the operator.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_GreaterThanOrEqual_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_GreaterThanOrEqual*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_GreaterThanOrEqual_CloudyWing_Enumeration_Abstractions_EnumerationBase__0__1___1_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_GreaterThanOrEqual(CloudyWing.Enumeration.Abstractions.EnumerationBase{`0,`1},`1)">
+  operator &gt;=(EnumerationBase&lt;TEnum, TValue&gt;?, TValue)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L467"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Implements the operator &gt;=.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator &gt;=(EnumerationBase&lt;TEnum, TValue&gt;? left, TValue right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase</a>&lt;TEnum, TValue&gt;</dt>
+    <dd><p>The left.</p>
+</dd>
+    <dt><code>right</code> <span class="xref">TValue</span></dt>
+    <dd><p>The right.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>The result of the operator.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_GreaterThanOrEqual_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_GreaterThanOrEqual*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_GreaterThanOrEqual__0_CloudyWing_Enumeration_Abstractions_EnumerationBase__0__1__" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_GreaterThanOrEqual(`0,CloudyWing.Enumeration.Abstractions.EnumerationBase{`0,`1})">
+  operator &gt;=(TEnum?, EnumerationBase&lt;TEnum, TValue&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L455"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Implements the operator &gt;=.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator &gt;=(TEnum? left, EnumerationBase&lt;TEnum, TValue&gt;? right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <span class="xref">TEnum</span></dt>
+    <dd><p>The left.</p>
+</dd>
+    <dt><code>right</code> <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase</a>&lt;TEnum, TValue&gt;</dt>
+    <dd><p>The right.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>The result of the operator.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_GreaterThanOrEqual_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_GreaterThanOrEqual*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_GreaterThanOrEqual__1_CloudyWing_Enumeration_Abstractions_EnumerationBase__0__1__" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_GreaterThanOrEqual(`1,CloudyWing.Enumeration.Abstractions.EnumerationBase{`0,`1})">
+  operator &gt;=(TValue, EnumerationBase&lt;TEnum, TValue&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L476"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Implements the operator &gt;=.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator &gt;=(TValue left, EnumerationBase&lt;TEnum, TValue&gt;? right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <span class="xref">TValue</span></dt>
+    <dd><p>The left.</p>
+</dd>
+    <dt><code>right</code> <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase</a>&lt;TEnum, TValue&gt;</dt>
+    <dd><p>The right.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>The result of the operator.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_Implicit_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_Implicit*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_Implicit_CloudyWing_Enumeration_Abstractions_EnumerationBase__0__1____1" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_Implicit(CloudyWing.Enumeration.Abstractions.EnumerationBase{`0,`1})~`1">
+  implicit operator TValue(EnumerationBase&lt;TEnum, TValue&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L334"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Performs an implicit conversion from <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase&lt;TEnum, TValue&gt;</a> to <code>TValue</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static implicit operator TValue(EnumerationBase&lt;TEnum, TValue&gt; enumeration)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>enumeration</code> <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase</a>&lt;TEnum, TValue&gt;</dt>
+    <dd><p>The enumeration.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TValue</span></dt>
+    <dd><p>The result of the conversion.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_Inequality_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_Inequality*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_Inequality_CloudyWing_Enumeration_Abstractions_EnumerationBase__0__1___1_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_Inequality(CloudyWing.Enumeration.Abstractions.EnumerationBase{`0,`1},`1)">
+  operator !=(EnumerationBase&lt;TEnum, TValue&gt;?, TValue)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L383"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Implements the operator !=.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator !=(EnumerationBase&lt;TEnum, TValue&gt;? left, TValue right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase</a>&lt;TEnum, TValue&gt;</dt>
+    <dd><p>The left.</p>
+</dd>
+    <dt><code>right</code> <span class="xref">TValue</span></dt>
+    <dd><p>The right.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>The result of the operator.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_Inequality_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_Inequality*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_Inequality__0_CloudyWing_Enumeration_Abstractions_EnumerationBase__0__1__" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_Inequality(`0,CloudyWing.Enumeration.Abstractions.EnumerationBase{`0,`1})">
+  operator !=(TEnum?, EnumerationBase&lt;TEnum, TValue&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L375"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Implements the operator !=.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator !=(TEnum? left, EnumerationBase&lt;TEnum, TValue&gt;? right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <span class="xref">TEnum</span></dt>
+    <dd><p>The left.</p>
+</dd>
+    <dt><code>right</code> <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase</a>&lt;TEnum, TValue&gt;</dt>
+    <dd><p>The right.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>The result of the operator.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_Inequality_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_Inequality*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_Inequality__1_CloudyWing_Enumeration_Abstractions_EnumerationBase__0__1__" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_Inequality(`1,CloudyWing.Enumeration.Abstractions.EnumerationBase{`0,`1})">
+  operator !=(TValue, EnumerationBase&lt;TEnum, TValue&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L391"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Implements the operator !=.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator !=(TValue left, EnumerationBase&lt;TEnum, TValue&gt;? right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <span class="xref">TValue</span></dt>
+    <dd><p>The left.</p>
+</dd>
+    <dt><code>right</code> <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase</a>&lt;TEnum, TValue&gt;</dt>
+    <dd><p>The right.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>The result of the operator.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_LessThan_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_LessThan*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_LessThan_CloudyWing_Enumeration_Abstractions_EnumerationBase__0__1___1_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_LessThan(CloudyWing.Enumeration.Abstractions.EnumerationBase{`0,`1},`1)">
+  operator &lt;(EnumerationBase&lt;TEnum, TValue&gt;?, TValue)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L439"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Implements the operator &lt;.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator &lt;(EnumerationBase&lt;TEnum, TValue&gt;? left, TValue right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase</a>&lt;TEnum, TValue&gt;</dt>
+    <dd><p>The left.</p>
+</dd>
+    <dt><code>right</code> <span class="xref">TValue</span></dt>
+    <dd><p>The right.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>The result of the operator.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_LessThan_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_LessThan*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_LessThan__0_CloudyWing_Enumeration_Abstractions_EnumerationBase__0__1__" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_LessThan(`0,CloudyWing.Enumeration.Abstractions.EnumerationBase{`0,`1})">
+  operator &lt;(TEnum?, EnumerationBase&lt;TEnum, TValue&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L427"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Implements the operator &lt;.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator &lt;(TEnum? left, EnumerationBase&lt;TEnum, TValue&gt;? right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <span class="xref">TEnum</span></dt>
+    <dd><p>The left.</p>
+</dd>
+    <dt><code>right</code> <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase</a>&lt;TEnum, TValue&gt;</dt>
+    <dd><p>The right.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>The result of the operator.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_LessThan_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_LessThan*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_LessThan__1_CloudyWing_Enumeration_Abstractions_EnumerationBase__0__1__" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_LessThan(`1,CloudyWing.Enumeration.Abstractions.EnumerationBase{`0,`1})">
+  operator &lt;(TValue, EnumerationBase&lt;TEnum, TValue&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L447"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Implements the operator &lt;.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator &lt;(TValue left, EnumerationBase&lt;TEnum, TValue&gt;? right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <span class="xref">TValue</span></dt>
+    <dd><p>The left.</p>
+</dd>
+    <dt><code>right</code> <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase</a>&lt;TEnum, TValue&gt;</dt>
+    <dd><p>The right.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>The result of the operator.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_LessThanOrEqual_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_LessThanOrEqual*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_LessThanOrEqual_CloudyWing_Enumeration_Abstractions_EnumerationBase__0__1___1_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_LessThanOrEqual(CloudyWing.Enumeration.Abstractions.EnumerationBase{`0,`1},`1)">
+  operator &lt;=(EnumerationBase&lt;TEnum, TValue&gt;?, TValue)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L496"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Implements the operator &lt;=.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator &lt;=(EnumerationBase&lt;TEnum, TValue&gt;? left, TValue right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase</a>&lt;TEnum, TValue&gt;</dt>
+    <dd><p>The left.</p>
+</dd>
+    <dt><code>right</code> <span class="xref">TValue</span></dt>
+    <dd><p>The right.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>The result of the operator.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_LessThanOrEqual_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_LessThanOrEqual*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_LessThanOrEqual__0_CloudyWing_Enumeration_Abstractions_EnumerationBase__0__1__" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_LessThanOrEqual(`0,CloudyWing.Enumeration.Abstractions.EnumerationBase{`0,`1})">
+  operator &lt;=(TEnum?, EnumerationBase&lt;TEnum, TValue&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L484"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Implements the operator &lt;=.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator &lt;=(TEnum? left, EnumerationBase&lt;TEnum, TValue&gt;? right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <span class="xref">TEnum</span></dt>
+    <dd><p>The left.</p>
+</dd>
+    <dt><code>right</code> <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase</a>&lt;TEnum, TValue&gt;</dt>
+    <dd><p>The right.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>The result of the operator.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_LessThanOrEqual_" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_LessThanOrEqual*"></a>
+
+  <h3 id="CloudyWing_Enumeration_Abstractions_EnumerationBase_2_op_LessThanOrEqual__1_CloudyWing_Enumeration_Abstractions_EnumerationBase__0__1__" data-uid="CloudyWing.Enumeration.Abstractions.EnumerationBase`2.op_LessThanOrEqual(`1,CloudyWing.Enumeration.Abstractions.EnumerationBase{`0,`1})">
+  operator &lt;=(TValue, EnumerationBase&lt;TEnum, TValue&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L504"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Implements the operator &lt;=.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator &lt;=(TValue left, EnumerationBase&lt;TEnum, TValue&gt;? right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <span class="xref">TValue</span></dt>
+    <dd><p>The left.</p>
+</dd>
+    <dt><code>right</code> <a class="xref" href="CloudyWing.Enumeration.Abstractions.EnumerationBase-2.html">EnumerationBase</a>&lt;TEnum, TValue&gt;</dt>
+    <dd><p>The right.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>The result of the operator.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <h2 id="seealso">See Also</h2>
+  <div class="seealso">
+      <div><a class="xref" href="CloudyWing.Enumeration.IEnumeration-2.html">IEnumeration</a>&lt;TEnum, TValue&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;T&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.icomparable-1">IComparable</a>&lt;T&gt;</div>
+  </div>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/CloudyWing/Enumeration/blob/main/src/Enumeration/Abstractions/EnumerationBase.cs/#L20" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
