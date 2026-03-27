@@ -4,7 +4,7 @@
 
 ### New Features
 
-- Added lookup and discovery helpers on `EnumerationBase<TEnum, TValue>` for retrieving declared names and values, checking whether names or values are defined, and supplying fallback enumeration instances.
-- Added collection helpers on `EnumerationExtensions` for checking names, resolving names and values from existing sequences, and building dictionaries keyed by either value or name.
-- Expanded the README and DocFX articles with practical examples for the new additive APIs.
-- Improved English XML documentation for the public lookup and discovery members.
+- 新增 `EnumerationBase<TEnum, TValue>` 的查找與探索輔助方法，支援取得已宣告的名稱與值、檢查名稱或值是否已定義，以及提供備援列舉實例。
+- 新增 `EnumerationExtensions` 的集合輔助方法，支援名稱檢查、從現有序列解析名稱與值，以及依值或名稱建立字典。
+- 擴充 README 與 DocFX 文件，補充新增 API 的實際使用範例。
+- 改善 public 查找與探索成員的英文 XML 文件。
