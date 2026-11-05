@@ -12,7 +12,17 @@ Enumeration 是一個提供強類型列舉模式的函式庫，允許建立型�
 
 - [入門指南](articles/getting-started.md)
 - [核心概念](articles/core-concepts.md)
+- [查找與探索](articles/lookup-and-discovery.md)
 - [進階用法](articles/advanced-usage.md)
+
+### 套件
+
+| 套件 | 說明 |
+| --- | --- |
+| `CloudyWing.Enumeration` | 列舉基底類別、查找 API、Fluent 條件判斷與 `TypeConverter`。 |
+| `CloudyWing.Enumeration.Calendars` | 月份（`Month`）與星期（`WeekDay`）列舉。 |
+| `CloudyWing.Enumeration.Json` | System.Text.Json 轉換器。 |
+| `CloudyWing.Enumeration.Analyzers` | 偵測重複 Value、重複 Name 與 public 建構子的 Analyzer。 |
 
 ## License
 

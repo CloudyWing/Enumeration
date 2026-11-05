@@ -3,7 +3,7 @@ using CloudyWing.Enumeration.Abstractions;
 
 namespace CloudyWing.Enumeration.Calendars {
     /// <summary>The week day enumeration.</summary>
-    /// <seealso cref="IntEnumeration&lt;Month&gt;" />
+    /// <seealso cref="IntEnumeration&lt;WeekDay&gt;" />
     [Serializable]
     public sealed class WeekDay : IntEnumeration<WeekDay> {
         private static readonly Lazy<WeekDay> sunday = new Lazy<WeekDay>(() => new WeekDay(0, "星期日", nameof(Sunday)));

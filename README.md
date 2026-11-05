@@ -6,7 +6,7 @@
 
 **Enumeration** 為[Constants](https://github.com/CloudyWing/Constants) 重新優化的版本，起因是看到 MSDN「[使用列舉類別，而非列舉類型](https://learn.microsoft.com/zh-tw/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/enumeration-classes-over-enum-types)」這篇文章，覺得原本的命名有些不適當，所以重建一個 Repository，後面不知不覺就幾乎整個重寫了...。
 
-**Enumeration**，為將列舉類別重複的程式碼整理成 `EnumerationBase<T>` 的抽象類別，繼承實作的方法請參考 Examples。
+**Enumeration**，為將列舉類別重複的程式碼整理成 `EnumerationBase<TEnum, TValue>` 的抽象類別，繼承實作的方法請參考 Examples。
 
 ## Supported Frameworks
 
@@ -121,18 +121,16 @@ public sealed class WeekDay : IntEnumeration<WeekDay> {
 ```
 
 ### 條件判斷
-由於 Enumeration 無法像 `enum` 一樣用於 Switch Case，所以提供 Fluent Interface 來簡化寫法。
+由於 Enumeration 無法像 `enum` 一樣用於 Switch Case，所以提供 Fluent Interface 來簡化寫法。只會執行第一個成立的分支，已有分支執行後，後續的條件不會再評估。
 ```csharp
 public void Test(WeekDay week) {
     List<WeekDay> list = new List<WeekDay>();
 
-    week.When(WeekDay.Sunday).then(() => list.Add(week))
-        .When(WeekDay.Sunday, WeekDay.Monday).then(() => list.Add(week))
-        .When(true).then(() => list.Add(week))
-        .When(WeekDay.Sunday)
-        .AndWhen(true).then(() => list.Add(week)).then(() => list.Add(week))
-        .When(WeekDay.Sunday).then(() => list.Add(week))
-        .OrWhen(WeekDay.Sunday, WeekDay.Monday)).then(() => list.Add(week))
+    week.When(WeekDay.Sunday).Then(() => list.Add(week))
+        .When(WeekDay.Sunday, WeekDay.Monday).Then(() => list.Add(week))
+        .When(true).Then(() => list.Add(week))
+        .When(WeekDay.Sunday).AndWhen(true).Then(() => list.Add(week))
+        .When(WeekDay.Sunday).OrWhen(WeekDay.Monday, WeekDay.Tuesday).Then(() => list.Add(week))
         .Default(() => list.Add(week));
     
     /*
@@ -141,7 +139,7 @@ public void Test(WeekDay week) {
 
     if (week == WeekDay.Sunday) {
         list.Add(week);
-    } eles if (week == WeekDay.Sunday || week == WeekDay.Monday) {
+    } else if (week == WeekDay.Sunday || week == WeekDay.Monday) {
         list.Add(week);
     } else if (true) {
         list.Add(week);
@@ -157,7 +155,7 @@ public void Test(WeekDay week) {
 ```
 
 ### Operators
-`EnumerationBase<TEnum, TValue>` 有定義 `EnumerationBase<TEnum, TValue>` 與 `TEnum` 還有 `EnumerationBase<TEnum, TValue>` 與 `TValue` 之間的 Operators ，Operators 包含了 `Implicit Conversion`、`Explicit Conversion`、`==`、`!=`、`>`、`<`、`>=`、`<=`，需注意 `Explicit Conversion` 失敗會 Throw `InvalidCastException`。
+`EnumerationBase<TEnum, TValue>` 有定義 `EnumerationBase<TEnum, TValue>` 與 `TEnum` 還有 `EnumerationBase<TEnum, TValue>` 與 `TValue` 之間的 Operators ，Operators 包含了 `Implicit Conversion`、`Explicit Conversion`、`==`、`!=`、`>`、`<`、`>=`、`<=`，需注意 `Explicit Conversion` 找不到對應的 Enumeration 時會 Throw `InvalidCastException`，對應到多個 Value 相同的 Enumeration 時會 Throw `InvalidOperationException`。
 ```csharp
 // i is 1
 int i = WeekDay.Monday;
@@ -175,8 +173,10 @@ bool result = 1 == WeekDay.Monday;
 ### Static Methods
 `EnumerationBase<TEnum, TValue>` 有定義以下 Static Methods，這邊直接用範例說明，在使用 `Parse()` 時需注意，若找不到對應的 Enumeration，會 Throw `EnumerationNotFoundException`，所以非確定 Enumeration 存在時，請使用 `TryParse()`。
 ```csharp
-// 取得全部的 `WeekDay` Instance
+// 取得全部的 `WeekDay` Instance，每次呼叫回傳同一個唯讀集合
 IEnumerable<WeekDay> weekDays = WeekDay.GetAll();
+IReadOnlyList<WeekDay> weekDayList = WeekDay.GetAllAsReadOnly();
+int count = WeekDay.GetCount();
 
 // 取得全部 Value / Name
 IEnumerable<int> values = WeekDay.GetValues();
@@ -194,30 +194,27 @@ WeekDay fallbackByValue = WeekDay.ParseOrDefault(9, WeekDay.Sunday);
 // foundByValue is true，dayByValue is Monday
 bool foundByValue = WeekDay.TryParse(1, out WeekDay dayByValue);
 
-// dayByName is Monday
-WeekDay dayByName = WeekDay.ParseName("Monday");
-
-// 可傳入參數來忽略大小寫，dayByNameIgnoreCase is Monday
-WeekDay dayByNameIgnoreCase = WeekDay.ParseName("monday", true);
+// 以 Name 查找，上方範例的 Name 為「星期一」，dayByName is Monday
+WeekDay dayByName = WeekDay.ParseName("星期一");
 
 // 若找不到就回傳指定的預設值，fallbackByName is Sunday
 WeekDay fallbackByName = WeekDay.ParseNameOrDefault("Holiday", WeekDay.Sunday);
 
 // foundByName is true，parsedByName is Monday
-bool foundByName = WeekDay.TryParseName("Monday", out WeekDay parsedByName);
-
-// 可傳入參數來忽略大小寫，foundByNameIgnoreCase is true，parsedByNameIgnoreCase is Monday
-bool foundByNameIgnoreCase = WeekDay.TryParseName("monday", true, out WeekDay parsedByNameIgnoreCase);
+bool foundByName = WeekDay.TryParseName("星期一", out WeekDay parsedByName);
 
 // isDefinedName is true
-bool isDefinedName = WeekDay.IsDefinedName("monday", true);
+bool isDefinedName = WeekDay.IsDefinedName("星期一");
+
+// Name 為英文時，可傳入參數來忽略大小寫，例如 Status 的 Name 為 "Active"，activeStatus is Active
+Status activeStatus = Status.ParseName("active", true);
 ```
 
 ### 型別判斷
 目前提供以下 `Type` 的 Extension Methods 來取得 Enumeration 的型別資訊：
 - `IsEnumeration()`：判斷是否有實作 `IEnumeration<TEnum, TValue>`。
-- `GetEnumerationTypes()`：取得 `IEnumerable<IEnumeration<TEnum, TValue>>`。
-- `GetEnumerationValueTypes()`：取得 `IEnumerable<TValue>`。
+- `GetEnumerationTypes()`：取得型別實作的 `IEnumeration<TEnum, TValue>` 介面型別，回傳 `IEnumerable<Type>`。
+- `GetEnumerationValueTypes()`：取得上述介面的 `TValue` 型別，回傳 `IEnumerable<Type>`。
 
 ### 集合相關的擴充方法
 目前 `IEnumerable<IEnumeration<TEnum, TValue>>` 提供以下 Extension Methods：
@@ -231,20 +228,55 @@ bool isDefinedName = WeekDay.IsDefinedName("monday", true);
 - `ToNameArray()`：取得 `string[]` based on Enumeration `Name`。
 - `ToValueList()`：取得 `IList<TValue>`。
 - `ToNameList()`：取得 `IList<string>` based on Enumeration `Name`。
-- `ToDictionary()`：取得 Key 為 Enumeration Value、Value` 為 Enumeration `Name` 的 `IDictionary`。
+- `ToDictionary()`：取得 Key 為 Enumeration `Value`、Value 為 Enumeration `Name` 的 `IDictionary`。
 - `ToNameValueDictionary()`：取得 Key 為 Enumeration `Name`、Value 為 Enumeration Value 的 `IDictionary`。
 
 實際使用時，這些 API 很適合拿來做查找表或 UI 選項：
 ```csharp
 IEnumerable<IEnumeration<WeekDay, int>> days = WeekDay.GetAll();
 
-bool hasMonday = days.ContainsName("monday", ignoreCase: true);
-bool foundValue = days.TryGetValue("Friday", out int fridayValue);
+bool hasMonday = days.ContainsName("星期一");
+bool foundValue = days.TryGetValue("星期五", out int fridayValue);
 bool foundName = days.TryGetName(0, out string firstDayName);
 
 IDictionary<int, string> valueNameMap = days.ToDictionary();
 IDictionary<string, int> nameValueMap = days.ToNameValueDictionary();
 ```
+
+### 成員探索規則
+`GetAll()` 等查找方法會探索直接宣告在型別上、可讀取的 public static 屬性：
+- 回傳既有實例的別名屬性（例如 `public static WeekDay Default => Sunday;`）不會產生新成員。
+- 標註 `[EnumerationIgnore]` 的屬性不參與探索。
+- 不要在 Enumeration 的 static 初始化過程中呼叫 `GetAll()`、`Parse()` 等查找方法，此時尚未初始化的成員仍為 `null`，會 Throw `InvalidOperationException`。
+
+### 序列化與轉換
+- 基底類別標註 `[Serializable]` 並實作 `IObjectReference`，`BinaryFormatter`（.NET Framework）與 `DataContractSerializer` 反序列化時會回傳已宣告的實例。
+- `CloudyWing.Enumeration.Json` 套件提供 `EnumerationJsonConverter<TEnum, TValue>` 與 `EnumerationJsonConverterFactory`，可選擇以 Value 或 Name 序列化。
+- `EnumerationTypeConverter.Register<TEnum, TValue>()` 註冊 `TypeConverter`，供 ASP.NET Core model binding 與設定繫結使用。
+- .NET 10 目標實作 `IParsable<TEnum>` 與 `ISpanParsable<TEnum>`，可由 Name 或 Value 文字解析。
+
+```csharp
+JsonSerializerOptions options = new() {
+    Converters = { new EnumerationJsonConverterFactory(EnumerationJsonFormat.Name) }
+};
+
+// "星期一"
+string json = JsonSerializer.Serialize(WeekDay.Monday, options);
+
+EnumerationTypeConverter.Register<WeekDay, int>();
+```
+
+### Analyzer
+`CloudyWing.Enumeration.Analyzers` 套件在編譯時檢查重複的 Value（`ENUM001`）、重複的 Name（`ENUM002`）與 public 建構子（`ENUM003`）。
+
+## Packages
+
+| 套件 | 說明 |
+| --- | --- |
+| `CloudyWing.Enumeration` | 列舉基底類別、查找 API、Fluent 條件判斷與 `TypeConverter`。 |
+| `CloudyWing.Enumeration.Calendars` | 月份（`Month`）與星期（`WeekDay`）列舉。 |
+| `CloudyWing.Enumeration.Json` | System.Text.Json 轉換器，支援 .NET Standard 2.0 與 .NET 10。 |
+| `CloudyWing.Enumeration.Analyzers` | Roslyn Analyzer。 |
 
 ## Documentation
 
@@ -254,6 +286,7 @@ IDictionary<string, int> nameValueMap = days.ToNameValueDictionary();
 
 - **[入門指南](./docs/articles/getting-started.md)**
 - **[核心概念](./docs/articles/core-concepts.md)**
+- **[查找與探索](./docs/articles/lookup-and-discovery.md)**
 - **[進階用法](./docs/articles/advanced-usage.md)**
 
 ## License

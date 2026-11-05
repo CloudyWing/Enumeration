@@ -4,5 +4,9 @@
   items:
     - name: 定義列舉
       href: core-concepts.md
+    - name: 查找與探索
+      href: lookup-and-discovery.md
     - name: 進階用法
       href: advanced-usage.md
+- name: 變更紀錄
+  href: changelog.md
