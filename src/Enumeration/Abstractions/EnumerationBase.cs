@@ -25,14 +25,15 @@ namespace CloudyWing.Enumeration.Abstractions {
     /// <seealso cref="IEnumeration&lt;TEnum, TValue&gt;" />
     /// <seealso cref="IEquatable&lt;TEnum&gt;" />
     /// <seealso cref="IComparable&lt;TEnum&gt;" />
-    public abstract class EnumerationBase<TEnum, TValue> : IEnumeration<TEnum, TValue>, IEquatable<TEnum>, IComparable<TEnum>
+    public abstract partial class EnumerationBase<TEnum, TValue> : IEnumeration<TEnum, TValue>, IEquatable<TEnum>, IComparable<TEnum>
         where TEnum : EnumerationBase<TEnum, TValue>
         where TValue : IComparable {
         private const string NullableAttributeName = "System.Runtime.CompilerServices.NullableAttribute";
         private const string NullableContextAttributeName = "System.Runtime.CompilerServices.NullableContextAttribute";
         private const byte NullableAnnotatedFlag = 2;
         private static readonly object SyncRoot = new object();
-        private static TEnum[]? enumerations;
+        private static readonly DeferredMemberList AllMembers = new DeferredMemberList();
+        private static EnumerationLookup? lookup;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EnumerationBase{TEnum, TValue}" /> class.
@@ -73,11 +74,10 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <returns>The declared enumeration instances.</returns>
         /// <remarks>
         /// Instances are returned in the same order as their declaring public static properties on <typeparamref name="TEnum" />.
+        /// The method returns the same cached read-only collection on every call, and members are discovered when the collection is first read.
         /// </remarks>
         public static IEnumerable<TEnum> GetAll() {
-            foreach (TEnum enumeration in GetEnumerations()) {
-                yield return enumeration;
-            }
+            return AllMembers;
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// </summary>
         /// <returns>The declared enumeration values.</returns>
         public static IEnumerable<TValue> GetValues() {
-            foreach (TEnum enumeration in GetAll()) {
+            foreach (TEnum enumeration in GetLookup().Members) {
                 yield return enumeration.Value;
             }
         }
@@ -95,7 +95,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// </summary>
         /// <returns>The declared enumeration names.</returns>
         public static IEnumerable<string> GetNames() {
-            foreach (TEnum enumeration in GetAll()) {
+            foreach (TEnum enumeration in GetLookup().Members) {
                 yield return enumeration.Name;
             }
         }
@@ -139,8 +139,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <returns><see langword="true" /> if a matching enumeration exists; otherwise, <see langword="false" />.</returns>
         /// <exception cref="InvalidOperationException">More than one declared enumeration matches <paramref name="value" />.</exception>
         public static bool TryParse(TValue value, [MaybeNullWhen(false)] out TEnum enumeration) {
-            enumeration = FindEnumeration(x => x.Value.Equals(value));
-            return !(enumeration is null);
+            return GetLookup().TryGetByValue(value, out enumeration);
         }
 
         /// <summary>
@@ -206,11 +205,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <returns><see langword="true" /> if a matching enumeration exists; otherwise, <see langword="false" />.</returns>
         /// <exception cref="InvalidOperationException">More than one declared enumeration matches <paramref name="name" />.</exception>
         public static bool TryParseName(string name, bool ignoreCase, [MaybeNullWhen(false)] out TEnum enumeration) {
-            StringComparison comparison = ignoreCase
-                ? StringComparison.OrdinalIgnoreCase
-                : StringComparison.Ordinal;
-            enumeration = FindEnumeration(x => x.Name.Equals(name, comparison));
-            return !(enumeration is null);
+            return GetLookup().TryGetByName(name, ignoreCase, out enumeration);
         }
 
         /// <summary>
@@ -232,15 +227,15 @@ namespace CloudyWing.Enumeration.Abstractions {
             return typeof(TValue);
         }
 
-        private static TEnum[] GetEnumerations() {
-            return Volatile.Read(ref enumerations) ?? InitializeEnumerations();
+        private static EnumerationLookup GetLookup() {
+            return Volatile.Read(ref lookup) ?? InitializeLookup();
         }
 
-        private static TEnum[] InitializeEnumerations() {
+        private static EnumerationLookup InitializeLookup() {
             lock (SyncRoot) {
                 // 探索失敗時不寫入快取，讓型別初始化完成後的下一次呼叫可以重新探索
-                TEnum[] result = Volatile.Read(ref enumerations) ?? GetDeclaredEnumerations();
-                Volatile.Write(ref enumerations, result);
+                EnumerationLookup result = Volatile.Read(ref lookup) ?? new EnumerationLookup(GetDeclaredEnumerations());
+                Volatile.Write(ref lookup, result);
                 return result;
             }
         }
@@ -315,10 +310,6 @@ namespace CloudyWing.Enumeration.Abstractions {
             }
 
             return null;
-        }
-
-        private static TEnum? FindEnumeration(Func<TEnum, bool> predicate) {
-            return GetAll().SingleOrDefault(predicate);
         }
 
         /// <summary>

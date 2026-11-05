@@ -841,5 +841,55 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
 
             Assert.That(actual, Is.True);
         }
+
+        [Test]
+        public void GetAll_CalledTwice_ReturnsSameReadOnlyCollection() {
+            IEnumerable<BasicIntEnumeration> first = BasicIntEnumeration.GetAll();
+
+            IEnumerable<BasicIntEnumeration> second = BasicIntEnumeration.GetAll();
+
+            using (Assert.EnterMultipleScope()) {
+                Assert.That(second, Is.SameAs(first));
+                Assert.That(first, Is.InstanceOf<IReadOnlyList<BasicIntEnumeration>>());
+                Assert.That(((ICollection<BasicIntEnumeration>)first).IsReadOnly, Is.True);
+            }
+        }
+
+        [Test]
+        public void GetAll_AddThroughCollectionInterface_ThrowsNotSupportedException() {
+            ICollection<BasicIntEnumeration> collection = (ICollection<BasicIntEnumeration>)BasicIntEnumeration.GetAll();
+
+            Assert.Throws<NotSupportedException>(() => collection.Add(BasicIntEnumeration.One));
+        }
+
+        [Test]
+        public void TryParse_NaNValueDeclared_ReturnsDeclaredInstance() {
+            bool actual = FractionDoubleEnumeration.TryParse(double.NaN, out FractionDoubleEnumeration? enumeration);
+
+            using (Assert.EnterMultipleScope()) {
+                Assert.That(actual, Is.True);
+                Assert.That(enumeration, Is.SameAs(FractionDoubleEnumeration.NotANumber));
+            }
+        }
+
+        [Test]
+        public void TryParse_NullStringValue_ReturnsFalse() {
+            bool actual = BasicStringEnumeration.TryParse(null!, out BasicStringEnumeration? enumeration);
+
+            using (Assert.EnterMultipleScope()) {
+                Assert.That(actual, Is.False);
+                Assert.That(enumeration, Is.Null);
+            }
+        }
+
+        [Test]
+        public void TryParseName_NullName_ReturnsFalse() {
+            bool actual = BasicIntEnumeration.TryParseName(null!, true, out BasicIntEnumeration? enumeration);
+
+            using (Assert.EnterMultipleScope()) {
+                Assert.That(actual, Is.False);
+                Assert.That(enumeration, Is.Null);
+            }
+        }
 }
 }
