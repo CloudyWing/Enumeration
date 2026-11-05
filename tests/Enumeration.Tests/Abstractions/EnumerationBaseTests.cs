@@ -376,7 +376,7 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
 
         [Test]
         public void TryParse_IntEnumeration_ValidValueProvided_ReturnsTrueAndOutEnumeration() {
-            bool actual = BasicIntEnumeration.TryParse(BasicIntEnumeration.One.Value, out BasicIntEnumeration enumeration);
+            bool actual = BasicIntEnumeration.TryParse(BasicIntEnumeration.One.Value, out BasicIntEnumeration? enumeration);
 
             using (Assert.EnterMultipleScope()) {
                 Assert.That(actual, Is.EqualTo(true));
@@ -386,7 +386,7 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
 
         [Test]
         public void TryParse_IntEnumeration_InvalidValueProvided_ReturnsFalseAndOutNull() {
-            bool actual = BasicIntEnumeration.TryParse(9, out BasicIntEnumeration enumeration);
+            bool actual = BasicIntEnumeration.TryParse(9, out BasicIntEnumeration? enumeration);
 
             using (Assert.EnterMultipleScope()) {
                 Assert.That(actual, Is.EqualTo(false));
@@ -396,7 +396,7 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
 
         [Test]
         public void TryParse_StringEnumeration_ValidValueProvided_ReturnsTrueAndOutEnumeration() {
-            bool actual = BasicStringEnumeration.TryParse(BasicStringEnumeration.One.Value, out BasicStringEnumeration enumeration);
+            bool actual = BasicStringEnumeration.TryParse(BasicStringEnumeration.One.Value, out BasicStringEnumeration? enumeration);
 
             using (Assert.EnterMultipleScope()) {
                 Assert.That(actual, Is.EqualTo(true));
@@ -406,7 +406,7 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
 
         [Test]
         public void TryParse_StringEnumeration_InvalidValueProvided_ReturnsFalseAndOutNull() {
-            bool actual = BasicStringEnumeration.TryParse("9", out BasicStringEnumeration enumeration);
+            bool actual = BasicStringEnumeration.TryParse("9", out BasicStringEnumeration? enumeration);
 
             using (Assert.EnterMultipleScope()) {
                 Assert.That(actual, Is.EqualTo(false));
@@ -416,7 +416,7 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
 
         [Test]
         public void TryParse_GuidEnumeration_ValidValueProvided_ReturnsTrueAndOutEnumeration() {
-            bool actual = BasicGuidEnumeration.TryParse(BasicGuidEnumeration.AllOne.Value, out BasicGuidEnumeration enumeration);
+            bool actual = BasicGuidEnumeration.TryParse(BasicGuidEnumeration.AllOne.Value, out BasicGuidEnumeration? enumeration);
 
             using (Assert.EnterMultipleScope()) {
                 Assert.That(actual, Is.EqualTo(true));
@@ -426,7 +426,7 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
 
         [Test]
         public void TryParse_GuidEnumeration_InvalidValueProvided_ReturnsFalseAndOutNull() {
-            bool actual = BasicGuidEnumeration.TryParse(allNine, out BasicGuidEnumeration enumeration);
+            bool actual = BasicGuidEnumeration.TryParse(allNine, out BasicGuidEnumeration? enumeration);
 
             using (Assert.EnterMultipleScope()) {
                 Assert.That(actual, Is.EqualTo(false));
@@ -549,7 +549,7 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
         [TestCase("One", true)]
         [TestCase("one", true)]
         public void TryParseName_IntEnumeration_NameMatchesWithIgnoreCaseOption_ReturnsTrueAndOutEnumeration(string name, bool ignore) {
-            bool actual = BasicIntEnumeration.TryParseName(name, ignore, out BasicIntEnumeration enumeration);
+            bool actual = BasicIntEnumeration.TryParseName(name, ignore, out BasicIntEnumeration? enumeration);
 
             using (Assert.EnterMultipleScope()) {
                 Assert.That(actual, Is.EqualTo(true));
@@ -559,7 +559,7 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
 
         [Test]
         public void TryParseName_IntEnumeration_LowercaseNameWithIgnoreCaseDisabled_ReturnsFalseAndOutNull() {
-            bool actual = BasicIntEnumeration.TryParseName("one", false, out BasicIntEnumeration enumeration);
+            bool actual = BasicIntEnumeration.TryParseName("one", false, out BasicIntEnumeration? enumeration);
 
             using (Assert.EnterMultipleScope()) {
                 Assert.That(actual, Is.EqualTo(false));
@@ -572,7 +572,7 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
         [TestCase("One", true)]
         [TestCase("one", true)]
         public void TryParseName_StringEnumeration_NameMatchesWithIgnoreCaseOption_ReturnsTrueAndOutEnumeration(string name, bool ignore) {
-            bool actual = BasicStringEnumeration.TryParseName(name, ignore, out BasicStringEnumeration enumeration);
+            bool actual = BasicStringEnumeration.TryParseName(name, ignore, out BasicStringEnumeration? enumeration);
 
             using (Assert.EnterMultipleScope()) {
                 Assert.That(actual, Is.EqualTo(true));
@@ -582,7 +582,7 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
 
         [Test]
         public void TryParseName_StringEnumeration_LowercaseNameWithIgnoreCaseDisabled_ReturnsFalseAndOutNull() {
-            bool actual = BasicStringEnumeration.TryParseName("one", false, out BasicStringEnumeration enumeration);
+            bool actual = BasicStringEnumeration.TryParseName("one", false, out BasicStringEnumeration? enumeration);
 
             using (Assert.EnterMultipleScope()) {
                 Assert.That(actual, Is.EqualTo(false));
@@ -595,7 +595,7 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
         [TestCase("AllOne", true)]
         [TestCase("allone", true)]
         public void TryParseName_GuidEnumeration_NameMatchesWithIgnoreCaseOption_ReturnsTrueAndOutEnumeration(string name, bool ignore) {
-            bool actual = BasicGuidEnumeration.TryParseName(name, ignore, out BasicGuidEnumeration enumeration);
+            bool actual = BasicGuidEnumeration.TryParseName(name, ignore, out BasicGuidEnumeration? enumeration);
 
             using (Assert.EnterMultipleScope()) {
                 Assert.That(actual, Is.EqualTo(true));
@@ -605,7 +605,7 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
 
         [Test]
         public void TryParseName_GuidEnumeration_LowercaseNameWithIgnoreCaseDisabled_ReturnsFalseAndOutNull() {
-            bool actual = BasicGuidEnumeration.TryParseName("allone", false, out BasicGuidEnumeration enumeration);
+            bool actual = BasicGuidEnumeration.TryParseName("allone", false, out BasicGuidEnumeration? enumeration);
 
             using (Assert.EnterMultipleScope()) {
                 Assert.That(actual, Is.EqualTo(false));
