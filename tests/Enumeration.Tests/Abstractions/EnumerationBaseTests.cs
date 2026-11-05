@@ -722,5 +722,51 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
 
             Assert.That(actual, Is.EqualTo(result));
         }
-    }
+    
+
+        [Test]
+        public void GetAll_AliasPropertyDeclared_ReturnsEachInstanceOnceInDeclarationOrder() {
+            AliasIntEnumeration[] actual = AliasIntEnumeration.GetAll().ToArray();
+
+            Assert.That(actual, Is.EqualTo(new[] { AliasIntEnumeration.Red, AliasIntEnumeration.Green, AliasIntEnumeration.Blue }).AsCollection);
+        }
+
+        [Test]
+        public void Parse_AliasPropertyDeclared_ReturnsOriginalInstance() {
+            AliasIntEnumeration actual = AliasIntEnumeration.Parse(1);
+
+            Assert.That(actual, Is.SameAs(AliasIntEnumeration.Red));
+        }
+
+        [Test]
+        public void ParseName_AliasPropertyDeclared_ReturnsOriginalInstance() {
+            AliasIntEnumeration actual = AliasIntEnumeration.ParseName(nameof(AliasIntEnumeration.Red));
+
+            Assert.That(actual, Is.SameAs(AliasIntEnumeration.Default));
+        }
+
+        [Test]
+        public void Parse_DuplicateValueDeclared_ThrowsInvalidOperationException() {
+            Assert.Throws<InvalidOperationException>(() => DuplicateValueEnumeration.Parse(1));
+        }
+
+        [Test]
+        public void Parse_UniqueValueAmongDuplicates_ReturnsMatchingInstance() {
+            DuplicateValueEnumeration actual = DuplicateValueEnumeration.Parse(2);
+
+            Assert.That(actual, Is.SameAs(DuplicateValueEnumeration.Green));
+        }
+
+        [Test]
+        public void ParseName_DuplicateNameIgnoringCase_ThrowsInvalidOperationException() {
+            Assert.Throws<InvalidOperationException>(() => DuplicateValueEnumeration.ParseName("GREEN", true));
+        }
+
+        [Test]
+        public void ParseName_DuplicateNameIgnoringCaseWithOrdinalLookup_ReturnsMatchingInstance() {
+            DuplicateValueEnumeration actual = DuplicateValueEnumeration.ParseName("green");
+
+            Assert.That(actual, Is.SameAs(DuplicateValueEnumeration.Lime));
+        }
+}
 }

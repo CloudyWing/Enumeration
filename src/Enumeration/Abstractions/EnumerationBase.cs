@@ -12,7 +12,9 @@ namespace CloudyWing.Enumeration.Abstractions {
     /// <typeparam name="TEnum">The concrete enumeration type.</typeparam>
     /// <typeparam name="TValue">The underlying value type.</typeparam>
     /// <remarks>
-    /// Enumeration instances are discovered from public static properties declared directly on <typeparamref name="TEnum" />.
+    /// Enumeration instances are discovered from readable public static properties declared directly on <typeparamref name="TEnum" />.
+    /// A property that returns an instance already returned by an earlier property, such as an alias like <c>Default => Red</c>,
+    /// does not create another member; the instance keeps the position of its first declaring property.
     /// </remarks>
     /// <seealso cref="IEnumeration&lt;TEnum, TValue&gt;" />
     /// <seealso cref="IEquatable&lt;TEnum&gt;" />
@@ -230,7 +232,14 @@ namespace CloudyWing.Enumeration.Abstractions {
 
             List<TEnum> instances = new List<TEnum>();
             foreach (PropertyInfo prop in props) {
-                if (prop.GetValue(null, null) is TEnum instance) {
+                if (!prop.CanRead || prop.GetIndexParameters().Length != 0) {
+                    continue;
+                }
+
+                // 別名屬性（例如 Default => Red）回傳既有實例，以參考相等去重並保留第一次宣告的順序
+                if (prop.GetValue(null, null) is TEnum instance
+                    && !instances.Any(x => ReferenceEquals(x, instance))
+                ) {
                     instances.Add(instance);
                 }
             }
