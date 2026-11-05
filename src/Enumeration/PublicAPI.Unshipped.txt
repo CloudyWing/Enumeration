@@ -1,3 +1,5 @@
 #nullable enable
 CloudyWing.Enumeration.EnumerationIgnoreAttribute
 CloudyWing.Enumeration.EnumerationIgnoreAttribute.EnumerationIgnoreAttribute() -> void
+static CloudyWing.Enumeration.Abstractions.EnumerationBase<TEnum, TValue>.GetAllAsReadOnly() -> System.Collections.Generic.IReadOnlyList<TEnum!>!
+static CloudyWing.Enumeration.Abstractions.EnumerationBase<TEnum, TValue>.GetCount() -> int

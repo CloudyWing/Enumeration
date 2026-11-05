@@ -91,6 +91,25 @@ namespace CloudyWing.Enumeration.Abstractions {
         }
 
         /// <summary>
+        /// Gets all declared enumeration instances as a read-only list.
+        /// </summary>
+        /// <returns>The cached read-only list of declared enumeration instances, in declaration order.</returns>
+        /// <remarks>
+        /// Unlike <see cref="GetAll" />, members are discovered when this method is called.
+        /// </remarks>
+        public static IReadOnlyList<TEnum> GetAllAsReadOnly() {
+            return GetLookup().ReadOnlyMembers;
+        }
+
+        /// <summary>
+        /// Gets the number of declared enumeration instances.
+        /// </summary>
+        /// <returns>The number of declared enumeration instances.</returns>
+        public static int GetCount() {
+            return GetLookup().Members.Length;
+        }
+
+        /// <summary>
         /// Gets the values of all declared enumeration instances.
         /// </summary>
         /// <returns>The declared enumeration values.</returns>
@@ -218,6 +237,31 @@ namespace CloudyWing.Enumeration.Abstractions {
             return GetLookup().TryGetByName(name, ignoreCase, out enumeration);
         }
 
+#if NET9_0_OR_GREATER
+        /// <summary>
+        /// Tries to get the declared enumeration instance that matches the specified name without allocating a string.
+        /// </summary>
+        /// <param name="name">The characters of the name to match.</param>
+        /// <param name="enumeration">The matching enumeration instance.</param>
+        /// <returns><see langword="true" /> if a matching enumeration exists; otherwise, <see langword="false" />.</returns>
+        /// <exception cref="InvalidOperationException">More than one declared enumeration matches <paramref name="name" />.</exception>
+        public static bool TryParseName(ReadOnlySpan<char> name, [MaybeNullWhen(false)] out TEnum enumeration) {
+            return TryParseName(name, false, out enumeration);
+        }
+
+        /// <summary>
+        /// Tries to get the declared enumeration instance that matches the specified name without allocating a string.
+        /// </summary>
+        /// <param name="name">The characters of the name to match.</param>
+        /// <param name="ignoreCase"><see langword="true" /> to ignore name casing; otherwise, <see langword="false" />.</param>
+        /// <param name="enumeration">The matching enumeration instance.</param>
+        /// <returns><see langword="true" /> if a matching enumeration exists; otherwise, <see langword="false" />.</returns>
+        /// <exception cref="InvalidOperationException">More than one declared enumeration matches <paramref name="name" />.</exception>
+        public static bool TryParseName(ReadOnlySpan<char> name, bool ignoreCase, [MaybeNullWhen(false)] out TEnum enumeration) {
+            return GetLookup().TryGetByName(name, ignoreCase, out enumeration);
+        }
+
+#endif
         /// <summary>
         /// Determines whether the specified name matches a declared enumeration.
         /// </summary>

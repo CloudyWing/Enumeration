@@ -922,5 +922,54 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
 
             Assert.That(actual, Is.SameAs(IgnoredMemberEnumeration.One));
         }
+
+        [Test]
+        public void GetCount_AliasPropertyDeclared_ReturnsDistinctMemberCount() {
+            int actual = AliasIntEnumeration.GetCount();
+
+            Assert.That(actual, Is.EqualTo(3));
+        }
+
+        [Test]
+        public void GetAllAsReadOnly_Always_ReturnsMembersInDeclarationOrder() {
+            IReadOnlyList<BasicIntEnumeration> actual = BasicIntEnumeration.GetAllAsReadOnly();
+
+            using (Assert.EnterMultipleScope()) {
+                Assert.That(actual, Is.EqualTo(IntEnumerations).AsCollection);
+                Assert.That(actual[1], Is.SameAs(BasicIntEnumeration.One));
+                Assert.That(BasicIntEnumeration.GetAllAsReadOnly(), Is.SameAs(actual));
+            }
+        }
+
+#if NET9_0_OR_GREATER
+        [Test]
+        [TestCase("One", false)]
+        [TestCase("one", true)]
+        public void TryParseName_SpanNameMatches_ReturnsTrueAndOutEnumeration(string name, bool ignoreCase) {
+            ReadOnlySpan<char> span = $"[{name}]".AsSpan(1, name.Length);
+
+            bool actual = BasicIntEnumeration.TryParseName(span, ignoreCase, out BasicIntEnumeration? enumeration);
+
+            using (Assert.EnterMultipleScope()) {
+                Assert.That(actual, Is.True);
+                Assert.That(enumeration, Is.SameAs(BasicIntEnumeration.One));
+            }
+        }
+
+        [Test]
+        public void TryParseName_SpanNameDiffersInCase_ReturnsFalse() {
+            bool actual = BasicIntEnumeration.TryParseName("one".AsSpan(), out BasicIntEnumeration? enumeration);
+
+            using (Assert.EnterMultipleScope()) {
+                Assert.That(actual, Is.False);
+                Assert.That(enumeration, Is.Null);
+            }
+        }
+
+        [Test]
+        public void TryParseName_SpanNameMatchesDuplicate_ThrowsInvalidOperationException() {
+            Assert.Throws<InvalidOperationException>(() => DuplicateValueEnumeration.TryParseName("GREEN".AsSpan(), true, out _));
+        }
+#endif
 }
 }
