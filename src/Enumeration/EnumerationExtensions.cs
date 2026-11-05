@@ -540,6 +540,7 @@ namespace CloudyWing.Enumeration {
                 InnerStatement = statement;
                 Enumeration = statement.Enumeration;
                 MatchPredicate = predicate ?? throw new ArgumentNullException(nameof(predicate));
+                IsPreviouslyExecuted = SwitchStatementUtils.IsExecuted(statement);
             }
 
             public WhenStatement(IEnumeration<TEnum, TValue> enumeration, Func<bool> predicate) {
@@ -557,6 +558,8 @@ namespace CloudyWing.Enumeration {
 
             public Func<bool> MatchPredicate { get; }
 
+            public bool IsPreviouslyExecuted { get; }
+
             public int CompareTo(object? obj) {
                 return Enumeration.CompareTo(obj);
             }
@@ -566,9 +569,10 @@ namespace CloudyWing.Enumeration {
                     throw new ArgumentNullException(nameof(action));
                 }
 
-                bool isExecuted = SwitchStatementUtils.IsExecuted(this);
+                bool isExecuted = IsPreviouslyExecuted;
 
-                if (MatchPredicate() && !isExecuted) {
+                // 已有分支執行時不再評估條件，比照 if / else if 的短路語意
+                if (!isExecuted && MatchPredicate()) {
                     isExecuted = true;
                     action();
                 }
@@ -604,9 +608,7 @@ namespace CloudyWing.Enumeration {
                     throw new ArgumentNullException(nameof(action));
                 }
 
-                bool isExecuted = SwitchStatementUtils.IsExecuted(this);
-
-                if (!isExecuted) {
+                if (!IsExecuted) {
                     action();
                 }
             }
@@ -617,7 +619,16 @@ namespace CloudyWing.Enumeration {
                 where TEnum : IEnumeration<TEnum, TValue> where TValue : IComparable {
                 bool isExecuted = false;
 
-                while (!isExecuted && !(statement is null)) {
+                while (!isExecuted && statement is not null) {
+                    // 內建節點已在建立時累計前段結果，遇到即可停止，避免每個節點重複走訪整條鏈
+                    if (statement is ThenStatement<TEnum, TValue> knownThenStatement) {
+                        return knownThenStatement.IsExecuted;
+                    }
+
+                    if (statement is WhenStatement<TEnum, TValue> knownWhenStatement) {
+                        return knownWhenStatement.IsPreviouslyExecuted;
+                    }
+
                     if (statement is IThenStatement<TEnum, TValue> thenStatement) {
                         isExecuted = thenStatement.IsExecuted;
                     }
