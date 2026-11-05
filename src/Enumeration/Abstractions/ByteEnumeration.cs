@@ -1,6 +1,9 @@
+using System;
+
 namespace CloudyWing.Enumeration.Abstractions {
     /// <summary>The byte enumeration base.</summary>
     /// <typeparam name="T">The byte enumeration.</typeparam>
+    [Serializable]
     public abstract class ByteEnumeration<T> : ConvertibleEnumeration<T, byte>
         where T : ByteEnumeration<T> {
         /// <summary>Initializes a new instance of the <see cref="ByteEnumeration{T}" /> class.</summary>

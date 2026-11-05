@@ -1,6 +1,9 @@
+using System;
+
 namespace CloudyWing.Enumeration.Abstractions {
     /// <summary>The short enumeration base.</summary>
     /// <typeparam name="T">The short enumeration.</typeparam>
+    [Serializable]
     public abstract class ShortEnumeration<T> : ConvertibleEnumeration<T, short>
         where T : ShortEnumeration<T> {
         /// <summary>Initializes a new instance of the <see cref="ShortEnumeration{T}" /> class.</summary>

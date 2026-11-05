@@ -1,6 +1,9 @@
+using System;
+
 namespace CloudyWing.Enumeration.Abstractions {
     /// <summary>The ulong enumeration base.</summary>
     /// <typeparam name="T">The ulong enumeration.</typeparam>
+    [Serializable]
     public abstract class ULongEnumeration<T> : ConvertibleEnumeration<T, ulong>
         where T : ULongEnumeration<T> {
         /// <summary>Initializes a new instance of the <see cref="ULongEnumeration{T}" /> class.</summary>

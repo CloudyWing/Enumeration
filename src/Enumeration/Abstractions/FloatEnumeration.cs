@@ -1,6 +1,9 @@
+using System;
+
 namespace CloudyWing.Enumeration.Abstractions {
     /// <summary>The float enumeration base.</summary>
     /// <typeparam name="T">The float enumeration.</typeparam>
+    [Serializable]
     public abstract class FloatEnumeration<T> : ConvertibleEnumeration<T, float>
         where T : FloatEnumeration<T> {
         /// <summary>Initializes a new instance of the <see cref="FloatEnumeration{T}" /> class.</summary>

@@ -6,6 +6,7 @@ namespace CloudyWing.Enumeration.Abstractions {
     /// <typeparam name="TValue">The type of the value.</typeparam>
     /// <seealso cref="EnumerationBase&lt;TEnum, TValue&gt;" />
     /// <seealso cref="IConvertible" />
+    [Serializable]
     public abstract class ConvertibleEnumeration<TEnum, TValue> : EnumerationBase<TEnum, TValue>, IConvertible
         where TEnum : ConvertibleEnumeration<TEnum, TValue>
         where TValue : IComparable, IConvertible {

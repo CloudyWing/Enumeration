@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Threading;
 
 namespace CloudyWing.Enumeration.Abstractions {
@@ -21,11 +22,19 @@ namespace CloudyWing.Enumeration.Abstractions {
     /// <typeparamref name="TEnum" /> is still running throws <see cref="InvalidOperationException" />,
     /// because members declared later are still <see langword="null" />. The failed discovery is not cached.
     /// </para>
+    /// <para>
+    /// The type is marked <see cref="SerializableAttribute" /> and implements <see cref="IObjectReference" />, so serializers that honor
+    /// <see cref="IObjectReference" />, such as <c>BinaryFormatter</c> on .NET Framework and <c>DataContractSerializer</c>,
+    /// return the declared instance instead of a copy. Derived types must also be marked <see cref="SerializableAttribute" />.
+    /// </para>
     /// </remarks>
     /// <seealso cref="IEnumeration&lt;TEnum, TValue&gt;" />
     /// <seealso cref="IEquatable&lt;TEnum&gt;" />
     /// <seealso cref="IComparable&lt;TEnum&gt;" />
-    public abstract partial class EnumerationBase<TEnum, TValue> : IEnumeration<TEnum, TValue>, IEquatable<TEnum>, IComparable<TEnum>
+    [Serializable]
+#pragma warning disable SYSLIB0050 // net10 已移除 BinaryFormatter，但 DataContractSerializer 等序列化器仍會呼叫 IObjectReference
+    public abstract partial class EnumerationBase<TEnum, TValue> : IEnumeration<TEnum, TValue>, IEquatable<TEnum>, IComparable<TEnum>, IObjectReference
+#pragma warning restore SYSLIB0050
         where TEnum : EnumerationBase<TEnum, TValue>
         where TValue : IComparable {
         private const string NullableAttributeName = "System.Runtime.CompilerServices.NullableAttribute";
@@ -397,6 +406,36 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// </returns>
         public virtual int CompareTo(TValue other) {
             return Value.CompareTo(other);
+        }
+
+        /// <summary>
+        /// Returns the declared enumeration instance that a deserialized copy represents.
+        /// </summary>
+        /// <param name="context">The source of the serialized stream.</param>
+        /// <returns>The declared instance with the same <see cref="Value" /> and <see cref="Name" />.</returns>
+        /// <exception cref="SerializationException">No declared enumeration matches the deserialized value.</exception>
+#pragma warning disable SYSLIB0050
+        object IObjectReference.GetRealObject(StreamingContext context) {
+#pragma warning restore SYSLIB0050
+            TEnum? valueMatch = null;
+            EqualityComparer<TValue> comparer = EqualityComparer<TValue>.Default;
+
+            foreach (TEnum member in GetLookup().Members) {
+                if (!comparer.Equals(member.Value, Value)) {
+                    continue;
+                }
+
+                // 重複 Value 時以 Name 區分，維持反序列化前的參考身分
+                if (string.Equals(member.Name, Name, StringComparison.Ordinal)) {
+                    return member;
+                }
+
+                valueMatch ??= member;
+            }
+
+            return valueMatch ?? throw new SerializationException(
+                $"No declared enumeration of '{typeof(TEnum).FullName}' matches the deserialized value '{Value}'."
+            );
         }
 
         /// <summary>Converts to string.</summary>

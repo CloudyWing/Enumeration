@@ -1,6 +1,9 @@
+using System;
+
 namespace CloudyWing.Enumeration.Abstractions {
     /// <summary>The uint enumeration base.</summary>
     /// <typeparam name="T">The uint enumeration.</typeparam>
+    [Serializable]
     public abstract class UIntEnumeration<T> : ConvertibleEnumeration<T, uint>
         where T : UIntEnumeration<T> {
         /// <summary>Initializes a new instance of the <see cref="UIntEnumeration{T}" /> class.</summary>

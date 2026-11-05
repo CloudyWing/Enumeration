@@ -1,6 +1,9 @@
+using System;
+
 namespace CloudyWing.Enumeration.Abstractions {
     /// <summary>The double enumeration base.</summary>
     /// <typeparam name="T">The double enumeration.</typeparam>
+    [Serializable]
     public abstract class DoubleEnumeration<T> : ConvertibleEnumeration<T, double>
         where T : DoubleEnumeration<T> {
         /// <summary>Initializes a new instance of the <see cref="DoubleEnumeration{T}" /> class.</summary>

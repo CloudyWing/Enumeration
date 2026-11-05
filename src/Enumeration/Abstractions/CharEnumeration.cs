@@ -1,6 +1,9 @@
+using System;
+
 namespace CloudyWing.Enumeration.Abstractions {
     /// <summary>The char enumeration base.</summary>
     /// <typeparam name="T">The char enumeration.</typeparam>
+    [Serializable]
     public abstract class CharEnumeration<T> : ConvertibleEnumeration<T, char>
         where T : CharEnumeration<T> {
         /// <summary>Initializes a new instance of the <see cref="CharEnumeration{T}" /> class.</summary>
