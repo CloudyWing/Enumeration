@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net10.0</TargetFrameworks>
+    <AssemblyName>CloudyWing.Enumeration.Json</AssemblyName>
+    <RootNamespace>CloudyWing.Enumeration.Json</RootNamespace>
+    <Product>Enumeration.Json</Product>
+    <Description>提供 Enumeration 的 System.Text.Json 轉換器，可選擇以 Value 或 Name 序列化。</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Enumeration\Enumeration.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Text.Json" Version="10.0.8" />
+  </ItemGroup>
+</Project>
