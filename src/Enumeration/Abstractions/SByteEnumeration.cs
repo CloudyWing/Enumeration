@@ -1,10 +1,11 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CloudyWing.Enumeration.Abstractions {
     /// <summary>The sbyte enumeration base.</summary>
     /// <typeparam name="T">The sbyte enumeration.</typeparam>
     [Serializable]
-    public abstract class SByteEnumeration<T> : ConvertibleEnumeration<T, sbyte>
+    public abstract class SByteEnumeration<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] T> : ConvertibleEnumeration<T, sbyte>
         where T : SByteEnumeration<T> {
         /// <summary>Initializes a new instance of the <see cref="SByteEnumeration{T}" /> class.</summary>
         /// <param name="value">The value.</param>

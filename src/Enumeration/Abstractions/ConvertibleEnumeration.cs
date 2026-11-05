@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CloudyWing.Enumeration.Abstractions {
     /// <summary>The convertible enumeration base.</summary>
@@ -7,7 +8,7 @@ namespace CloudyWing.Enumeration.Abstractions {
     /// <seealso cref="EnumerationBase&lt;TEnum, TValue&gt;" />
     /// <seealso cref="IConvertible" />
     [Serializable]
-    public abstract class ConvertibleEnumeration<TEnum, TValue> : EnumerationBase<TEnum, TValue>, IConvertible
+    public abstract class ConvertibleEnumeration<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TEnum, TValue> : EnumerationBase<TEnum, TValue>, IConvertible
         where TEnum : ConvertibleEnumeration<TEnum, TValue>
         where TValue : IComparable, IConvertible {
         /// <summary>Initializes a new instance of the <see cref="ConvertibleEnumeration{TEnum, TValue}" /> class.</summary>

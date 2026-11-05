@@ -1,10 +1,11 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CloudyWing.Enumeration.Abstractions {
     /// <summary>The short enumeration base.</summary>
     /// <typeparam name="T">The short enumeration.</typeparam>
     [Serializable]
-    public abstract class ShortEnumeration<T> : ConvertibleEnumeration<T, short>
+    public abstract class ShortEnumeration<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] T> : ConvertibleEnumeration<T, short>
         where T : ShortEnumeration<T> {
         /// <summary>Initializes a new instance of the <see cref="ShortEnumeration{T}" /> class.</summary>
         /// <param name="value">The value.</param>

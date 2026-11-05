@@ -38,7 +38,7 @@ namespace CloudyWing.Enumeration.Abstractions {
     /// <seealso cref="IComparable&lt;TEnum&gt;" />
     [Serializable]
 #pragma warning disable SYSLIB0050 // net10 已移除 BinaryFormatter，但 DataContractSerializer 等序列化器仍會呼叫 IObjectReference
-    public abstract partial class EnumerationBase<TEnum, TValue> : IEnumeration<TEnum, TValue>, IEquatable<TEnum>, IComparable<TEnum>, IObjectReference
+    public abstract partial class EnumerationBase<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TEnum, TValue> : IEnumeration<TEnum, TValue>, IEquatable<TEnum>, IComparable<TEnum>, IObjectReference
 #pragma warning restore SYSLIB0050
         where TEnum : EnumerationBase<TEnum, TValue>
         where TValue : IComparable {

@@ -1,10 +1,11 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CloudyWing.Enumeration.Abstractions {
     /// <summary>The double enumeration base.</summary>
     /// <typeparam name="T">The double enumeration.</typeparam>
     [Serializable]
-    public abstract class DecimalEnumeration<T> : ConvertibleEnumeration<T, decimal>
+    public abstract class DecimalEnumeration<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] T> : ConvertibleEnumeration<T, decimal>
         where T : DecimalEnumeration<T> {
         /// <summary>Initializes a new instance of the <see cref="DecimalEnumeration{T}" /> class.</summary>
         /// <param name="value">The value.</param>

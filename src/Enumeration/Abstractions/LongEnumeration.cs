@@ -1,10 +1,11 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CloudyWing.Enumeration.Abstractions {
     /// <summary>The long enumeration base.</summary>
     /// <typeparam name="T">The long enumeration.</typeparam>
     [Serializable]
-    public abstract class LongEnumeration<T> : ConvertibleEnumeration<T, long>
+    public abstract class LongEnumeration<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] T> : ConvertibleEnumeration<T, long>
         where T : LongEnumeration<T> {
         /// <summary>Initializes a new instance of the <see cref="LongEnumeration{T}" /> class.</summary>
         /// <param name="value">The value.</param>

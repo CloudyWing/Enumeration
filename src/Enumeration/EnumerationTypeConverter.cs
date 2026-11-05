@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.ComponentModel;
 using CloudyWing.Enumeration.Abstractions;
 
@@ -21,13 +22,13 @@ namespace CloudyWing.Enumeration {
         /// Calling this method more than once for the same enumeration type registers the converter only once.
         /// Call it during application startup, before the converter is first resolved.
         /// </remarks>
-        public static void Register<TEnum, TValue>()
+        public static void Register<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TEnum, TValue>()
             where TEnum : EnumerationBase<TEnum, TValue>
             where TValue : IComparable {
             Registration<TEnum, TValue>.EnsureRegistered();
         }
 
-        private static class Registration<TEnum, TValue>
+        private static class Registration<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TEnum, TValue>
             where TEnum : EnumerationBase<TEnum, TValue>
             where TValue : IComparable {
             private static readonly object SyncRoot = new object();

@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
@@ -24,7 +25,7 @@ namespace CloudyWing.Enumeration.Json {
     /// string json = JsonSerializer.Serialize(WeekDay.Monday, options);
     /// </code>
     /// </example>
-    public class EnumerationJsonConverter<TEnum, TValue> : JsonConverter<TEnum>
+    public class EnumerationJsonConverter<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TEnum, TValue> : JsonConverter<TEnum>
         where TEnum : EnumerationBase<TEnum, TValue>
         where TValue : IComparable {
         /// <summary>

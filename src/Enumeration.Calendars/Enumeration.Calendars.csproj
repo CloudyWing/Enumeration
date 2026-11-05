@@ -7,6 +7,7 @@
     <Product>Enumeration.Calendars</Product>
     <Description>提供以 Enumeration 實作的月份（Month）與星期（WeekDay）型別。</Description>
     <PackageValidationBaselineVersion>0.2.0</PackageValidationBaselineVersion>
+    <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">true</IsAotCompatible>
   </PropertyGroup>
 
   <ItemGroup>

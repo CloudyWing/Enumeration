@@ -10,7 +10,7 @@ namespace CloudyWing.Enumeration.Json {
     /// <see cref="EnumerationBase{TEnum, TValue}" />.
     /// </summary>
     /// <remarks>
-    /// The factory closes the generic converter type at run time. For Native AOT applications, register
+    /// The factory closes the generic converter type at run time. For trimmed or Native AOT applications, register
     /// <see cref="EnumerationJsonConverter{TEnum, TValue}" /> for each enumeration type instead.
     /// </remarks>
     /// <example>
@@ -23,12 +23,15 @@ namespace CloudyWing.Enumeration.Json {
     public class EnumerationJsonConverterFactory : JsonConverterFactory {
         private const string DynamicCodeMessage = "Creating converters for arbitrary enumeration types requires dynamic code. "
             + "Use EnumerationJsonConverter<TEnum, TValue> for Native AOT applications.";
+        private const string UnreferencedCodeMessage = "The public properties of enumeration types discovered at run time might be removed by trimming. "
+            + "Use EnumerationJsonConverter<TEnum, TValue> for trimmed applications.";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EnumerationJsonConverterFactory" /> class that uses the value format.
         /// </summary>
 #if NET7_0_OR_GREATER
         [RequiresDynamicCode(DynamicCodeMessage)]
+        [RequiresUnreferencedCode(UnreferencedCodeMessage)]
 #endif
         public EnumerationJsonConverterFactory() : this(EnumerationJsonFormat.Value) { }
 
@@ -39,6 +42,7 @@ namespace CloudyWing.Enumeration.Json {
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="format" /> is not a defined <see cref="EnumerationJsonFormat" /> value.</exception>
 #if NET7_0_OR_GREATER
         [RequiresDynamicCode(DynamicCodeMessage)]
+        [RequiresUnreferencedCode(UnreferencedCodeMessage)]
 #endif
         public EnumerationJsonConverterFactory(EnumerationJsonFormat format) {
             if (format != EnumerationJsonFormat.Value && format != EnumerationJsonFormat.Name) {
@@ -63,6 +67,7 @@ namespace CloudyWing.Enumeration.Json {
         /// <exception cref="ArgumentException"><paramref name="typeToConvert" /> is not an enumeration type.</exception>
 #if NET7_0_OR_GREATER
         [UnconditionalSuppressMessage("AOT", "IL3050", Justification = "The constructors are annotated with RequiresDynamicCode.")]
+        [UnconditionalSuppressMessage("Trimming", "IL2071", Justification = "The constructors are annotated with RequiresUnreferencedCode.")]
 #endif
         public override JsonConverter? CreateConverter(Type typeToConvert, JsonSerializerOptions options) {
             Type valueType = FindValueType(typeToConvert)

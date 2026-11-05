@@ -7,5 +7,6 @@
     <Product>Enumeration</Product>
     <Description>用來提供 Enumeration 的基底類別。</Description>
     <PackageValidationBaselineVersion>0.2.0</PackageValidationBaselineVersion>
+    <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">true</IsAotCompatible>
   </PropertyGroup>
 </Project>

@@ -14,7 +14,7 @@ namespace CloudyWing.Enumeration {
         /// </summary>
         /// <param name="type">The type to inspect.</param>
         /// <returns><see langword="true" /> if <paramref name="type" /> implements <see cref="IEnumeration{TEnum, TValue}" />; otherwise, <see langword="false" />.</returns>
-        public static bool IsEnumeration(this Type type) {
+        public static bool IsEnumeration([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.Interfaces)] this Type type) {
             return GetEnumerationTypes(type).Any();
         }
 
@@ -23,7 +23,7 @@ namespace CloudyWing.Enumeration {
         /// </summary>
         /// <param name="type">The type to inspect.</param>
         /// <returns>The matching <see cref="IEnumeration{TEnum, TValue}" /> interface types.</returns>
-        public static IEnumerable<Type> GetEnumerationTypes(this Type type) {
+        public static IEnumerable<Type> GetEnumerationTypes([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.Interfaces)] this Type type) {
             return type.GetInterfaces()
                 .Union(new Type[] { type })
                 .Where(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumeration<,>))
@@ -36,7 +36,7 @@ namespace CloudyWing.Enumeration {
         /// </summary>
         /// <param name="type">The type to inspect.</param>
         /// <returns>The underlying value types declared by matching enumeration interfaces.</returns>
-        public static IEnumerable<Type> GetEnumerationValueTypes(this Type type) {
+        public static IEnumerable<Type> GetEnumerationValueTypes([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.Interfaces)] this Type type) {
             IEnumerable<Type> enumerationTypes = GetEnumerationTypes(type);
 
             foreach (Type enumeration in enumerationTypes) {

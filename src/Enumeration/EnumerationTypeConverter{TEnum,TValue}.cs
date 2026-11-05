@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace CloudyWing.Enumeration {
     /// Apply the converter with <see cref="TypeConverterAttribute" />, or register it with
     /// <see cref="EnumerationTypeConverter.Register{TEnum, TValue}" />.
     /// </remarks>
-    public class EnumerationTypeConverter<TEnum, TValue> : TypeConverter
+    public class EnumerationTypeConverter<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TEnum, TValue> : TypeConverter
         where TEnum : EnumerationBase<TEnum, TValue>
         where TValue : IComparable {
         /// <inheritdoc />
