@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <Authors>周尚緯</Authors>
+    <Company />
+    <PackageProjectUrl>https://github.com/CloudyWing/Enumeration</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/CloudyWing/Enumeration</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+</Project>
