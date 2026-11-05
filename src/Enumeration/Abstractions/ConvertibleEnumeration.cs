@@ -91,12 +91,15 @@ namespace CloudyWing.Enumeration.Abstractions {
                 throw new ArgumentNullException(nameof(type));
             }
 
+            // 目標為此列舉型別或其列舉基底類別時回傳實例本身；object 與介面維持轉換為 Value
+            if (typeof(EnumerationBase<TEnum, TValue>).IsAssignableFrom(type) && type.IsInstanceOfType(this)) {
+                return this;
+            }
+
             try {
-                return type == GetType()
-                    ? this
-                    : type == typeof(TValue)
-                        ? Value.ToType(type, provider)
-                        : Convert.ChangeType(Value, type);
+                return type == typeof(TValue)
+                    ? Value.ToType(type, provider)
+                    : Convert.ChangeType(Value, type, provider);
             } catch (InvalidCastException ex) {
                 throw new InvalidCastException($"Invalid cast from '{GetType().FullName}' to '{type.FullName}'.", ex);
             }
