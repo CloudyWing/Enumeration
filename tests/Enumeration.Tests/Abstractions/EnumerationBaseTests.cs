@@ -768,5 +768,58 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
 
             Assert.That(actual, Is.SameAs(DuplicateValueEnumeration.Lime));
         }
+
+        [Test]
+        public void GetAll_CalledDuringStaticInitialization_ThrowsInvalidOperationExceptionWithoutCaching() {
+            ReentrantIntEnumeration[] actual = ReentrantIntEnumeration.GetAll().ToArray();
+
+            using (Assert.EnterMultipleScope()) {
+                Assert.That(ReentrantIntEnumeration.InitializationException, Is.TypeOf<InvalidOperationException>());
+                Assert.That(ReentrantIntEnumeration.InitializationException!.Message, Does.Contain(nameof(ReentrantIntEnumeration.Second)));
+                Assert.That(actual, Is.EqualTo(new[] { ReentrantIntEnumeration.First, ReentrantIntEnumeration.Second }).AsCollection);
+            }
+        }
+
+        [Test]
+        public void GetAll_NullableAnnotatedPropertyReturnsNull_IgnoresProperty() {
+            NullableMemberEnumeration[] actual = NullableMemberEnumeration.GetAll().ToArray();
+
+            Assert.That(actual, Is.EqualTo(new[] { NullableMemberEnumeration.One }).AsCollection);
+        }
+
+        [Test]
+        public void GetAll_NonNullablePropertyReturnsNull_ThrowsInvalidOperationException() {
+            Assert.Throws<InvalidOperationException>(() => NullMemberEnumeration.GetAll().ToList());
+        }
+
+        [Test]
+        public void Parse_CalledConcurrentlyBeforeInitialization_ReturnsSameInstances() {
+            const int ThreadCount = 8;
+            using Barrier barrier = new(ThreadCount);
+            ConcurrentInitializationEnumeration[][] results = new ConcurrentInitializationEnumeration[ThreadCount][];
+            Thread[] threads = Enumerable.Range(0, ThreadCount)
+                .Select(index => new Thread(() => {
+                    barrier.SignalAndWait();
+                    results[index] = ConcurrentInitializationEnumeration.GetValues()
+                        .Select(ConcurrentInitializationEnumeration.Parse)
+                        .ToArray();
+                }))
+                .ToArray();
+
+            foreach (Thread thread in threads) {
+                thread.Start();
+            }
+
+            foreach (Thread thread in threads) {
+                thread.Join();
+            }
+
+            ConcurrentInitializationEnumeration[] expected = [
+                ConcurrentInitializationEnumeration.One,
+                ConcurrentInitializationEnumeration.Two,
+                ConcurrentInitializationEnumeration.Three
+            ];
+            Assert.That(results, Has.All.EqualTo(expected).AsCollection);
+        }
 }
 }

@@ -15,6 +15,12 @@ namespace CloudyWing.Enumeration.Abstractions {
     /// Enumeration instances are discovered from readable public static properties declared directly on <typeparamref name="TEnum" />.
     /// A property that returns an instance already returned by an earlier property, such as an alias like <c>Default => Red</c>,
     /// does not create another member; the instance keeps the position of its first declaring property.
+    /// <para>
+    /// Members are discovered on first use. Accessing them through lookup members such as <see cref="GetAll" />,
+    /// <see cref="Parse(TValue)" /> or <see cref="TryParse(TValue, out TEnum)" /> while the static initialization of
+    /// <typeparamref name="TEnum" /> is still running throws <see cref="InvalidOperationException" />,
+    /// because members declared later are still <see langword="null" />. The failed discovery is not cached.
+    /// </para>
     /// </remarks>
     /// <seealso cref="IEnumeration&lt;TEnum, TValue&gt;" />
     /// <seealso cref="IEquatable&lt;TEnum&gt;" />
@@ -22,10 +28,11 @@ namespace CloudyWing.Enumeration.Abstractions {
     public abstract class EnumerationBase<TEnum, TValue> : IEnumeration<TEnum, TValue>, IEquatable<TEnum>, IComparable<TEnum>
         where TEnum : EnumerationBase<TEnum, TValue>
         where TValue : IComparable {
-        private static readonly Lazy<TEnum[]> enumerations = new Lazy<TEnum[]>(
-            GetDeclaredEnumerations,
-            LazyThreadSafetyMode.ExecutionAndPublication
-        );
+        private const string NullableAttributeName = "System.Runtime.CompilerServices.NullableAttribute";
+        private const string NullableContextAttributeName = "System.Runtime.CompilerServices.NullableContextAttribute";
+        private const byte NullableAnnotatedFlag = 2;
+        private static readonly object SyncRoot = new object();
+        private static TEnum[]? enumerations;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EnumerationBase{TEnum, TValue}" /> class.
@@ -68,7 +75,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// Instances are returned in the same order as their declaring public static properties on <typeparamref name="TEnum" />.
         /// </remarks>
         public static IEnumerable<TEnum> GetAll() {
-            foreach (TEnum enumeration in enumerations.Value) {
+            foreach (TEnum enumeration in GetEnumerations()) {
                 yield return enumeration;
             }
         }
@@ -225,6 +232,19 @@ namespace CloudyWing.Enumeration.Abstractions {
             return typeof(TValue);
         }
 
+        private static TEnum[] GetEnumerations() {
+            return Volatile.Read(ref enumerations) ?? InitializeEnumerations();
+        }
+
+        private static TEnum[] InitializeEnumerations() {
+            lock (SyncRoot) {
+                // 探索失敗時不寫入快取，讓型別初始化完成後的下一次呼叫可以重新探索
+                TEnum[] result = Volatile.Read(ref enumerations) ?? GetDeclaredEnumerations();
+                Volatile.Write(ref enumerations, result);
+                return result;
+            }
+        }
+
         private static TEnum[] GetDeclaredEnumerations() {
             IEnumerable<PropertyInfo> props = typeof(TEnum)
                 .GetProperties(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
@@ -236,15 +256,65 @@ namespace CloudyWing.Enumeration.Abstractions {
                     continue;
                 }
 
+                object? value = prop.GetValue(null, null);
+
+                if (value is null) {
+                    ThrowIfUninitializedMember(prop);
+                    continue;
+                }
+
                 // 別名屬性（例如 Default => Red）回傳既有實例，以參考相等去重並保留第一次宣告的順序
-                if (prop.GetValue(null, null) is TEnum instance
-                    && !instances.Any(x => ReferenceEquals(x, instance))
-                ) {
+                if (value is TEnum instance && !instances.Any(x => ReferenceEquals(x, instance))) {
                     instances.Add(instance);
                 }
             }
 
             return instances.ToArray();
+        }
+
+        private static void ThrowIfUninitializedMember(PropertyInfo property) {
+            if (!typeof(TEnum).IsAssignableFrom(property.PropertyType) || IsNullableAnnotated(property)) {
+                return;
+            }
+
+            throw new InvalidOperationException(
+                $"The static property '{typeof(TEnum).FullName}.{property.Name}' returned null while discovering enumeration members. "
+                + $"This usually means the members of '{typeof(TEnum).Name}' were accessed (for example through GetAll, Parse or TryParse) "
+                + "before its static initialization completed. Declare every enumeration member before static members that use them, "
+                + "or initialize those static members lazily. A property that intentionally returns null must declare a nullable type."
+            );
+        }
+
+        private static bool IsNullableAnnotated(PropertyInfo property) {
+            byte? flag = GetNullableFlag(property.CustomAttributes, NullableAttributeName);
+
+            for (Type? type = property.DeclaringType; flag is null && type is not null; type = type.DeclaringType) {
+                flag = GetNullableFlag(type.CustomAttributes, NullableContextAttributeName);
+            }
+
+            return flag == NullableAnnotatedFlag;
+        }
+
+        private static byte? GetNullableFlag(IEnumerable<CustomAttributeData> attributes, string attributeName) {
+            foreach (CustomAttributeData attribute in attributes) {
+                if (attribute.AttributeType.FullName != attributeName || attribute.ConstructorArguments.Count != 1) {
+                    continue;
+                }
+
+                object? argument = attribute.ConstructorArguments[0].Value;
+                if (argument is byte flag) {
+                    return flag;
+                }
+
+                if (argument is IReadOnlyList<CustomAttributeTypedArgument> flags
+                    && flags.Count > 0
+                    && flags[0].Value is byte firstFlag
+                ) {
+                    return firstFlag;
+                }
+            }
+
+            return null;
         }
 
         private static TEnum? FindEnumeration(Func<TEnum, bool> predicate) {
