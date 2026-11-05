@@ -7,10 +7,12 @@
   </Folder>
   <Folder Name="/src/">
     <Project Path="src\Enumeration\Enumeration.csproj" />
+    <Project Path="src\Enumeration.Analyzers\Enumeration.Analyzers.csproj" />
     <Project Path="src\Enumeration.Calendars\Enumeration.Calendars.csproj" />
     <Project Path="src\Enumeration.Json\Enumeration.Json.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests\Enumeration.Analyzers.Tests\Enumeration.Analyzers.Tests.csproj" />
     <Project Path="tests\Enumeration.Calendars.Tests\Enumeration.Calendars.Tests.csproj" />
     <Project Path="tests\Enumeration.Json.Tests\Enumeration.Json.Tests.csproj" />
     <Project Path="tests\Enumeration.Tests\Enumeration.Tests.csproj" />
