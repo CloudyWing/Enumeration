@@ -28,6 +28,10 @@ namespace CloudyWing.Enumeration.Abstractions {
     /// <see cref="IObjectReference" />, such as <c>BinaryFormatter</c> on .NET Framework and <c>DataContractSerializer</c>,
     /// return the declared instance instead of a copy. Derived types must also be marked <see cref="SerializableAttribute" />.
     /// </para>
+    /// <para>
+    /// On .NET 7 or later the type explicitly implements <c>IParsable&lt;TEnum&gt;</c> and <c>ISpanParsable&lt;TEnum&gt;</c>.
+    /// Parsing matches the text against <see cref="Name" /> first and then against the text form of <see cref="Value" />.
+    /// </para>
     /// </remarks>
     /// <seealso cref="IEnumeration&lt;TEnum, TValue&gt;" />
     /// <seealso cref="IEquatable&lt;TEnum&gt;" />
