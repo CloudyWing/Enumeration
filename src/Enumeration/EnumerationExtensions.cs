@@ -52,10 +52,16 @@ namespace CloudyWing.Enumeration {
         /// <param name="enumerations">The sequence of enumerations to inspect.</param>
         /// <param name="value">The value to match.</param>
         /// <returns><see langword="true" /> if a matching enumeration exists; otherwise, <see langword="false" />.</returns>
+        /// <remarks>
+        /// Values are compared with <see cref="EqualityComparer{T}.Default" />, the same rule used by
+        /// <see cref="Abstractions.EnumerationBase{TEnum, TValue}.TryParse(TValue, out TEnum)" />.
+        /// </remarks>
         public static bool ContainsValue<TEnum, TValue>(
             this IEnumerable<IEnumeration<TEnum, TValue>> enumerations, TValue value
         ) where TEnum : IEnumeration<TEnum, TValue> where TValue : IComparable {
-            return enumerations.Any(x => x.Value.CompareTo(value) == 0);
+            EqualityComparer<TValue> comparer = EqualityComparer<TValue>.Default;
+
+            return enumerations.Any(x => comparer.Equals(x.Value, value));
         }
 
         /// <summary>
@@ -131,10 +137,15 @@ namespace CloudyWing.Enumeration {
         /// <param name="name">The name of the matching enumeration.</param>
         /// <returns><see langword="true" /> if exactly one matching enumeration exists; otherwise, <see langword="false" />.</returns>
         /// <exception cref="InvalidOperationException">More than one enumeration in <paramref name="enumerations" /> matches <paramref name="value" />.</exception>
+        /// <remarks>
+        /// Values are compared with <see cref="EqualityComparer{T}.Default" />, the same rule used by
+        /// <see cref="Abstractions.EnumerationBase{TEnum, TValue}.TryParse(TValue, out TEnum)" />.
+        /// </remarks>
         public static bool TryGetName<TEnum, TValue>(
             this IEnumerable<IEnumeration<TEnum, TValue>> enumerations, TValue value, [MaybeNullWhen(false)] out string name
         ) where TEnum : IEnumeration<TEnum, TValue> where TValue : IComparable {
-            IEnumeration<TEnum, TValue>? enumeration = enumerations.SingleOrDefault(x => x.Value.CompareTo(value) == 0);
+            EqualityComparer<TValue> comparer = EqualityComparer<TValue>.Default;
+            IEnumeration<TEnum, TValue>? enumeration = enumerations.SingleOrDefault(x => comparer.Equals(x.Value, value));
 
             if (enumeration is null) {
                 name = default;
