@@ -821,5 +821,25 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
             ];
             Assert.That(results, Has.All.EqualTo(expected).AsCollection);
         }
+
+        [Test]
+        [TestCaseSource(nameof(CastTestSource))]
+        public void GetHashCode_EnumerationEqualsValue_ReturnsValueHashCode<TEnum, TValue>(TEnum enumeration, TValue value)
+            where TEnum : EnumerationBase<TEnum, TValue>
+            where TValue : IComparable {
+            using (Assert.EnterMultipleScope()) {
+                Assert.That(enumeration.Equals((object)value), Is.True);
+                Assert.That(enumeration.GetHashCode(), Is.EqualTo(value.GetHashCode()));
+            }
+        }
+
+        [Test]
+        public void GetHashCode_ValuesAsHashSetKeys_FindsEnumeration() {
+            HashSet<object> set = [BasicIntEnumeration.One];
+
+            bool actual = set.Contains(BasicIntEnumeration.One.Value);
+
+            Assert.That(actual, Is.True);
+        }
 }
 }

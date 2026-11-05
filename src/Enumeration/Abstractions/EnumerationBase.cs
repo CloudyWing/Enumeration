@@ -357,9 +357,16 @@ namespace CloudyWing.Enumeration.Abstractions {
             return Value.Equals(value);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>The hash code of <see cref="Value" />.</returns>
+        /// <remarks>
+        /// The hash code equals the hash code of <see cref="Value" /> so that an enumeration and its underlying value,
+        /// which compare equal through <see cref="Equals(object)" />, also share a hash code.
+        /// </remarks>
         public override int GetHashCode() {
-            return -1937169414 + EqualityComparer<TValue>.Default.GetHashCode(Value);
+            return Value is null ? 0 : EqualityComparer<TValue>.Default.GetHashCode(Value);
         }
 
         /// <inheritdoc/>
