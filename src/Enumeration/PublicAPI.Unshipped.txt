@@ -3,3 +3,15 @@ CloudyWing.Enumeration.EnumerationIgnoreAttribute
 CloudyWing.Enumeration.EnumerationIgnoreAttribute.EnumerationIgnoreAttribute() -> void
 static CloudyWing.Enumeration.Abstractions.EnumerationBase<TEnum, TValue>.GetAllAsReadOnly() -> System.Collections.Generic.IReadOnlyList<TEnum!>!
 static CloudyWing.Enumeration.Abstractions.EnumerationBase<TEnum, TValue>.GetCount() -> int
+CloudyWing.Enumeration.EnumerationTypeConverter
+CloudyWing.Enumeration.EnumerationTypeConverter<TEnum, TValue>
+CloudyWing.Enumeration.EnumerationTypeConverter<TEnum, TValue>.EnumerationTypeConverter() -> void
+override CloudyWing.Enumeration.EnumerationTypeConverter<TEnum, TValue>.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Type! sourceType) -> bool
+override CloudyWing.Enumeration.EnumerationTypeConverter<TEnum, TValue>.CanConvertTo(System.ComponentModel.ITypeDescriptorContext? context, System.Type? destinationType) -> bool
+override CloudyWing.Enumeration.EnumerationTypeConverter<TEnum, TValue>.ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object! value) -> object?
+override CloudyWing.Enumeration.EnumerationTypeConverter<TEnum, TValue>.ConvertTo(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object? value, System.Type! destinationType) -> object?
+override CloudyWing.Enumeration.EnumerationTypeConverter<TEnum, TValue>.GetStandardValues(System.ComponentModel.ITypeDescriptorContext? context) -> System.ComponentModel.TypeConverter.StandardValuesCollection!
+override CloudyWing.Enumeration.EnumerationTypeConverter<TEnum, TValue>.GetStandardValuesExclusive(System.ComponentModel.ITypeDescriptorContext? context) -> bool
+override CloudyWing.Enumeration.EnumerationTypeConverter<TEnum, TValue>.GetStandardValuesSupported(System.ComponentModel.ITypeDescriptorContext? context) -> bool
+override CloudyWing.Enumeration.EnumerationTypeConverter<TEnum, TValue>.IsValid(System.ComponentModel.ITypeDescriptorContext? context, object? value) -> bool
+static CloudyWing.Enumeration.EnumerationTypeConverter.Register<TEnum, TValue>() -> void
