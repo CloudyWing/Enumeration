@@ -28,8 +28,9 @@ namespace CloudyWing.Enumeration.Calendars {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static Month operator +(Month left, int right) {
-            int remainder = ((left.Value + right - 1) % 12) + 1;
-            return (Month)(remainder < 1 ? remainder + 12 : remainder);
+            // 先將位移量取模再相加，避免 left.Value + right 在 right 接近 int 上下限時溢位
+            int remainder = (left.Value - 1 + (right % 12)) % 12;
+            return (Month)(remainder < 0 ? remainder + 13 : remainder + 1);
         }
 
 
@@ -38,7 +39,8 @@ namespace CloudyWing.Enumeration.Calendars {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static Month operator -(Month left, int right) {
-            return left + (0 - right);
+            // 先取模再取負值，避免 right 為 int.MinValue 時取負值溢位
+            return left + -(right % 12);
         }
 
         /// <summary>Implements the operator ++.</summary>

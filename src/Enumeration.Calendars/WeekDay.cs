@@ -37,7 +37,8 @@ namespace CloudyWing.Enumeration.Calendars {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static WeekDay operator +(WeekDay left, int right) {
-            int remainder = (left.Value + right) % 7;
+            // 先將位移量取模再相加，避免 left.Value + right 在 right 接近 int 上下限時溢位
+            int remainder = (left.Value + (right % 7)) % 7;
             return (WeekDay)(remainder < 0 ? remainder + 7 : remainder);
         }
 
@@ -46,7 +47,8 @@ namespace CloudyWing.Enumeration.Calendars {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static WeekDay operator -(WeekDay left, int right) {
-            return left + (0 - right);
+            // 先取模再取負值，避免 right 為 int.MinValue 時取負值溢位
+            return left + -(right % 7);
         }
 
         /// <summary>Implements the operator ++.</summary>

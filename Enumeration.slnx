@@ -10,6 +10,7 @@
     <Project Path="src\Enumeration.Calendars\Enumeration.Calendars.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests\Enumeration.Calendars.Tests\Enumeration.Calendars.Tests.csproj" />
     <Project Path="tests\Enumeration.Tests\Enumeration.Tests.csproj" />
   </Folder>
 </Solution>
