@@ -1,1 +1,3 @@
 #nullable enable
+CloudyWing.Enumeration.EnumerationIgnoreAttribute
+CloudyWing.Enumeration.EnumerationIgnoreAttribute.EnumerationIgnoreAttribute() -> void

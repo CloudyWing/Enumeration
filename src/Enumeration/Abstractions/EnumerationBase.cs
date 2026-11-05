@@ -16,6 +16,7 @@ namespace CloudyWing.Enumeration.Abstractions {
     /// Enumeration instances are discovered from readable public static properties declared directly on <typeparamref name="TEnum" />.
     /// A property that returns an instance already returned by an earlier property, such as an alias like <c>Default => Red</c>,
     /// does not create another member; the instance keeps the position of its first declaring property.
+    /// Properties marked with <see cref="EnumerationIgnoreAttribute" /> are not discovered.
     /// <para>
     /// Members are discovered on first use. Accessing them through lookup members such as <see cref="GetAll" />,
     /// <see cref="Parse(TValue)" /> or <see cref="TryParse(TValue, out TEnum)" /> while the static initialization of
@@ -256,7 +257,10 @@ namespace CloudyWing.Enumeration.Abstractions {
 
             List<TEnum> instances = new List<TEnum>();
             foreach (PropertyInfo prop in props) {
-                if (!prop.CanRead || prop.GetIndexParameters().Length != 0) {
+                if (!prop.CanRead
+                    || prop.GetIndexParameters().Length != 0
+                    || prop.IsDefined(typeof(EnumerationIgnoreAttribute), false)
+                ) {
                     continue;
                 }
 
@@ -285,7 +289,8 @@ namespace CloudyWing.Enumeration.Abstractions {
                 $"The static property '{typeof(TEnum).FullName}.{property.Name}' returned null while discovering enumeration members. "
                 + $"This usually means the members of '{typeof(TEnum).Name}' were accessed (for example through GetAll, Parse or TryParse) "
                 + "before its static initialization completed. Declare every enumeration member before static members that use them, "
-                + "or initialize those static members lazily. A property that intentionally returns null must declare a nullable type."
+                + $"or initialize those static members lazily. A property that intentionally returns null must declare a nullable type "
+                + $"or be marked with {nameof(EnumerationIgnoreAttribute)}."
             );
         }
 

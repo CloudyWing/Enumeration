@@ -908,5 +908,19 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
 
             Assert.That(actual, Is.SameAs(AliasIntEnumeration.Red));
         }
+
+        [Test]
+        public void GetAll_IgnoredPropertiesDeclared_ExcludesIgnoredProperties() {
+            IgnoredMemberEnumeration[] actual = IgnoredMemberEnumeration.GetAll().ToArray();
+
+            Assert.That(actual, Is.EqualTo(new[] { IgnoredMemberEnumeration.One, IgnoredMemberEnumeration.Two }).AsCollection);
+        }
+
+        [Test]
+        public void Parse_IgnoredPropertyWithDuplicateValue_ReturnsDiscoveredInstance() {
+            IgnoredMemberEnumeration actual = IgnoredMemberEnumeration.Parse(1);
+
+            Assert.That(actual, Is.SameAs(IgnoredMemberEnumeration.One));
+        }
 }
 }
