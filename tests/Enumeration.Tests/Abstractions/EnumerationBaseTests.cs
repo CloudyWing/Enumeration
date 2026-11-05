@@ -891,5 +891,22 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
                 Assert.That(enumeration, Is.Null);
             }
         }
+
+        [Test]
+        public void ExplicitOperator_DuplicateValueDeclared_ThrowsInvalidOperationException() {
+            Assert.Throws<InvalidOperationException>(() => _ = (DuplicateValueEnumeration)1);
+        }
+
+        [Test]
+        public void ExplicitOperator_UndeclaredValue_ThrowsInvalidCastException() {
+            Assert.Throws<InvalidCastException>(() => _ = (DuplicateValueEnumeration)9);
+        }
+
+        [Test]
+        public void ExplicitOperator_AliasPropertyDeclared_ReturnsOriginalInstance() {
+            AliasIntEnumeration actual = (AliasIntEnumeration)1;
+
+            Assert.That(actual, Is.SameAs(AliasIntEnumeration.Red));
+        }
 }
 }

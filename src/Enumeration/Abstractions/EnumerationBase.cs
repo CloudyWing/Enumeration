@@ -415,10 +415,12 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <summary>Performs an explicit conversion from <c>TValue</c> to <see cref="EnumerationBase{TEnum, TValue}" />.</summary>
         /// <param name="value">The value.</param>
         /// <returns>The result of the conversion.</returns>
-        /// <exception cref="InvalidCastException"></exception>
+        /// <exception cref="InvalidCastException">No declared enumeration matches <paramref name="value" />.</exception>
+        /// <exception cref="InvalidOperationException">More than one declared enumeration matches <paramref name="value" />.</exception>
         public static explicit operator EnumerationBase<TEnum, TValue>(TValue value) {
-            return GetAll().SingleOrDefault(x => x.Value.Equals(value))
-                ?? throw new InvalidCastException();
+            return TryParse(value, out TEnum? enumeration)
+                ? enumeration
+                : throw new InvalidCastException($"Could not convert '{value}' to '{typeof(TEnum).FullName}' because no declared enumeration has that value.");
         }
 
         /// <summary>Implements the operator ==.</summary>
