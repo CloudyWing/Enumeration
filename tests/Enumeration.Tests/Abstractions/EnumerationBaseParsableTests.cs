@@ -1,4 +1,4 @@
-#if NET7_0_OR_GREATER
+#if NET10_0_OR_GREATER // 函式庫只有 net10.0 組件實作 IParsable，net8.0 測試使用 netstandard2.0 組件
 using System.Globalization;
 using CloudyWing.Enumeration.Tests.Enumerations;
 

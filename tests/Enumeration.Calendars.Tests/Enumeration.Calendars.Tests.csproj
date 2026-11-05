@@ -1,7 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFrameworks>net10.0;net8.0</TargetFrameworks>
+    <!-- net48 透過 net45 組件測試 .NET Framework 路徑；Linux 沒有 Mono 時只在 Windows 執行，或以 EnableNetFrameworkTests=true 僅編譯檢查 -->
+    <TargetFrameworks Condition="'$(OS)' == 'Windows_NT' Or '$(EnableNetFrameworkTests)' == 'true'">net10.0;net8.0;net48</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>false</IsPackable>
     <AssemblyName>CloudyWing.Enumeration.Calendars.Tests</AssemblyName>
@@ -20,6 +22,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
 
   <ItemGroup>

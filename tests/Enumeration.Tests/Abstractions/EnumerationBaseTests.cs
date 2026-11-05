@@ -941,7 +941,7 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
             }
         }
 
-#if NET9_0_OR_GREATER
+#if NET10_0_OR_GREATER
         [Test]
         [TestCase("One", false)]
         [TestCase("one", true)]
