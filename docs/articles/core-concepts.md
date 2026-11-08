@@ -32,7 +32,7 @@ public sealed class Status : EnumerationBase<Status, int> {
 
 ## 成員探索規則
 
-第一次呼叫 `GetAll()`、`Parse()`、`TryParse()` 等查找方法時，函式庫以反射讀取直接宣告在 `TEnum` 上、可讀取的 public static 屬性，並依宣告順序建立成員清單，之後的呼叫都使用快取。
+第一次需要成員清單時，函式庫以反射讀取直接宣告在 `TEnum` 上、可讀取的 public static 屬性，並依宣告順序建立成員清單，之後都使用快取。`Parse()`、`TryParse()`、`GetAllAsReadOnly()`、`GetCount()` 等方法在呼叫時就會觸發探索；`GetAll()` 只傳回延遲讀取的集合，第一次讀取該集合（列舉、讀取 `Count` 或索引）時才探索。
 
 - 回傳既有實例的別名屬性（例如 `public static Status Default => Active;`）不會產生新成員，該實例保留第一次宣告的位置。
 - 標註 `[EnumerationIgnore]` 的屬性不參與探索，也不會呼叫其 getter，適合輔助屬性或依設定切換的屬性。
@@ -42,7 +42,7 @@ public sealed class Status : EnumerationBase<Status, int> {
 查找使用初始化時建立的字典，Value 以 `EqualityComparer<TValue>.Default` 比對，Name 依 `ignoreCase` 參數以 `StringComparison.Ordinal` 或 `StringComparison.OrdinalIgnoreCase` 比對。
 
 > [!WARNING]
-> 不要在 `TEnum` 的 static 初始化過程中呼叫 `GetAll()`、`Parse()` 等查找方法。此時尚未初始化的成員仍為 `null`，函式庫會拋出說明初始化順序問題的 `InvalidOperationException`，且不會快取不完整的結果。需要在 static 成員中使用成員清單時，改以延遲初始化的方式取得。
+> 不要在 `TEnum` 的 static 初始化過程中觸發成員探索，例如呼叫 `Parse()`、`GetAllAsReadOnly()`，或讀取 `GetAll()` 回傳的集合。此時尚未初始化的成員仍為 `null`，函式庫會拋出說明初始化順序問題的 `InvalidOperationException`，且不會快取不完整的結果。只呼叫 `GetAll()` 而不讀取集合不會觸發探索。需要在 static 成員中使用成員清單時，改以延遲初始化的方式取得。
 
 ## 重複的 Value 或 Name
 
@@ -73,9 +73,10 @@ bool isDefined = Status.IsDefinedName("Inactive");
 ## 相等、雜湊與比較
 
 - `Equals(TEnum)` 與 `==` 依 Value 比較，`Equals(object)` 也接受 `TValue`，例如 `Status.Active.Equals(1)` 為 `true`。
-- `GetHashCode()` 回傳 Value 的雜湊值，因此列舉與其 Value 在雜湊集合中視為相同的鍵。
+- `GetHashCode()` 回傳 Value 的雜湊值，列舉與其 Value 相等時雜湊值也相同。是否在 `Dictionary` 或 `HashSet` 中視為同一個鍵，取決於集合的鍵型別與相等比較器。以 `object` 為鍵時，`Status.Active.Equals((object)1)` 為 `true`，但 `((object)1).Equals(Status.Active)` 為 `false`，結果取決於先加入集合的是列舉還是 Value，不建議把列舉與其 Value 混用為同一個集合的鍵。
 - `CompareTo()` 與 `>`、`<`、`>=`、`<=` 依 Value 排序。
-- 運算子的任一側為 `null` 時，`==` 回傳 `false`、`!=` 回傳 `true`，比較運算子回傳 `false`，數值基底類別與其他數值型別比較時也套用相同規則。
+- 兩個列舉參考比較時，兩側皆為 `null` 則 `==` 回傳 `true`、`!=` 回傳 `false`；只有一側為 `null` 則 `==` 回傳 `false`、`!=` 回傳 `true`；比較運算子任一側為 `null` 時回傳 `false`。
+- 列舉與 `TValue` 比較時，列舉為 `null` 則 `==` 回傳 `false`、`!=` 回傳 `true`，比較運算子回傳 `false`。數值基底類別與其他數值型別比較時也套用相同規則。
 
 數值基底類別的 `Equals(object)` 接受其他數值型別（例如 `LongEnumeration` 與 `int`），這類跨型別相等的雜湊值不一定相同，作為雜湊集合的鍵時應使用相同的 Value 型別。
 

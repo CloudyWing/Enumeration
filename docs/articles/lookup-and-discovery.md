@@ -37,7 +37,9 @@ bool foundValue = days.TryGetValue("星期一", out int mondayValue);
 bool foundName = days.TryGetName(0, out string firstDayName);
 ```
 
-These helpers return `false` when no match is found. They expect the sequence to contain a single match for each lookup key.
+These helpers return `false` when no match is found. They expect the sequence to contain a single match for each lookup key, and throw `InvalidOperationException` when more than one enumeration in the sequence matches.
+
+`ContainsValue()` and `TryGetName()` compare values with `EqualityComparer<TValue>.Default`, the same rule that `TryParse()` uses. Ordering operators and `CompareTo()` use `IComparable` instead, so for a custom value type whose equality and ordering disagree, a value can be "equal" under one rule and not under the other.
 
 ## Projection Helpers
 

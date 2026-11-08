@@ -121,7 +121,7 @@ public sealed class WeekDay : IntEnumeration<WeekDay> {
 ```
 
 ### 條件判斷
-由於 Enumeration 無法像 `enum` 一樣用於 Switch Case，所以提供 Fluent Interface 來簡化寫法。只會執行第一個成立的分支，已有分支執行後，後續的條件不會再評估。
+由於 Enumeration 無法像 `enum` 一樣用於 Switch Case，所以提供 Fluent Interface 來簡化寫法。只會執行第一個成立的分支，已有分支執行後，後續以 `Func<bool>` 傳入的條件委派不會再執行。直接傳入的 `bool` 運算式由呼叫端先行求值，列舉清單多載（如 `When(WeekDay.Sunday, WeekDay.Monday)`）也會在呼叫 `When()` 時就比對，這兩種寫法不受短路影響。
 ```csharp
 public void Test(WeekDay week) {
     List<WeekDay> list = new List<WeekDay>();
@@ -244,10 +244,10 @@ IDictionary<string, int> nameValueMap = days.ToNameValueDictionary();
 ```
 
 ### 成員探索規則
-`GetAll()` 等查找方法會探索直接宣告在型別上、可讀取的 public static 屬性：
+`Parse()`、`GetAllAsReadOnly()` 等方法在第一次呼叫時，會探索直接宣告在型別上、可讀取的 public static 屬性；`GetAll()` 回傳延遲讀取的集合，第一次讀取該集合時才探索：
 - 回傳既有實例的別名屬性（例如 `public static WeekDay Default => Sunday;`）不會產生新成員。
 - 標註 `[EnumerationIgnore]` 的屬性不參與探索。
-- 不要在 Enumeration 的 static 初始化過程中呼叫 `GetAll()`、`Parse()` 等查找方法，此時尚未初始化的成員仍為 `null`，會 Throw `InvalidOperationException`。
+- 不要在 Enumeration 的 static 初始化過程中觸發成員探索（例如呼叫 `Parse()`、`GetAllAsReadOnly()`，或讀取 `GetAll()` 回傳的集合），此時尚未初始化的成員仍為 `null`，會 Throw `InvalidOperationException`。
 
 ### 序列化與轉換
 - 基底類別標註 `[Serializable]` 並實作 `IObjectReference`，`BinaryFormatter`（.NET Framework）與 `DataContractSerializer` 反序列化時會回傳已宣告的實例。
@@ -267,16 +267,31 @@ EnumerationTypeConverter.Register<WeekDay, int>();
 ```
 
 ### Analyzer
-`CloudyWing.Enumeration.Analyzers` 套件在編譯時檢查重複的 Value（`ENUM001`）、重複的 Name（`ENUM002`）與 public 建構子（`ENUM003`）。
+`CloudyWing.Enumeration.Analyzers` 套件在編譯時檢查列舉宣告，三條規則的類別皆為 `Design`，預設啟用，嚴重度為 Warning：
+- `ENUM001`：兩個成員宣告相同的 Value。修正方式為改成唯一的 Value。
+- `ENUM002`：兩個成員宣告相同的 Name。修正方式為改成唯一的 Name。
+- `ENUM003`：非抽象列舉宣告 public 建構子。修正方式為將建構子改成 `private`。
+
+Analyzer 以 `Microsoft.CodeAnalysis.CSharp` 4.8.0 建置，需要 Roslyn 4.8 以上的編譯器（Visual Studio 2022 17.8 以上，或 .NET SDK 8.0.100 以上）。各規則的觸發條件與檢查範圍請參考[進階用法](./docs/articles/advanced-usage.md#analyzer)。
 
 ## Packages
 
 | 套件 | 說明 |
 | --- | --- |
-| `CloudyWing.Enumeration` | 列舉基底類別、查找 API、Fluent 條件判斷與 `TypeConverter`。 |
-| `CloudyWing.Enumeration.Calendars` | 月份（`Month`）與星期（`WeekDay`）列舉。 |
-| `CloudyWing.Enumeration.Json` | System.Text.Json 轉換器，支援 .NET Standard 2.0 與 .NET 10。 |
-| `CloudyWing.Enumeration.Analyzers` | Roslyn Analyzer。 |
+| `CloudyWing.Enumeration` | 列舉基底類別、查找 API、Fluent 條件判斷與 `TypeConverter`，支援 .NET Standard 2.0、.NET Framework 4.5 與 .NET 10。 |
+| `CloudyWing.Enumeration.Calendars` | 月份（`Month`）與星期（`WeekDay`）列舉，支援循環位移運算，目標框架同核心套件。 |
+| `CloudyWing.Enumeration.Json` | System.Text.Json 轉換器，支援 .NET Standard 2.0 與 .NET 10；.NET Standard 2.0 目標相依 `System.Text.Json` 10.0.8 以上。 |
+| `CloudyWing.Enumeration.Analyzers` | Roslyn Analyzer，編譯時偵測重複 Value、重複 Name 與 public 建構子；目標框架為 .NET Standard 2.0，編譯器需求見 [Analyzer](#analyzer)。 |
+
+各套件以 NuGet 安裝：
+```bash
+dotnet add package CloudyWing.Enumeration
+dotnet add package CloudyWing.Enumeration.Calendars
+dotnet add package CloudyWing.Enumeration.Json
+dotnet add package CloudyWing.Enumeration.Analyzers
+```
+
+`Json` 與 `Analyzers` 套件的使用方式請參考[進階用法](./docs/articles/advanced-usage.md)。
 
 ## Documentation
 

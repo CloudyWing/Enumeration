@@ -10,7 +10,15 @@
 dotnet add package CloudyWing.Enumeration
 ```
 
-需要月份與星期列舉、JSON 序列化或編譯時檢查時，可另外安裝 `CloudyWing.Enumeration.Calendars`、`CloudyWing.Enumeration.Json` 或 `CloudyWing.Enumeration.Analyzers`。
+需要月份與星期列舉、JSON 序列化或編譯時檢查時，可另外安裝下列套件：
+
+```bash
+dotnet add package CloudyWing.Enumeration.Calendars
+dotnet add package CloudyWing.Enumeration.Json
+dotnet add package CloudyWing.Enumeration.Analyzers
+```
+
+`Json` 套件提供 System.Text.Json 轉換器，`Analyzers` 套件會在編譯時偵測重複的 Value、Name 與 public 建構子。各套件的目標框架、使用方式與 Analyzer 的編譯器需求，請參考 [進階用法](advanced-usage.md)。
 
 ## 基本用法
 
