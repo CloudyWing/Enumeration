@@ -12,12 +12,14 @@ IEnumerable<int> values = WeekDay.GetValues();
 IEnumerable<string> names = WeekDay.GetNames();
 
 bool hasMondayValue = WeekDay.IsDefined(1);
-bool hasMondayName = WeekDay.IsDefinedName("monday", ignoreCase: true);
+bool hasMondayName = WeekDay.IsDefinedName("星期一");
 
 WeekDay monday = WeekDay.Parse(1);
 WeekDay fallbackByValue = WeekDay.ParseOrDefault(9, WeekDay.Sunday);
 WeekDay fallbackByName = WeekDay.ParseNameOrDefault("Holiday", WeekDay.Sunday);
 ```
+
+`WeekDay` in these examples is the type from `CloudyWing.Enumeration.Calendars`, whose names are Traditional Chinese day names such as `星期一`.
 
 Use `Parse` and `ParseName` when a missing match should fail fast. Use the `TryParse*` and `*OrDefault` APIs when the input may be unknown at runtime.
 
@@ -28,14 +30,16 @@ When you already have a sequence of enumerations, `EnumerationExtensions` can pe
 ```csharp
 IEnumerable<IEnumeration<WeekDay, int>> days = WeekDay.GetAll();
 
-bool hasFriday = days.ContainsName("Friday");
+bool hasFriday = days.ContainsName("星期五");
 bool hasZero = days.ContainsValue(0);
 
-bool foundValue = days.TryGetValue("Monday", out int mondayValue);
+bool foundValue = days.TryGetValue("星期一", out int mondayValue);
 bool foundName = days.TryGetName(0, out string firstDayName);
 ```
 
-These helpers return `false` when no match is found. They expect the sequence to contain a single match for each lookup key.
+These helpers return `false` when no match is found. They expect the sequence to contain a single match for each lookup key, and throw `InvalidOperationException` when more than one enumeration in the sequence matches.
+
+`ContainsValue()` and `TryGetName()` compare values with `EqualityComparer<TValue>.Default`, the same rule that `TryParse()` uses. Ordering operators and `CompareTo()` use `IComparable` instead, so for a custom value type whose equality and ordering disagree, a value can be "equal" under one rule and not under the other.
 
 ## Projection Helpers
 

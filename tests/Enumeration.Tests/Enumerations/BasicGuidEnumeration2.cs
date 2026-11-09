@@ -1,7 +1,9 @@
 ﻿using CloudyWing.Enumeration.Abstractions;
 
 namespace CloudyWing.Enumeration.Tests.Enumerations {
+#pragma warning disable CA2260 // 刻意以其他列舉作為 TEnum，驗證不同型別之間的相等比較
     internal class BasicGuidEnumeration2 : EnumerationBase<BasicGuidEnumeration, Guid> {
+#pragma warning restore CA2260
         private static readonly Lazy<BasicGuidEnumeration2> allZero = new(() => new BasicGuidEnumeration2(Guid.Empty, nameof(AllZero)));
 
         private static readonly Lazy<BasicGuidEnumeration2> allOne = new(() => new BasicGuidEnumeration2(Guid.Parse("11111111-1111-1111-1111-111111111111"), nameof(AllOne)));

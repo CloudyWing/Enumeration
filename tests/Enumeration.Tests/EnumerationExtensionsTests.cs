@@ -193,5 +193,39 @@ namespace CloudyWing.Enumeration.Tests {
 
             Assert.That(actual, Is.EqualTo(expected));
         }
-    }
+    
+
+        [Test]
+        public void ContainsValue_ValueComparesEqualButIsNotEqual_ReturnsFalse() {
+            IEnumerable<IEnumeration<OrderKeyEnumeration, CaseInsensitiveOrderKey>> enumerations = [OrderKeyEnumeration.Upper];
+
+            bool actual = enumerations.ContainsValue(new CaseInsensitiveOrderKey("a"));
+
+            Assert.That(actual, Is.False);
+        }
+
+        [Test]
+        public void TryGetName_ValuesCompareEqualButAreNotEqual_ReturnsExactMatch() {
+            IEnumerable<IEnumeration<OrderKeyEnumeration, CaseInsensitiveOrderKey>> enumerations = OrderKeyEnumeration.GetAll();
+
+            bool actual = enumerations.TryGetName(new CaseInsensitiveOrderKey("a"), out string? name);
+
+            using (Assert.EnterMultipleScope()) {
+                Assert.That(actual, Is.True);
+                Assert.That(name, Is.EqualTo(nameof(OrderKeyEnumeration.Lower)));
+            }
+        }
+
+        [Test]
+        public void TryGetName_NullValueWithoutMatch_ReturnsFalse() {
+            IEnumerable<IEnumeration<BasicStringEnumeration, string>> enumerations = BasicStringEnumeration.GetAll();
+
+            bool actual = enumerations.TryGetName(null!, out string? name);
+
+            using (Assert.EnterMultipleScope()) {
+                Assert.That(actual, Is.False);
+                Assert.That(name, Is.Null);
+            }
+        }
+}
 }

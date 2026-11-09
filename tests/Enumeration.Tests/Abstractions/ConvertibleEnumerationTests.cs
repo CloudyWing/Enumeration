@@ -199,5 +199,44 @@ namespace CloudyWing.Enumeration.Tests.Abstractions {
 
             Assert.That(ex.Message, Is.EqualTo(expectedMessage));
         }
-    }
+    
+
+        [Test]
+        [TestCase(typeof(BasicIntEnumeration))]
+        [TestCase(typeof(ConvertibleEnumeration<BasicIntEnumeration, int>))]
+        [TestCase(typeof(EnumerationBase<BasicIntEnumeration, int>))]
+        public void ToType_EnumerationHierarchyType_ReturnsSameInstance(Type type) {
+            IConvertible convertible = BasicIntEnumeration.One;
+
+            object actual = convertible.ToType(type, null);
+
+            Assert.That(actual, Is.SameAs(BasicIntEnumeration.One));
+        }
+
+        [Test]
+        public void ToType_ObjectType_ReturnsUnderlyingValue() {
+            IConvertible convertible = BasicIntEnumeration.One;
+
+            object actual = convertible.ToType(typeof(object), null);
+
+            Assert.That(actual, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void ToType_StringTypeWithProvider_UsesProvider() {
+            IConvertible convertible = FractionDoubleEnumeration.Half;
+            System.Globalization.CultureInfo culture = new("de-DE");
+
+            object actual = convertible.ToType(typeof(string), culture);
+
+            Assert.That(actual, Is.EqualTo(0.5D.ToString(culture)));
+        }
+
+        [Test]
+        public void ToType_UnrelatedEnumerationType_ThrowsInvalidCastException() {
+            IConvertible convertible = BasicIntEnumeration.One;
+
+            Assert.Throws<InvalidCastException>(() => convertible.ToType(typeof(BasicIntEnumeration2), null));
+        }
+}
 }

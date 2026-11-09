@@ -1,0 +1,52 @@
+<Project>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
+    <EnablePackageValidation>true</EnablePackageValidation>
+    <WarningsAsErrors>$(WarningsAsErrors);RS0016;RS0017</WarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)..\build\icon.png" Pack="true" PackagePath="\" Link="icon.png" Visible="false" />
+    <None Include="$(MSBuildThisFileDirectory)..\LICENSE.md" Pack="true" PackagePath="" Link="LICENSE.md" Visible="false" />
+    <None Include="$(MSBuildThisFileDirectory)..\README.md" Pack="true" PackagePath="\" Link="README.md" Visible="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MinVer" Version="7.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(UsePublicApiAnalyzers)' != 'false'">
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(UsePublicApiAnalyzers)' != 'false'">
+    <AdditionalFiles Include="PublicAPI.Shipped.txt" />
+    <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
+    <AdditionalFiles Include="PublicAPI\$(TargetFramework)\PublicAPI.Shipped.txt" Condition="Exists('PublicAPI\$(TargetFramework)\PublicAPI.Shipped.txt')" />
+    <AdditionalFiles Include="PublicAPI\$(TargetFramework)\PublicAPI.Unshipped.txt" Condition="Exists('PublicAPI\$(TargetFramework)\PublicAPI.Unshipped.txt')" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>$(AssemblyName).Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,18 @@
+#nullable enable
+CloudyWing.Enumeration.Json.EnumerationJsonConverter<TEnum, TValue>
+CloudyWing.Enumeration.Json.EnumerationJsonConverter<TEnum, TValue>.EnumerationJsonConverter() -> void
+CloudyWing.Enumeration.Json.EnumerationJsonConverter<TEnum, TValue>.EnumerationJsonConverter(CloudyWing.Enumeration.Json.EnumerationJsonFormat format) -> void
+CloudyWing.Enumeration.Json.EnumerationJsonConverter<TEnum, TValue>.Format.get -> CloudyWing.Enumeration.Json.EnumerationJsonFormat
+CloudyWing.Enumeration.Json.EnumerationJsonConverterFactory
+CloudyWing.Enumeration.Json.EnumerationJsonConverterFactory.EnumerationJsonConverterFactory() -> void
+CloudyWing.Enumeration.Json.EnumerationJsonConverterFactory.EnumerationJsonConverterFactory(CloudyWing.Enumeration.Json.EnumerationJsonFormat format) -> void
+CloudyWing.Enumeration.Json.EnumerationJsonConverterFactory.Format.get -> CloudyWing.Enumeration.Json.EnumerationJsonFormat
+CloudyWing.Enumeration.Json.EnumerationJsonFormat
+CloudyWing.Enumeration.Json.EnumerationJsonFormat.Name = 1 -> CloudyWing.Enumeration.Json.EnumerationJsonFormat
+CloudyWing.Enumeration.Json.EnumerationJsonFormat.Value = 0 -> CloudyWing.Enumeration.Json.EnumerationJsonFormat
+override CloudyWing.Enumeration.Json.EnumerationJsonConverter<TEnum, TValue>.Read(ref System.Text.Json.Utf8JsonReader reader, System.Type! typeToConvert, System.Text.Json.JsonSerializerOptions! options) -> TEnum?
+override CloudyWing.Enumeration.Json.EnumerationJsonConverter<TEnum, TValue>.ReadAsPropertyName(ref System.Text.Json.Utf8JsonReader reader, System.Type! typeToConvert, System.Text.Json.JsonSerializerOptions! options) -> TEnum!
+override CloudyWing.Enumeration.Json.EnumerationJsonConverter<TEnum, TValue>.Write(System.Text.Json.Utf8JsonWriter! writer, TEnum! value, System.Text.Json.JsonSerializerOptions! options) -> void
+override CloudyWing.Enumeration.Json.EnumerationJsonConverter<TEnum, TValue>.WriteAsPropertyName(System.Text.Json.Utf8JsonWriter! writer, TEnum! value, System.Text.Json.JsonSerializerOptions! options) -> void
+override CloudyWing.Enumeration.Json.EnumerationJsonConverterFactory.CanConvert(System.Type! typeToConvert) -> bool
+override CloudyWing.Enumeration.Json.EnumerationJsonConverterFactory.CreateConverter(System.Type! typeToConvert, System.Text.Json.JsonSerializerOptions! options) -> System.Text.Json.Serialization.JsonConverter?

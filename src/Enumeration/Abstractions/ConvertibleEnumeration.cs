@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CloudyWing.Enumeration.Abstractions {
     /// <summary>The convertible enumeration base.</summary>
@@ -6,7 +7,8 @@ namespace CloudyWing.Enumeration.Abstractions {
     /// <typeparam name="TValue">The type of the value.</typeparam>
     /// <seealso cref="EnumerationBase&lt;TEnum, TValue&gt;" />
     /// <seealso cref="IConvertible" />
-    public abstract class ConvertibleEnumeration<TEnum, TValue> : EnumerationBase<TEnum, TValue>, IConvertible
+    [Serializable]
+    public abstract class ConvertibleEnumeration<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TEnum, TValue> : EnumerationBase<TEnum, TValue>, IConvertible
         where TEnum : ConvertibleEnumeration<TEnum, TValue>
         where TValue : IComparable, IConvertible {
         /// <summary>Initializes a new instance of the <see cref="ConvertibleEnumeration{TEnum, TValue}" /> class.</summary>
@@ -91,12 +93,15 @@ namespace CloudyWing.Enumeration.Abstractions {
                 throw new ArgumentNullException(nameof(type));
             }
 
+            // 目標為此列舉型別或其列舉基底類別時回傳實例本身；object 與介面維持轉換為 Value
+            if (typeof(EnumerationBase<TEnum, TValue>).IsAssignableFrom(type) && type.IsInstanceOfType(this)) {
+                return this;
+            }
+
             try {
-                return type == GetType()
-                    ? this
-                    : type == typeof(TValue)
-                        ? Value.ToType(type, provider)
-                        : Convert.ChangeType(Value, type);
+                return type == typeof(TValue)
+                    ? Value.ToType(type, provider)
+                    : Convert.ChangeType(Value, type, provider);
             } catch (InvalidCastException ex) {
                 throw new InvalidCastException($"Invalid cast from '{GetType().FullName}' to '{type.FullName}'.", ex);
             }

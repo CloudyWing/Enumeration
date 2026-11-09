@@ -1,0 +1,39 @@
+#nullable enable
+CloudyWing.Enumeration.Calendars.Month
+CloudyWing.Enumeration.Calendars.Month.EnglishAbbreviation.get -> string!
+CloudyWing.Enumeration.Calendars.Month.EnglishName.get -> string!
+CloudyWing.Enumeration.Calendars.Month.NameAbbreviation.get -> string!
+CloudyWing.Enumeration.Calendars.WeekDay
+CloudyWing.Enumeration.Calendars.WeekDay.EnglishAbbreviation.get -> string!
+CloudyWing.Enumeration.Calendars.WeekDay.EnglishName.get -> string!
+CloudyWing.Enumeration.Calendars.WeekDay.NameAbbreviation.get -> string!
+CloudyWing.Enumeration.Calendars.WeekDay.NameAbbreviationWithBracket.get -> string!
+static CloudyWing.Enumeration.Calendars.Month.April.get -> CloudyWing.Enumeration.Calendars.Month!
+static CloudyWing.Enumeration.Calendars.Month.August.get -> CloudyWing.Enumeration.Calendars.Month!
+static CloudyWing.Enumeration.Calendars.Month.December.get -> CloudyWing.Enumeration.Calendars.Month!
+static CloudyWing.Enumeration.Calendars.Month.February.get -> CloudyWing.Enumeration.Calendars.Month!
+static CloudyWing.Enumeration.Calendars.Month.January.get -> CloudyWing.Enumeration.Calendars.Month!
+static CloudyWing.Enumeration.Calendars.Month.July.get -> CloudyWing.Enumeration.Calendars.Month!
+static CloudyWing.Enumeration.Calendars.Month.June.get -> CloudyWing.Enumeration.Calendars.Month!
+static CloudyWing.Enumeration.Calendars.Month.March.get -> CloudyWing.Enumeration.Calendars.Month!
+static CloudyWing.Enumeration.Calendars.Month.May.get -> CloudyWing.Enumeration.Calendars.Month!
+static CloudyWing.Enumeration.Calendars.Month.November.get -> CloudyWing.Enumeration.Calendars.Month!
+static CloudyWing.Enumeration.Calendars.Month.October.get -> CloudyWing.Enumeration.Calendars.Month!
+static CloudyWing.Enumeration.Calendars.Month.operator +(CloudyWing.Enumeration.Calendars.Month! left, int right) -> CloudyWing.Enumeration.Calendars.Month!
+static CloudyWing.Enumeration.Calendars.Month.operator ++(CloudyWing.Enumeration.Calendars.Month! month) -> CloudyWing.Enumeration.Calendars.Month!
+static CloudyWing.Enumeration.Calendars.Month.operator -(CloudyWing.Enumeration.Calendars.Month! left, int right) -> CloudyWing.Enumeration.Calendars.Month!
+static CloudyWing.Enumeration.Calendars.Month.operator --(CloudyWing.Enumeration.Calendars.Month! month) -> CloudyWing.Enumeration.Calendars.Month!
+static CloudyWing.Enumeration.Calendars.Month.September.get -> CloudyWing.Enumeration.Calendars.Month!
+static CloudyWing.Enumeration.Calendars.WeekDay.Friday.get -> CloudyWing.Enumeration.Calendars.WeekDay!
+static CloudyWing.Enumeration.Calendars.WeekDay.implicit operator CloudyWing.Enumeration.Calendars.WeekDay!(System.DayOfWeek dayOfWeek) -> CloudyWing.Enumeration.Calendars.WeekDay!
+static CloudyWing.Enumeration.Calendars.WeekDay.implicit operator System.DayOfWeek(CloudyWing.Enumeration.Calendars.WeekDay! weekDay) -> System.DayOfWeek
+static CloudyWing.Enumeration.Calendars.WeekDay.Monday.get -> CloudyWing.Enumeration.Calendars.WeekDay!
+static CloudyWing.Enumeration.Calendars.WeekDay.operator +(CloudyWing.Enumeration.Calendars.WeekDay! left, int right) -> CloudyWing.Enumeration.Calendars.WeekDay!
+static CloudyWing.Enumeration.Calendars.WeekDay.operator ++(CloudyWing.Enumeration.Calendars.WeekDay! weekDay) -> CloudyWing.Enumeration.Calendars.WeekDay!
+static CloudyWing.Enumeration.Calendars.WeekDay.operator -(CloudyWing.Enumeration.Calendars.WeekDay! left, int right) -> CloudyWing.Enumeration.Calendars.WeekDay!
+static CloudyWing.Enumeration.Calendars.WeekDay.operator --(CloudyWing.Enumeration.Calendars.WeekDay! weekDay) -> CloudyWing.Enumeration.Calendars.WeekDay!
+static CloudyWing.Enumeration.Calendars.WeekDay.Saturday.get -> CloudyWing.Enumeration.Calendars.WeekDay!
+static CloudyWing.Enumeration.Calendars.WeekDay.Sunday.get -> CloudyWing.Enumeration.Calendars.WeekDay!
+static CloudyWing.Enumeration.Calendars.WeekDay.Thursday.get -> CloudyWing.Enumeration.Calendars.WeekDay!
+static CloudyWing.Enumeration.Calendars.WeekDay.Tuesday.get -> CloudyWing.Enumeration.Calendars.WeekDay!
+static CloudyWing.Enumeration.Calendars.WeekDay.Wednesday.get -> CloudyWing.Enumeration.Calendars.WeekDay!

@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net10.0;net8.0</TargetFrameworks>
+    <!-- net48 透過 net45 組件測試 .NET Framework 路徑；Linux 沒有 Mono 時只在 Windows 執行，或以 EnableNetFrameworkTests=true 僅編譯檢查 -->
+    <TargetFrameworks Condition="'$(OS)' == 'Windows_NT' Or '$(EnableNetFrameworkTests)' == 'true'">net10.0;net8.0;net48</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <AssemblyName>CloudyWing.Enumeration.Calendars.Tests</AssemblyName>
+    <RootNamespace>CloudyWing.Enumeration.Calendars.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="nunit" Version="4.4.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="6.1.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
+    <PackageReference Include="NUnit.Analyzers" Version="4.11.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="6.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Enumeration.Calendars\Enumeration.Calendars.csproj" />
+  </ItemGroup>
+
+</Project>

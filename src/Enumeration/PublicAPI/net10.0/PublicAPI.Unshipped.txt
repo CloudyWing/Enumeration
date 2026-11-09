@@ -1,0 +1,3 @@
+#nullable enable
+static CloudyWing.Enumeration.Abstractions.EnumerationBase<TEnum, TValue>.TryParseName(System.ReadOnlySpan<char> name, bool ignoreCase, out TEnum! enumeration) -> bool
+static CloudyWing.Enumeration.Abstractions.EnumerationBase<TEnum, TValue>.TryParseName(System.ReadOnlySpan<char> name, out TEnum! enumeration) -> bool

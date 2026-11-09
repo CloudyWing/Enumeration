@@ -1,7 +1,11 @@
+using System;
+using System.Diagnostics.CodeAnalysis;
+
 namespace CloudyWing.Enumeration.Abstractions {
     /// <summary>The long enumeration base.</summary>
     /// <typeparam name="T">The long enumeration.</typeparam>
-    public abstract class LongEnumeration<T> : ConvertibleEnumeration<T, long>
+    [Serializable]
+    public abstract class LongEnumeration<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] T> : ConvertibleEnumeration<T, long>
         where T : LongEnumeration<T> {
         /// <summary>Initializes a new instance of the <see cref="LongEnumeration{T}" /> class.</summary>
         /// <param name="value">The value.</param>
@@ -64,7 +68,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(LongEnumeration<T> left, decimal right) {
-            return left.Value == right;
+            return left is not null && left.Value == right;
         }
 
         /// <summary>Implements the operator ==.</summary>
@@ -72,7 +76,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(decimal left, LongEnumeration<T> right) {
-            return left == right.Value;
+            return right is not null && left == right.Value;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -80,7 +84,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(LongEnumeration<T> left, decimal right) {
-            return left.Value != right;
+            return left is null || left.Value != right;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -88,7 +92,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(decimal left, LongEnumeration<T> right) {
-            return left != right.Value;
+            return right is null || left != right.Value;
         }
 
         /// <summary>Implements the operator &gt;.</summary>
@@ -96,7 +100,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >(decimal left, LongEnumeration<T> right) {
-            return left > right.Value;
+            return right is not null && left > right.Value;
         }
 
         /// <summary>Implements the operator &lt;.</summary>
@@ -104,7 +108,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <(decimal left, LongEnumeration<T> right) {
-            return left < right.Value;
+            return right is not null && left < right.Value;
         }
 
         /// <summary>Implements the operator &gt;=.</summary>
@@ -112,7 +116,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >=(decimal left, LongEnumeration<T> right) {
-            return left >= right.Value;
+            return right is not null && left >= right.Value;
         }
 
         /// <summary>Implements the operator &lt;=.</summary>
@@ -120,7 +124,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <=(decimal left, LongEnumeration<T> right) {
-            return left <= right.Value;
+            return right is not null && left <= right.Value;
         }
     }
 }

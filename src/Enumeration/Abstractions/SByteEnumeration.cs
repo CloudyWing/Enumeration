@@ -1,7 +1,11 @@
+using System;
+using System.Diagnostics.CodeAnalysis;
+
 namespace CloudyWing.Enumeration.Abstractions {
     /// <summary>The sbyte enumeration base.</summary>
     /// <typeparam name="T">The sbyte enumeration.</typeparam>
-    public abstract class SByteEnumeration<T> : ConvertibleEnumeration<T, sbyte>
+    [Serializable]
+    public abstract class SByteEnumeration<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] T> : ConvertibleEnumeration<T, sbyte>
         where T : SByteEnumeration<T> {
         /// <summary>Initializes a new instance of the <see cref="SByteEnumeration{T}" /> class.</summary>
         /// <param name="value">The value.</param>
@@ -68,7 +72,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(SByteEnumeration<T> left, char right) {
-            return left.Value == right;
+            return left is not null && left.Value == right;
         }
 
         /// <summary>Implements the operator ==.</summary>
@@ -76,7 +80,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(char left, SByteEnumeration<T> right) {
-            return left == right.Value;
+            return right is not null && left == right.Value;
         }
 
         /// <summary>Implements the operator ==.</summary>
@@ -84,7 +88,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(SByteEnumeration<T> left, byte right) {
-            return left.Value == right;
+            return left is not null && left.Value == right;
         }
 
         /// <summary>Implements the operator ==.</summary>
@@ -92,7 +96,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(byte left, SByteEnumeration<T> right) {
-            return left == right.Value;
+            return right is not null && left == right.Value;
         }
 
         /// <summary>Implements the operator ==.</summary>
@@ -100,7 +104,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(SByteEnumeration<T> left, short right) {
-            return left.Value == right;
+            return left is not null && left.Value == right;
         }
 
         /// <summary>Implements the operator ==.</summary>
@@ -108,7 +112,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(short left, SByteEnumeration<T> right) {
-            return left == right.Value;
+            return right is not null && left == right.Value;
         }
 
         /// <summary>Implements the operator ==.</summary>
@@ -116,7 +120,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(SByteEnumeration<T> left, ushort right) {
-            return left.Value == right;
+            return left is not null && left.Value == right;
         }
 
         /// <summary>Implements the operator ==.</summary>
@@ -124,7 +128,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(ushort left, SByteEnumeration<T> right) {
-            return left == right.Value;
+            return right is not null && left == right.Value;
         }
 
         /// <summary>Implements the operator ==.</summary>
@@ -132,7 +136,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(SByteEnumeration<T> left, int right) {
-            return left.Value == right;
+            return left is not null && left.Value == right;
         }
 
         /// <summary>Implements the operator ==.</summary>
@@ -140,7 +144,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(int left, SByteEnumeration<T> right) {
-            return left == right.Value;
+            return right is not null && left == right.Value;
         }
 
         /// <summary>Implements the operator ==.</summary>
@@ -148,7 +152,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(SByteEnumeration<T> left, uint right) {
-            return left.Value == right;
+            return left is not null && left.Value == right;
         }
 
         /// <summary>Implements the operator ==.</summary>
@@ -156,7 +160,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(uint left, SByteEnumeration<T> right) {
-            return left == right.Value;
+            return right is not null && left == right.Value;
         }
 
         /// <summary>Implements the operator ==.</summary>
@@ -164,7 +168,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(SByteEnumeration<T> left, long right) {
-            return left.Value == right;
+            return left is not null && left.Value == right;
         }
 
         /// <summary>Implements the operator ==.</summary>
@@ -172,7 +176,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(long left, SByteEnumeration<T> right) {
-            return left == right.Value;
+            return right is not null && left == right.Value;
         }
 
         /// <summary>Implements the operator ==.</summary>
@@ -180,7 +184,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(SByteEnumeration<T> left, float right) {
-            return left.Value == right;
+            return left is not null && left.Value == right;
         }
 
         /// <summary>Implements the operator ==.</summary>
@@ -188,7 +192,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(float left, SByteEnumeration<T> right) {
-            return left == right.Value;
+            return right is not null && left == right.Value;
         }
 
         /// <summary>Implements the operator ==.</summary>
@@ -196,7 +200,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(SByteEnumeration<T> left, double right) {
-            return left.Value == right;
+            return left is not null && left.Value == right;
         }
 
         /// <summary>Implements the operator ==.</summary>
@@ -204,7 +208,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(double left, SByteEnumeration<T> right) {
-            return left == right.Value;
+            return right is not null && left == right.Value;
         }
 
         /// <summary>Implements the operator ==.</summary>
@@ -212,7 +216,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(SByteEnumeration<T> left, decimal right) {
-            return left.Value == right;
+            return left is not null && left.Value == right;
         }
 
         /// <summary>Implements the operator ==.</summary>
@@ -220,7 +224,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator ==(decimal left, SByteEnumeration<T> right) {
-            return left == right.Value;
+            return right is not null && left == right.Value;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -228,7 +232,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(SByteEnumeration<T> left, char right) {
-            return left.Value != right;
+            return left is null || left.Value != right;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -236,7 +240,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(char left, SByteEnumeration<T> right) {
-            return left != right.Value;
+            return right is null || left != right.Value;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -244,7 +248,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(SByteEnumeration<T> left, byte right) {
-            return left.Value != right;
+            return left is null || left.Value != right;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -252,7 +256,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(byte left, SByteEnumeration<T> right) {
-            return left != right.Value;
+            return right is null || left != right.Value;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -260,7 +264,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(SByteEnumeration<T> left, short right) {
-            return left.Value != right;
+            return left is null || left.Value != right;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -268,7 +272,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(short left, SByteEnumeration<T> right) {
-            return left != right.Value;
+            return right is null || left != right.Value;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -276,7 +280,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(SByteEnumeration<T> left, ushort right) {
-            return left.Value != right;
+            return left is null || left.Value != right;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -284,7 +288,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(ushort left, SByteEnumeration<T> right) {
-            return left != right.Value;
+            return right is null || left != right.Value;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -292,7 +296,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(SByteEnumeration<T> left, int right) {
-            return left.Value != right;
+            return left is null || left.Value != right;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -300,7 +304,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(int left, SByteEnumeration<T> right) {
-            return left != right.Value;
+            return right is null || left != right.Value;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -308,7 +312,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(SByteEnumeration<T> left, uint right) {
-            return left.Value != right;
+            return left is null || left.Value != right;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -316,7 +320,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(uint left, SByteEnumeration<T> right) {
-            return left != right.Value;
+            return right is null || left != right.Value;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -324,7 +328,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(SByteEnumeration<T> left, long right) {
-            return left.Value != right;
+            return left is null || left.Value != right;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -332,7 +336,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(long left, SByteEnumeration<T> right) {
-            return left != right.Value;
+            return right is null || left != right.Value;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -340,7 +344,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(SByteEnumeration<T> left, float right) {
-            return left.Value != right;
+            return left is null || left.Value != right;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -348,7 +352,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(float left, SByteEnumeration<T> right) {
-            return left != right.Value;
+            return right is null || left != right.Value;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -356,7 +360,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(SByteEnumeration<T> left, double right) {
-            return left.Value != right;
+            return left is null || left.Value != right;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -364,7 +368,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(double left, SByteEnumeration<T> right) {
-            return left != right.Value;
+            return right is null || left != right.Value;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -372,7 +376,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(SByteEnumeration<T> left, decimal right) {
-            return left.Value != right;
+            return left is null || left.Value != right;
         }
 
         /// <summary>Implements the operator !=.</summary>
@@ -380,7 +384,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator !=(decimal left, SByteEnumeration<T> right) {
-            return left != right.Value;
+            return right is null || left != right.Value;
         }
 
         /// <summary>Implements the operator &gt;.</summary>
@@ -388,7 +392,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >(SByteEnumeration<T> left, char right) {
-            return left.Value > right;
+            return left is not null && left.Value > right;
         }
 
         /// <summary>Implements the operator &gt;.</summary>
@@ -396,7 +400,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >(char left, SByteEnumeration<T> right) {
-            return left > right.Value;
+            return right is not null && left > right.Value;
         }
 
         /// <summary>Implements the operator &gt;.</summary>
@@ -404,7 +408,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >(SByteEnumeration<T> left, byte right) {
-            return left.Value > right;
+            return left is not null && left.Value > right;
         }
 
         /// <summary>Implements the operator &gt;.</summary>
@@ -412,7 +416,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >(byte left, SByteEnumeration<T> right) {
-            return left > right.Value;
+            return right is not null && left > right.Value;
         }
 
         /// <summary>Implements the operator &gt;.</summary>
@@ -420,7 +424,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >(SByteEnumeration<T> left, short right) {
-            return left.Value > right;
+            return left is not null && left.Value > right;
         }
 
         /// <summary>Implements the operator &gt;.</summary>
@@ -428,7 +432,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >(short left, SByteEnumeration<T> right) {
-            return left > right.Value;
+            return right is not null && left > right.Value;
         }
 
         /// <summary>Implements the operator &gt;.</summary>
@@ -436,7 +440,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >(SByteEnumeration<T> left, ushort right) {
-            return left.Value > right;
+            return left is not null && left.Value > right;
         }
 
         /// <summary>Implements the operator &gt;.</summary>
@@ -444,7 +448,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >(ushort left, SByteEnumeration<T> right) {
-            return left > right.Value;
+            return right is not null && left > right.Value;
         }
 
         /// <summary>Implements the operator &gt;.</summary>
@@ -452,7 +456,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >(SByteEnumeration<T> left, int right) {
-            return left.Value > right;
+            return left is not null && left.Value > right;
         }
 
         /// <summary>Implements the operator &gt;.</summary>
@@ -460,7 +464,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >(int left, SByteEnumeration<T> right) {
-            return left > right.Value;
+            return right is not null && left > right.Value;
         }
 
         /// <summary>Implements the operator &gt;.</summary>
@@ -468,7 +472,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >(SByteEnumeration<T> left, uint right) {
-            return left.Value > right;
+            return left is not null && left.Value > right;
         }
 
         /// <summary>Implements the operator &gt;.</summary>
@@ -476,7 +480,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >(uint left, SByteEnumeration<T> right) {
-            return left > right.Value;
+            return right is not null && left > right.Value;
         }
 
         /// <summary>Implements the operator &gt;.</summary>
@@ -484,7 +488,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >(SByteEnumeration<T> left, long right) {
-            return left.Value > right;
+            return left is not null && left.Value > right;
         }
 
         /// <summary>Implements the operator &gt;.</summary>
@@ -492,7 +496,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >(long left, SByteEnumeration<T> right) {
-            return left > right.Value;
+            return right is not null && left > right.Value;
         }
 
         /// <summary>Implements the operator &gt;.</summary>
@@ -500,7 +504,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >(SByteEnumeration<T> left, float right) {
-            return left.Value > right;
+            return left is not null && left.Value > right;
         }
 
         /// <summary>Implements the operator &gt;.</summary>
@@ -508,7 +512,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >(float left, SByteEnumeration<T> right) {
-            return left > right.Value;
+            return right is not null && left > right.Value;
         }
 
         /// <summary>Implements the operator &gt;.</summary>
@@ -516,7 +520,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >(SByteEnumeration<T> left, double right) {
-            return left.Value > right;
+            return left is not null && left.Value > right;
         }
 
         /// <summary>Implements the operator &gt;.</summary>
@@ -524,7 +528,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >(double left, SByteEnumeration<T> right) {
-            return left > right.Value;
+            return right is not null && left > right.Value;
         }
 
         /// <summary>Implements the operator &gt;.</summary>
@@ -532,7 +536,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >(SByteEnumeration<T> left, decimal right) {
-            return left.Value > right;
+            return left is not null && left.Value > right;
         }
 
         /// <summary>Implements the operator &gt;.</summary>
@@ -540,7 +544,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >(decimal left, SByteEnumeration<T> right) {
-            return left > right.Value;
+            return right is not null && left > right.Value;
         }
 
         /// <summary>Implements the operator &lt;.</summary>
@@ -548,7 +552,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <(SByteEnumeration<T> left, char right) {
-            return left.Value < right;
+            return left is not null && left.Value < right;
         }
 
         /// <summary>Implements the operator &lt;.</summary>
@@ -556,7 +560,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <(char left, SByteEnumeration<T> right) {
-            return left < right.Value;
+            return right is not null && left < right.Value;
         }
 
         /// <summary>Implements the operator &lt;.</summary>
@@ -564,7 +568,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <(SByteEnumeration<T> left, byte right) {
-            return left.Value < right;
+            return left is not null && left.Value < right;
         }
 
         /// <summary>Implements the operator &lt;.</summary>
@@ -572,7 +576,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <(byte left, SByteEnumeration<T> right) {
-            return left < right.Value;
+            return right is not null && left < right.Value;
         }
 
         /// <summary>Implements the operator &lt;.</summary>
@@ -580,7 +584,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <(SByteEnumeration<T> left, short right) {
-            return left.Value < right;
+            return left is not null && left.Value < right;
         }
 
         /// <summary>Implements the operator &lt;.</summary>
@@ -588,7 +592,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <(short left, SByteEnumeration<T> right) {
-            return left < right.Value;
+            return right is not null && left < right.Value;
         }
 
         /// <summary>Implements the operator &lt;.</summary>
@@ -596,7 +600,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <(SByteEnumeration<T> left, ushort right) {
-            return left.Value < right;
+            return left is not null && left.Value < right;
         }
 
         /// <summary>Implements the operator &lt;.</summary>
@@ -604,7 +608,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <(ushort left, SByteEnumeration<T> right) {
-            return left < right.Value;
+            return right is not null && left < right.Value;
         }
 
         /// <summary>Implements the operator &lt;.</summary>
@@ -612,7 +616,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <(SByteEnumeration<T> left, int right) {
-            return left.Value < right;
+            return left is not null && left.Value < right;
         }
 
         /// <summary>Implements the operator &lt;.</summary>
@@ -620,7 +624,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <(int left, SByteEnumeration<T> right) {
-            return left < right.Value;
+            return right is not null && left < right.Value;
         }
 
         /// <summary>Implements the operator &lt;.</summary>
@@ -628,7 +632,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <(SByteEnumeration<T> left, uint right) {
-            return left.Value < right;
+            return left is not null && left.Value < right;
         }
 
         /// <summary>Implements the operator &lt;.</summary>
@@ -636,7 +640,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <(uint left, SByteEnumeration<T> right) {
-            return left < right.Value;
+            return right is not null && left < right.Value;
         }
 
         /// <summary>Implements the operator &lt;.</summary>
@@ -644,7 +648,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <(SByteEnumeration<T> left, long right) {
-            return left.Value < right;
+            return left is not null && left.Value < right;
         }
 
         /// <summary>Implements the operator &lt;.</summary>
@@ -652,7 +656,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <(long left, SByteEnumeration<T> right) {
-            return left < right.Value;
+            return right is not null && left < right.Value;
         }
 
         /// <summary>Implements the operator &lt;.</summary>
@@ -660,7 +664,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <(SByteEnumeration<T> left, float right) {
-            return left.Value < right;
+            return left is not null && left.Value < right;
         }
 
         /// <summary>Implements the operator &lt;.</summary>
@@ -668,7 +672,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <(float left, SByteEnumeration<T> right) {
-            return left < right.Value;
+            return right is not null && left < right.Value;
         }
 
         /// <summary>Implements the operator &lt;.</summary>
@@ -676,7 +680,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <(SByteEnumeration<T> left, double right) {
-            return left.Value < right;
+            return left is not null && left.Value < right;
         }
 
         /// <summary>Implements the operator &lt;.</summary>
@@ -684,7 +688,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <(double left, SByteEnumeration<T> right) {
-            return left < right.Value;
+            return right is not null && left < right.Value;
         }
 
         /// <summary>Implements the operator &lt;.</summary>
@@ -692,7 +696,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <(SByteEnumeration<T> left, decimal right) {
-            return left.Value < right;
+            return left is not null && left.Value < right;
         }
 
         /// <summary>Implements the operator &lt;.</summary>
@@ -700,7 +704,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <(decimal left, SByteEnumeration<T> right) {
-            return left < right.Value;
+            return right is not null && left < right.Value;
         }
 
         /// <summary>Implements the operator &gt;=.</summary>
@@ -708,7 +712,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >=(SByteEnumeration<T> left, char right) {
-            return left.Value >= right;
+            return left is not null && left.Value >= right;
         }
 
         /// <summary>Implements the operator &gt;=.</summary>
@@ -716,7 +720,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >=(char left, SByteEnumeration<T> right) {
-            return left >= right.Value;
+            return right is not null && left >= right.Value;
         }
 
         /// <summary>Implements the operator &gt;=.</summary>
@@ -724,7 +728,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >=(SByteEnumeration<T> left, byte right) {
-            return left.Value >= right;
+            return left is not null && left.Value >= right;
         }
 
         /// <summary>Implements the operator &gt;=.</summary>
@@ -732,7 +736,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >=(byte left, SByteEnumeration<T> right) {
-            return left >= right.Value;
+            return right is not null && left >= right.Value;
         }
 
         /// <summary>Implements the operator &gt;=.</summary>
@@ -740,7 +744,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >=(SByteEnumeration<T> left, short right) {
-            return left.Value >= right;
+            return left is not null && left.Value >= right;
         }
 
         /// <summary>Implements the operator &gt;=.</summary>
@@ -748,7 +752,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >=(short left, SByteEnumeration<T> right) {
-            return left >= right.Value;
+            return right is not null && left >= right.Value;
         }
 
         /// <summary>Implements the operator &gt;=.</summary>
@@ -756,7 +760,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >=(SByteEnumeration<T> left, ushort right) {
-            return left.Value >= right;
+            return left is not null && left.Value >= right;
         }
 
         /// <summary>Implements the operator &gt;=.</summary>
@@ -764,7 +768,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >=(ushort left, SByteEnumeration<T> right) {
-            return left >= right.Value;
+            return right is not null && left >= right.Value;
         }
 
         /// <summary>Implements the operator &gt;=.</summary>
@@ -772,7 +776,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >=(SByteEnumeration<T> left, int right) {
-            return left.Value >= right;
+            return left is not null && left.Value >= right;
         }
 
         /// <summary>Implements the operator &gt;=.</summary>
@@ -780,7 +784,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >=(int left, SByteEnumeration<T> right) {
-            return left >= right.Value;
+            return right is not null && left >= right.Value;
         }
 
         /// <summary>Implements the operator &gt;=.</summary>
@@ -788,7 +792,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >=(SByteEnumeration<T> left, uint right) {
-            return left.Value >= right;
+            return left is not null && left.Value >= right;
         }
 
         /// <summary>Implements the operator &gt;=.</summary>
@@ -796,7 +800,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >=(uint left, SByteEnumeration<T> right) {
-            return left >= right.Value;
+            return right is not null && left >= right.Value;
         }
 
         /// <summary>Implements the operator &gt;=.</summary>
@@ -804,7 +808,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >=(SByteEnumeration<T> left, long right) {
-            return left.Value >= right;
+            return left is not null && left.Value >= right;
         }
 
         /// <summary>Implements the operator &gt;=.</summary>
@@ -812,7 +816,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >=(long left, SByteEnumeration<T> right) {
-            return left >= right.Value;
+            return right is not null && left >= right.Value;
         }
 
         /// <summary>Implements the operator &gt;=.</summary>
@@ -820,7 +824,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >=(SByteEnumeration<T> left, float right) {
-            return left.Value >= right;
+            return left is not null && left.Value >= right;
         }
 
         /// <summary>Implements the operator &gt;=.</summary>
@@ -828,7 +832,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >=(float left, SByteEnumeration<T> right) {
-            return left >= right.Value;
+            return right is not null && left >= right.Value;
         }
 
         /// <summary>Implements the operator &gt;=.</summary>
@@ -836,7 +840,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >=(SByteEnumeration<T> left, double right) {
-            return left.Value >= right;
+            return left is not null && left.Value >= right;
         }
 
         /// <summary>Implements the operator &gt;=.</summary>
@@ -844,7 +848,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >=(double left, SByteEnumeration<T> right) {
-            return left >= right.Value;
+            return right is not null && left >= right.Value;
         }
 
         /// <summary>Implements the operator &gt;=.</summary>
@@ -852,7 +856,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >=(SByteEnumeration<T> left, decimal right) {
-            return left.Value >= right;
+            return left is not null && left.Value >= right;
         }
 
         /// <summary>Implements the operator &gt;=.</summary>
@@ -860,7 +864,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator >=(decimal left, SByteEnumeration<T> right) {
-            return left >= right.Value;
+            return right is not null && left >= right.Value;
         }
 
         /// <summary>Implements the operator &lt;=.</summary>
@@ -868,7 +872,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <=(SByteEnumeration<T> left, char right) {
-            return left.Value <= right;
+            return left is not null && left.Value <= right;
         }
 
         /// <summary>Implements the operator &lt;=.</summary>
@@ -876,7 +880,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <=(char left, SByteEnumeration<T> right) {
-            return left <= right.Value;
+            return right is not null && left <= right.Value;
         }
 
         /// <summary>Implements the operator &lt;=.</summary>
@@ -884,7 +888,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <=(SByteEnumeration<T> left, byte right) {
-            return left.Value <= right;
+            return left is not null && left.Value <= right;
         }
 
         /// <summary>Implements the operator &lt;=.</summary>
@@ -892,7 +896,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <=(byte left, SByteEnumeration<T> right) {
-            return left <= right.Value;
+            return right is not null && left <= right.Value;
         }
 
         /// <summary>Implements the operator &lt;=.</summary>
@@ -900,7 +904,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <=(SByteEnumeration<T> left, short right) {
-            return left.Value <= right;
+            return left is not null && left.Value <= right;
         }
 
         /// <summary>Implements the operator &lt;=.</summary>
@@ -908,7 +912,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <=(short left, SByteEnumeration<T> right) {
-            return left <= right.Value;
+            return right is not null && left <= right.Value;
         }
 
         /// <summary>Implements the operator &lt;=.</summary>
@@ -916,7 +920,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <=(SByteEnumeration<T> left, ushort right) {
-            return left.Value <= right;
+            return left is not null && left.Value <= right;
         }
 
         /// <summary>Implements the operator &lt;=.</summary>
@@ -924,7 +928,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <=(ushort left, SByteEnumeration<T> right) {
-            return left <= right.Value;
+            return right is not null && left <= right.Value;
         }
 
         /// <summary>Implements the operator &lt;=.</summary>
@@ -932,7 +936,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <=(SByteEnumeration<T> left, int right) {
-            return left.Value <= right;
+            return left is not null && left.Value <= right;
         }
 
         /// <summary>Implements the operator &lt;=.</summary>
@@ -940,7 +944,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <=(int left, SByteEnumeration<T> right) {
-            return left <= right.Value;
+            return right is not null && left <= right.Value;
         }
 
         /// <summary>Implements the operator &lt;=.</summary>
@@ -948,7 +952,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <=(SByteEnumeration<T> left, uint right) {
-            return left.Value <= right;
+            return left is not null && left.Value <= right;
         }
 
         /// <summary>Implements the operator &lt;=.</summary>
@@ -956,7 +960,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <=(uint left, SByteEnumeration<T> right) {
-            return left <= right.Value;
+            return right is not null && left <= right.Value;
         }
 
         /// <summary>Implements the operator &lt;=.</summary>
@@ -964,7 +968,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <=(SByteEnumeration<T> left, long right) {
-            return left.Value <= right;
+            return left is not null && left.Value <= right;
         }
 
         /// <summary>Implements the operator &lt;=.</summary>
@@ -972,7 +976,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <=(long left, SByteEnumeration<T> right) {
-            return left <= right.Value;
+            return right is not null && left <= right.Value;
         }
 
         /// <summary>Implements the operator &lt;=.</summary>
@@ -980,7 +984,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <=(SByteEnumeration<T> left, float right) {
-            return left.Value <= right;
+            return left is not null && left.Value <= right;
         }
 
         /// <summary>Implements the operator &lt;=.</summary>
@@ -988,7 +992,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <=(float left, SByteEnumeration<T> right) {
-            return left <= right.Value;
+            return right is not null && left <= right.Value;
         }
 
         /// <summary>Implements the operator &lt;=.</summary>
@@ -996,7 +1000,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <=(SByteEnumeration<T> left, double right) {
-            return left.Value <= right;
+            return left is not null && left.Value <= right;
         }
 
         /// <summary>Implements the operator &lt;=.</summary>
@@ -1004,7 +1008,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <=(double left, SByteEnumeration<T> right) {
-            return left <= right.Value;
+            return right is not null && left <= right.Value;
         }
 
         /// <summary>Implements the operator &lt;=.</summary>
@@ -1012,7 +1016,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <=(SByteEnumeration<T> left, decimal right) {
-            return left.Value <= right;
+            return left is not null && left.Value <= right;
         }
 
         /// <summary>Implements the operator &lt;=.</summary>
@@ -1020,7 +1024,7 @@ namespace CloudyWing.Enumeration.Abstractions {
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
         public static bool operator <=(decimal left, SByteEnumeration<T> right) {
-            return left <= right.Value;
+            return right is not null && left <= right.Value;
         }
     }
 }

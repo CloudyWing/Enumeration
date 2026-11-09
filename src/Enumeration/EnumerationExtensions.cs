@@ -14,7 +14,7 @@ namespace CloudyWing.Enumeration {
         /// </summary>
         /// <param name="type">The type to inspect.</param>
         /// <returns><see langword="true" /> if <paramref name="type" /> implements <see cref="IEnumeration{TEnum, TValue}" />; otherwise, <see langword="false" />.</returns>
-        public static bool IsEnumeration(this Type type) {
+        public static bool IsEnumeration([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.Interfaces)] this Type type) {
             return GetEnumerationTypes(type).Any();
         }
 
@@ -23,7 +23,7 @@ namespace CloudyWing.Enumeration {
         /// </summary>
         /// <param name="type">The type to inspect.</param>
         /// <returns>The matching <see cref="IEnumeration{TEnum, TValue}" /> interface types.</returns>
-        public static IEnumerable<Type> GetEnumerationTypes(this Type type) {
+        public static IEnumerable<Type> GetEnumerationTypes([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.Interfaces)] this Type type) {
             return type.GetInterfaces()
                 .Union(new Type[] { type })
                 .Where(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumeration<,>))
@@ -36,7 +36,7 @@ namespace CloudyWing.Enumeration {
         /// </summary>
         /// <param name="type">The type to inspect.</param>
         /// <returns>The underlying value types declared by matching enumeration interfaces.</returns>
-        public static IEnumerable<Type> GetEnumerationValueTypes(this Type type) {
+        public static IEnumerable<Type> GetEnumerationValueTypes([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.Interfaces)] this Type type) {
             IEnumerable<Type> enumerationTypes = GetEnumerationTypes(type);
 
             foreach (Type enumeration in enumerationTypes) {
@@ -52,10 +52,16 @@ namespace CloudyWing.Enumeration {
         /// <param name="enumerations">The sequence of enumerations to inspect.</param>
         /// <param name="value">The value to match.</param>
         /// <returns><see langword="true" /> if a matching enumeration exists; otherwise, <see langword="false" />.</returns>
+        /// <remarks>
+        /// Values are compared with <see cref="EqualityComparer{T}.Default" />, the same rule used by
+        /// <see cref="Abstractions.EnumerationBase{TEnum, TValue}.TryParse(TValue, out TEnum)" />.
+        /// </remarks>
         public static bool ContainsValue<TEnum, TValue>(
             this IEnumerable<IEnumeration<TEnum, TValue>> enumerations, TValue value
         ) where TEnum : IEnumeration<TEnum, TValue> where TValue : IComparable {
-            return enumerations.Any(x => x.Value.CompareTo(value) == 0);
+            EqualityComparer<TValue> comparer = EqualityComparer<TValue>.Default;
+
+            return enumerations.Any(x => comparer.Equals(x.Value, value));
         }
 
         /// <summary>
@@ -131,10 +137,15 @@ namespace CloudyWing.Enumeration {
         /// <param name="name">The name of the matching enumeration.</param>
         /// <returns><see langword="true" /> if exactly one matching enumeration exists; otherwise, <see langword="false" />.</returns>
         /// <exception cref="InvalidOperationException">More than one enumeration in <paramref name="enumerations" /> matches <paramref name="value" />.</exception>
+        /// <remarks>
+        /// Values are compared with <see cref="EqualityComparer{T}.Default" />, the same rule used by
+        /// <see cref="Abstractions.EnumerationBase{TEnum, TValue}.TryParse(TValue, out TEnum)" />.
+        /// </remarks>
         public static bool TryGetName<TEnum, TValue>(
             this IEnumerable<IEnumeration<TEnum, TValue>> enumerations, TValue value, [MaybeNullWhen(false)] out string name
         ) where TEnum : IEnumeration<TEnum, TValue> where TValue : IComparable {
-            IEnumeration<TEnum, TValue>? enumeration = enumerations.SingleOrDefault(x => x.Value.CompareTo(value) == 0);
+            EqualityComparer<TValue> comparer = EqualityComparer<TValue>.Default;
+            IEnumeration<TEnum, TValue>? enumeration = enumerations.SingleOrDefault(x => comparer.Equals(x.Value, value));
 
             if (enumeration is null) {
                 name = default;
@@ -529,6 +540,7 @@ namespace CloudyWing.Enumeration {
                 InnerStatement = statement;
                 Enumeration = statement.Enumeration;
                 MatchPredicate = predicate ?? throw new ArgumentNullException(nameof(predicate));
+                IsPreviouslyExecuted = SwitchStatementUtils.IsExecuted(statement);
             }
 
             public WhenStatement(IEnumeration<TEnum, TValue> enumeration, Func<bool> predicate) {
@@ -546,6 +558,8 @@ namespace CloudyWing.Enumeration {
 
             public Func<bool> MatchPredicate { get; }
 
+            public bool IsPreviouslyExecuted { get; }
+
             public int CompareTo(object? obj) {
                 return Enumeration.CompareTo(obj);
             }
@@ -555,9 +569,10 @@ namespace CloudyWing.Enumeration {
                     throw new ArgumentNullException(nameof(action));
                 }
 
-                bool isExecuted = SwitchStatementUtils.IsExecuted(this);
+                bool isExecuted = IsPreviouslyExecuted;
 
-                if (MatchPredicate() && !isExecuted) {
+                // 已有分支執行時不再評估條件，比照 if / else if 的短路語意
+                if (!isExecuted && MatchPredicate()) {
                     isExecuted = true;
                     action();
                 }
@@ -593,9 +608,7 @@ namespace CloudyWing.Enumeration {
                     throw new ArgumentNullException(nameof(action));
                 }
 
-                bool isExecuted = SwitchStatementUtils.IsExecuted(this);
-
-                if (!isExecuted) {
+                if (!IsExecuted) {
                     action();
                 }
             }
@@ -606,7 +619,16 @@ namespace CloudyWing.Enumeration {
                 where TEnum : IEnumeration<TEnum, TValue> where TValue : IComparable {
                 bool isExecuted = false;
 
-                while (!isExecuted && !(statement is null)) {
+                while (!isExecuted && statement is not null) {
+                    // 內建節點已在建立時累計前段結果，遇到即可停止，避免每個節點重複走訪整條鏈
+                    if (statement is ThenStatement<TEnum, TValue> knownThenStatement) {
+                        return knownThenStatement.IsExecuted;
+                    }
+
+                    if (statement is WhenStatement<TEnum, TValue> knownWhenStatement) {
+                        return knownWhenStatement.IsPreviouslyExecuted;
+                    }
+
                     if (statement is IThenStatement<TEnum, TValue> thenStatement) {
                         isExecuted = thenStatement.IsExecuted;
                     }

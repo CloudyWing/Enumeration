@@ -10,12 +10,22 @@
 dotnet add package CloudyWing.Enumeration
 ```
 
+需要月份與星期列舉、JSON 序列化或編譯時檢查時，可另外安裝下列套件：
+
+```bash
+dotnet add package CloudyWing.Enumeration.Calendars
+dotnet add package CloudyWing.Enumeration.Json
+dotnet add package CloudyWing.Enumeration.Analyzers
+```
+
+`Json` 套件提供 System.Text.Json 轉換器，`Analyzers` 套件會在編譯時偵測重複的 Value、Name 與 public 建構子。各套件的目標框架、使用方式與 Analyzer 的編譯器需求，請參考 [進階用法](advanced-usage.md)。
+
 ## 基本用法
 
 定義一個自訂列舉類別：
 
 ```csharp
-using CloudyWing.Enumeration;
+using CloudyWing.Enumeration.Abstractions;
 
 public class Status : EnumerationBase<Status, int> {
   public static Status Active { get; } = new(1, "Active");
@@ -32,10 +42,10 @@ public class Status : EnumerationBase<Status, int> {
 var allStatuses = Status.GetAll();
 
 // 按值解析
-var status = Status.Parse(1);  // Status.Active
+var byValue = Status.Parse(1);  // Status.Active
 
 // 按名稱解析
-var status = Status.ParseName("Active");  // Status.Active
+var byName = Status.ParseName("Active");  // Status.Active
 
 // 嘗試解析
 if (Status.TryParse(1, out var status)) {
